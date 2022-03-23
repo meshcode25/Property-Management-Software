@@ -12,12 +12,13 @@ const app= express()
 
 
 //set the roots to be used for the app
-
-const indexRouter= require("./routes/index")
-const propertyMangerRouter= require("./routes/propertymanager")
-const landLordRouter= require("./routes/landlord")
-const tenantRouter= require("./routes/tenant")
-const maintenanceRouter= require("./routes/maintenance")
+const loginRouter= require ("./routes/loginRouter")
+const indexRouter= require("./routes/indexRouter")
+const signupRouter= require("./routes/signupRouter")
+const propertyMangerRouter= require("./routes/propertymanagerRouter")
+const landLordRouter= require("./routes/landlordRouter")
+const tenantRouter= require("./routes/tenantRouter")
+const maintenanceRouter= require("./routes/maintenanceRouter")
 
 //populateDatabase
 //var populatedDatabase= require("./populatedb");
@@ -43,6 +44,8 @@ app.set("view engine", "ejs")
 
 
 //use url paths as middlewares
+app.use("/login", loginRouter)
+app.use("/signup", signupRouter)
 app.use("/", indexRouter)
 /*app.use("/propertymanager", propertyMangerRouter)
 app.use("/landlord", landLordRouter)
@@ -69,6 +72,6 @@ app.use(function(req, res,next){
  
 
 //const server=http.createServer(app)
-const port= 8000
+const port= 3000
 const server= http.Server(app)
-app.listen(8000, ()=>{console.log("The PMS Server has successfully started in Port 8000")})
+app.listen(3000, ()=>{console.log("The PMS Server has successfully started in Port 3000")})
