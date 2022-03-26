@@ -1,47 +1,94 @@
 /*
 import Submenu from "./Submenu"
    const {dropDown, setshowDropDown} = ()=> useState(false)
+   
+   const showDropDown= () => setshowDropDown(!dropDown)
 
-            const showDropDown= () => setshowDropDown(!dropDown)
 
+
+
+
+            const changetoDropDown = ()=>{
+      setDropMenu(!dropmenu)
+      console.log(`drop down has been clicked therefore  is now  ${dropmenu}`)
+    }
+    const [dropmenu, setDropMenu]= useState(true);
+    
+    //display:${({submenudropdown})=>submenudropdown?`none`:`block`}
+    //display:${({dropMenu})=>dropMenu?`block`:`block`}
+   // console.log(`Before drop down is clicked it's a ${dropMenu}`)
+
+
+<Login />
+import Login from "./Login"
+
+
+
+
+import Login from "./Login"
 */
-
 import React, {useState} from "react"
 import styled from "styled-components"
-import {Link} from "react-router-dom"
 import {VscMenu} from "react-icons/vsc"
 import * as MdIcons from "react-icons/md"
 import Sidebardata from "./Sidebardata"
+import { Link} from "react-router-dom"
 
+const Nav = styled.div`
+background:black; 
 
+`
 
 const Navigation = styled.div`
+display:flex;
+align-items:center;  
 width:100%;
-background:blue;
+background-color:black;
+z-index:100;
+justify-content:space-between;
+position:fixed;
+`
+
+const Registerdiv=styled.div`
+margin-right:5rem;
+display:flex;
+justify-content:space-around;
+align-items:center;
+`
+const SignIn=styled.button`
+fontSize:4rem;
+color:white;
+border:none;
+font-weight:bold;
+padding:0.5rem;
+background-color:green;
+border-radius:7px;
+border:none;
+margin-right:1rem;
+cursor:pointer;
 
 `
-const Nav = styled.div`
-background-color:black;
-  
+const SignUp=styled.button`
+fontSize:4rem;
+padding:0.5rem;
+color:white;
+background-color:blue;
+border:none;
+cursor:pointer;
+border-radius:7px;
+font-weight:bold;
 `
+
 const Naviconburger= styled(Link)` 
   list-style:none;
   padding:0.5rem;
   color:violet;
   font-size:3rem;
   text-decoration:none; 
-  display: ${({sidebar})=>sidebar?
-  `
-  none;
-  `
-  :
-  `
-  block;
-  `
-  
-  }
+  display: ${({sidebar})=>sidebar?  `none; `:`block; `}
  
-`  
+` 
+ 
 
   const Naviconcancel= styled(Link)`
   list-style:none;
@@ -49,42 +96,25 @@ const Naviconburger= styled(Link)`
   font-size:3rem;
   color:violet;
   text-decoration:none;
-  display: ${({sidebar})=>sidebar?
-  `
-  block;
-  `
-  :
-  `
-  none;
-  `
-}
+  display: ${({sidebar})=>sidebar? `block; `:`none; `}
+  
 `
 
 const SidebarNav= styled.div`
-  heigth:100vh;
-  position:absolute;
-  background-color:black;
+  height:100vh;
+  position:fixed;
   top:75.5px;
-  width:25%;
-  
-  display: ${({sidebar})=>sidebar?
-  `
-  block;
-  `
-  :
-  `
-  none;
-  `
-  
-}
+  overflow:scroll;
+  background-color:black;
+  width:23%;
+  display: ${({sidebar})=>sidebar? ` block; ` : `none; `}
+  overflow: ${({sidebar})=>sidebar? ` scroll; ` : `scroll; `}
 `    
 
 
   const SidebarWrap = styled.div`
   color:white;
   display:block;
-  width:100%;
-  :
 
 `  
 
@@ -119,26 +149,18 @@ const SidebarNav= styled.div`
     font-size:1.2rem;
     margin:0.5rem  1.5rem 0 0;
     color:white;
- `
+    `
 const Eachmenudiv=styled.div`
-display:${({dropMenu})=>dropMenu?
-`
-block;
-`
-:
-`
-block;
+display:flex;
+justify-content:space-between;
+color:green;
+align-items:center;
+
 `
 
-}
-display:flex;
-  justify-content:space-between;
-  align-items:center;
-`
-  
 const Dropdownmenu= styled.div` 
-  margin:0rem;
   padding:0rem;
+  margin:0rem;
 ` 
 const Eachdropdowndiv= styled(Link)` 
   text-decoration:none;
@@ -150,7 +172,6 @@ const Eachdropdowndiv= styled(Link)`
   align-items:center;
   
   ` 
-  //display:${({submenudropdown})=>submenudropdown?`none`:`block`}
 const Dropdownspan= styled.span` 
 
 ` 
@@ -160,67 +181,64 @@ const Dropdownsidebarlebel= styled.span`
 const Dropdowndownarrow= styled.span` 
 
 ` 
+
+
 const Sidebar = () => {
     const [sidebar, setSidebar ]= useState(false);
 
     const showSidebar= ()=> {
-
       setSidebar(!sidebar) 
-
     } 
     
 
-    const [dropmenu, setDropMenu]= useState(false);
+    
+    const [submenudropdown, setSubMenuDropDown]=useState(false);
 
-   // console.log(`Before drop down is clicked it's a ${dropMenu}`)
-    const changetoDropDown = ()=>{
-      setDropMenu(!dropmenu)
-      console.log(`drop down has been clicked therefore  is now  ${dropmenu}`)
-    }
-
-    const [submenudropdown, setSubMenuDropDown]=useState(false)
     const ChangetoSubmenuDropDown=()=>{
       setSubMenuDropDown(!submenudropdown)
-
     }
   return(
-    <Navigation>
-      <Nav>
-        <div/>
-          <Naviconburger to='#' onClick={showSidebar}  sidebar={sidebar} >
+  
+    <Nav>
+      <Navigation>
+        <div>
+          <Naviconburger to='#' onClick={showSidebar} sidebar={sidebar? 1:0}>
               <VscMenu />
           </Naviconburger>
-          <Naviconcancel to='#'  onClick={showSidebar} sidebar={sidebar}>
+          <Naviconcancel to='#'  onClick={showSidebar} sidebar={sidebar? 1:0} >
               <MdIcons.MdOutlineClose />
           </Naviconcancel>
-        <div/>
+        </div>
+        <Registerdiv>
+            <Link to="/signin"><SignIn>SIGN IN</SignIn></Link>
+            <Link to="/signup"><SignUp>SIGN UP</SignUp></Link>
 
+        </Registerdiv>
      
-      </Nav>
-      <SidebarNav sidebar={sidebar}>
-        <SidebarWrap>
-         
-          {Sidebardata.map((menu,index) => {
+      </Navigation>
+      <SidebarNav sidebar={sidebar? 1 :0}>
 
-         
+        <SidebarWrap >
+            {Sidebardata.map((menu,index) => { 
 
               return ( 
                 <Submenu key={index} menu={menu} >
                     <Submenuwrap to="#">
-                      <Eachmenudiv dropmenu={dropmenu} to={menu.path} onClick={changetoDropDown} >
+                     <Eachmenudiv submenudropdown={submenudropdown} to={menu.path} onClick={ChangetoSubmenuDropDown} >
                         <div >                          
                           <Span className={menuicon}>{menu.icon} </Span>
                           <Sidebarlebel>{menu.title}</Sidebarlebel>
                         </div>
-                        {dropmenu? <Sidearrow>{menu.iconOpen}</Sidearrow> : <Sidearrow>{menu.iconClosed}</Sidearrow>}
+                        {submenudropdown? <Sidearrow>{menu.iconOpen}</Sidearrow> : <Sidearrow>{menu.iconClosed}</Sidearrow>}
                       </Eachmenudiv>
+                     
                   </Submenuwrap> 
-        
-                  {menu.submenu.map((dropdownmenu, index) => {
 
+                  {submenudropdown && menu.submenu.map((dropdownmenu, index) =>  { 
+                  
                     return(
-                      <Dropdownmenu   key={index} >
-                        <Eachdropdowndiv to={dropdownmenu.path} submenudropdown= {submenudropdown} onClick={ChangetoSubmenuDropDown}>
+                      <Dropdownmenu key={index} >
+                        <Eachdropdowndiv to={dropdownmenu.path} >
                           <div>                          
                           <Dropdownspan >{dropdownmenu.icon} </Dropdownspan>
                           <Dropdownsidebarlebel>{dropdownmenu.title}</Dropdownsidebarlebel>
@@ -230,18 +248,27 @@ const Sidebar = () => {
                         
                         </Eachdropdowndiv>
                       </Dropdownmenu> 
-  
+
                     )
                       
                   })}
-             
+
                 </Submenu>
-              ) 
-            }     
-          )}
+              )
+            }
+
+            ) 
+                
+            }
         </SidebarWrap>
+     
       </SidebarNav>
-    </Navigation>
+    </Nav>
+      
+  
+  
+
+
     )
 };
 

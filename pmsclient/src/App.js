@@ -1,15 +1,14 @@
 import React from 'react';
+import Login from "./components/Login"
 import Sidebar from './components/Sidebar';
-import { BrowserRouter as Router} from 'react-router-dom';
+ import { BrowserRouter as Router} from 'react-router-dom';
 
-/*
-,Switch,Route 
-*/
+
 const App = () => {
   return(
     <Router>
-      <Sidebar />
-      
+        <Sidebar />
+        <Login />
     </Router>
 
   )

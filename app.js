@@ -4,7 +4,9 @@ const createError= require("http-errors")
 const helmet= require("helmet")
 const compression= require('compression') 
 const path= require("path")
+const cors=require("cors")
 const http= require('http')
+
 const cookieParser = require("cookie-parser")
 
 // configure server
@@ -14,11 +16,11 @@ const app= express()
 //set the roots to be used for the app
 const loginRouter= require ("./routes/loginRouter")
 const indexRouter= require("./routes/indexRouter")
-const signupRouter= require("./routes/signupRouter")
-const propertyMangerRouter= require("./routes/propertymanagerRouter")
-const landLordRouter= require("./routes/landlordRouter")
-const tenantRouter= require("./routes/tenantRouter")
-const maintenanceRouter= require("./routes/maintenanceRouter")
+//const signupRouter= require("./routes/signupRouter")
+//const propertyMangerRouter= require("./routes/propertymanagerRouter")
+//const landLordRouter= require("./routes/landlordRouter")
+//const tenantRouter= require("./routes/tenantRouter")
+//const maintenanceRouter= require("./routes/maintenanceRouter")
 
 //populateDatabase
 //var populatedDatabase= require("./populatedb");
@@ -32,6 +34,14 @@ db.on("error", (error)=>{console.error(error)})
 db.once("open", ()=>{console.log("Mongoose database has been successfully connected")})
 
 
+
+//Cors/// Cross-Origin-Resource-Sharing
+corsOptions={
+  origin:"http://localhost:3000",
+  credentials:"true",
+  optionSuccessStatus:200
+}
+
 //Middlewares
 //body parser and urlencode
 app.use(express.json())
@@ -43,9 +53,11 @@ app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
 
+//Cors 
+app.use(cors(corsOptions))
 //use url paths as middlewares
-app.use("/login", loginRouter)
-app.use("/signup", signupRouter)
+app.use("/o/auth/login", loginRouter)
+//app.use("/signup", signupRouter)
 app.use("/", indexRouter)
 /*app.use("/propertymanager", propertyMangerRouter)
 app.use("/landlord", landLordRouter)
@@ -57,21 +69,23 @@ app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
 
-
 //catch 404 error and foward to error handler
-app.use(function(req, res,next){
+/*app.use(function(req, res,next){
     next(createError(404));  
   })
 
   //error handler 
+  /*
+  
   app.use((err,req, res, next)=>{
       //render the error page
       res.status(err.status|| 500);
         console.log( "there was an error with the Server")
   })
- 
+ */
 
 //const server=http.createServer(app)
-const port= 3000
-const server= http.Server(app)
-app.listen(3000, ()=>{console.log("The PMS Server has successfully started in Port 3000")})
+const port= 8000;
+app.listen(8000, ()=>{console.log("The PMS Server has successfully started in Port 8000")})
+//const server= http.Server(app)
+//server()
