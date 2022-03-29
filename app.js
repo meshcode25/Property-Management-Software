@@ -37,7 +37,7 @@ db.once("open", ()=>{console.log("Mongoose database has been successfully connec
 
 //Cors/// Cross-Origin-Resource-Sharing
 corsOptions={
-  origin:"http://localhost:3000",
+  origin:"*",
   credentials:"true",
   optionSuccessStatus:200
 }

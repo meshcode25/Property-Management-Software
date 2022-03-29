@@ -143,7 +143,7 @@ const login= ()=>{
             AuthService.login(username, email, password)
                 .then(
                     ()=>{
-                    window.location.reload()
+                        window.location.href=("/")
 
                     },
                     (error)=>{

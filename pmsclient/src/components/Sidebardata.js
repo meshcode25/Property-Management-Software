@@ -20,8 +20,8 @@ const Sidebardata = () => (
     path:"/dashboard",
     iconOpen: <MdIcons.MdExpandMore/>,
     iconClosed:<AiIcons.AiOutlineRight/>,
-    submenu: [
-      /*{
+    /*submenu: [
+      {
         title:"Find Properties",
         icon: <GiIcons.GiSpanner/>,
         path:"/attachments/work-orders",
@@ -35,8 +35,8 @@ const Sidebardata = () => (
         path:"/attachments/evacuation-notice",
         iconOpen: <MdIcons.MdExpandMore/>,
       }
-      */
     ] 
+    */
     },
 
     {
@@ -49,7 +49,7 @@ const Sidebardata = () => (
       {
         title:"View All Properties",
         icon: <BiIcons.BiBuildingHouse/>,
-        path:"/properties/findnewproperties",
+        path:"/properties/find-new-properties",
         iconOpen: <MdIcons.MdExpandMore/>,
        
       },
@@ -57,7 +57,7 @@ const Sidebardata = () => (
       {
         title:"List New Property",
         icon: <AiIcons.AiOutlineApartment/>,
-        path:"/properties/listproperty",
+        path:"/properties/list-property",
         iconOpen: <MdIcons.MdExpandMore/>,
         
       }
@@ -74,7 +74,7 @@ const Sidebardata = () => (
       {
         title:"All Landlords",
         icon: <FaIcons.FaPersonBooth/>,
-        path:"/landlords/All-landlords",
+        path:"/landlords/all-landlords",
         iconOpen: <MdIcons.MdExpandMore/>,
        
       },
@@ -105,7 +105,7 @@ const Sidebardata = () => (
       {
         title:"All Units",
         icon: <RiIcons.RiHotelFill/>,
-        path:"/units/Add-new-unit",
+        path:"/units/all-units",
         iconOpen: <MdIcons.MdExpandMore/>,
        
       },
@@ -144,7 +144,7 @@ const Sidebardata = () => (
       {
         title:"Add New Technician",
         icon: <MdIcons.MdHomeRepairService/>,
-        path:"/maintenance/add-technician",
+        path:"/maintenance/add-new-technician",
         iconOpen: <MdIcons.MdExpandMore/>,
       }
     ]
@@ -160,7 +160,7 @@ const Sidebardata = () => (
       {
         title:"All Caretakers",
         icon: <MdIcons.MdRealEstateAgent/>,
-        path:"/caretakers/all",
+        path:"/caretakers/all-caretakers",
         iconOpen: <MdIcons.MdExpandMore/>,
        
       },
@@ -169,6 +169,12 @@ const Sidebardata = () => (
         title:"Add New Caretaker",
         icon: <VscIcons.VscPersonAdd/>,
         path:"/caretakers/create-new-caretaker",
+        iconOpen: <MdIcons.MdExpandMore/>,
+      },
+      {
+        title:"Find Caretaker",
+        icon: <VscIcons.VscPersonAdd/>,
+        path:"/caretakers/find-caretaker",
         iconOpen: <MdIcons.MdExpandMore/>,
       }
     ]
@@ -210,94 +216,41 @@ const Sidebardata = () => (
         {
           title:"Rental Agreement",
           icon: <IoIcons.IoMdCreate/>,
-          path:"/attachments/Rental Agreement"
-        },
+          path:"/attachments/rental-Agreement"
+        }
       ]
-    },
-  
-        /************************************************************************************* 
-
-   {
-    title:"Dashboard",
-    icon: <AiIcons.AiFillDashboard/>,
-    path:"/dashboard",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },
-
+    }, 
     {
-    title:"Properties",
-    icon: <BiIcons.BiBuildingHouse/>,
-    path:"/properties",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },
-
-    {
-    title:"Landlords",
-    icon:<GiIcons.GiReceiveMoney/>,
-    path:"/landlords",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },
-
-    { 
-    title:"Units",
-    icon: <IoIcons.IoIosBed/>,
-    path:"/units",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },
-   
-    {
-    title:"Maintenance",
-    icon: <MdIcons.MdOutlineHandyman/>,
-    path:"/maintenance",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },  
-
-    {
-    title:"Caretakers",
-    icon: <FaIcons.FaPersonBooth/>,
-    path:"/caretakers",
-    iconClosed:<AiIcons.AiOutlineRight/>,
-    iconOpen: <MdIcons.MdExpandMore/>
-    },
-                
-    {
-      title:"Attachements",
+      title:"Support",
       icon: <VscIcons.VscFileSubmodule/>,
-      path:"/attachments",
+      path:"/support",
+      iconClosed:<AiIcons.AiOutlineRight/>,
+      iconOpen: <MdIcons.MdExpandMore/>,
+    }, 
+
+    {
+      title:"Reports",
+      icon: <VscIcons.VscFileSubmodule/>,
+      path:"/Reports",
       iconClosed:<AiIcons.AiOutlineRight/>,
       iconOpen: <MdIcons.MdExpandMore/>,
       submenu: [
         {
-          title:"Work Orders",
-          icon: <GiIcons.GiSpanner/>,
-          path:"/attachments/work-orders",
-          iconOpen: <MdIcons.MdExpandMore/>,
+          title:"Monthly Expenditure",
+          icon: <BiIcons.BiMessageAdd/>,
+          path:"/reports/monthy-expenses",
          
         },
         
         {
-          title:"Evacuation Notice",
-          icon: <IoIcons.IoMdCreate/>,
-          path:"/attachments/evacuation-notice",
-          iconOpen: <MdIcons.MdExpandMore/>,
-        }
-      ]
-    }  
-    
-  
-  
-  
-         
-              
+          title:"Monthly Income Statement",
+          icon: <FaIcons.FaTruckMoving/>,
+          path:"/reports/monthly-income"
+        },
 
-  
-    */
- 
+        
+      ]
+    },
 ]
 
 

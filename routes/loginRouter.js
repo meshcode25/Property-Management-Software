@@ -8,7 +8,12 @@ const loginController= require("../controllers/logincontoller")
 //display the sign up form on route /get and /post
 //router.get("/login", loginController.login_form_get);
 
+//loginController.login_form_post
 //Handle the entered data for sign up after post request
-router.post("/o/auth/login", loginController.login_form_post);
+router.post("/", (req,res)=>{
+    res.send({m:"message:req.body"})
+    console.log(req.body)
+})
 
 module.exports=router
+

@@ -8,8 +8,10 @@ const url= "http://localhost:8000/o/auth/"
         return axios.post(url + "login", {username, email,password})
         .then(
             (response)=>{
-                if(response.data.accesstoken){
-                    localStorage.setItem("user", JSON.stringify(response.data))
+                if(response.accesstoken){
+
+                    console.log("response")
+                    localStorage.setItem("user", JSON.stringify(response))
                 }
                 else{
                     return response.data
