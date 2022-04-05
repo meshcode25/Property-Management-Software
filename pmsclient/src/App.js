@@ -1,18 +1,21 @@
 import React from 'react';
 import Login from "./components/Login"
+import Signup from './components/Signup';
 import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {Fake} from "../src/Pages/Fake"
 import Test from "../src/Pages/Test"
 import Empty from './Pages/Empty';
+import Verify from "./components/VerifyComponent"
 
 const App = () => {
   return(
     <Router>
       
         <Routes>
-
+            <Route path="/confirm/:verificationcode" element={<Verify/>} />
             <Route path="/signin" element={<Login/>} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >
               <Route>
                 <Route path="/properties/list-property" element={<Test />} />

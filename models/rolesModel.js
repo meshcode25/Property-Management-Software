@@ -5,7 +5,8 @@ const async= require("async")
 const Schema= mongoose.Schema
 
 const roleSchema= new Schema({
-    email_address:{type:String, required:false },
+    role:{type:Array, required:false },
     
 })
 
+module.exports=mongoose.model("role", roleSchema)

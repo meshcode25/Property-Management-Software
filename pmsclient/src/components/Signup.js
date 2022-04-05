@@ -2,6 +2,7 @@ import React, {useRef, useState} from "react"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
+import Select from "react-validation/build/select"
 import {isEmail} from "validator"
 import {FaUserCircle} from "react-icons/fa"
 import LoadingIcons from "react-loading-icons"
@@ -13,10 +14,10 @@ import styled from "styled-components"
 const Registrationcontainer=styled.div`
     background-color:#EFEBF3;
     padding:0rem;
-    height:75vh;
+    height:80vh;
     text-align:center;
     max-width:400px;
-    margin:6rem auto;
+    margin:4rem auto;
 `
 
 const Logincontainer=styled.div`
@@ -27,19 +28,23 @@ const Logincontainer=styled.div`
 
 `
 const Iconimage=styled.div`
-    padding-top:1rem;
-    font-size:6.5rem;
+    padding-top:0.5rem;
+    font-size:6rem;
     color:lightgrey;
 `
-
 const Emaildiv=styled.div`
-    padding-top:0.5rem;
+    padding-top: 1rem;
     
 `
 const Emailabel=styled.div`
     text-align:start;
     margin:0.2rem 0rem 0.2rem 2.5rem;
     font-size:1.2rem;
+`
+
+const Rolediv=styled.div`
+padding-top:1.5rem;
+
 `
 const Passwordlabel=styled.div`
     text-align:start;
@@ -48,7 +53,7 @@ const Passwordlabel=styled.div`
 `
 
 const Passwordiv=styled.div`
-    padding-top:3rem;
+    padding-top:1rem;
 `
 const FormButtondiv=styled.div`
     padding-top:1rem;
@@ -60,7 +65,7 @@ const SpanIcon=styled.div`
 `
 
 const Spanbutton=styled.div`
-     font-size:1rem;
+     font-size:1re;
 `
 const Button=styled.button`
     width:50%;
@@ -91,16 +96,23 @@ const IsEmail= (value)=>{
 }
 
 
-const login= ()=>{
+const signup= ()=>{
     const checkbtn=useRef()
     const form= useRef()
 
-    const [message, setMessage]=useState("")
+
+    // const [confirmpassword, setConfirmpassword]= useState("")
+    const [role, setRole]= useState("")
+    const [greenmessage, setgreenMessage]=useState("")
+    const [redmessage, setredMessage]=useState("")
     const [password, setPassword]= useState("")
     const [email, setEmail]= useState("")
     const [loading, setLoading]= useState(false)
 
-
+    const roleChange=(e)=>{
+        const role=e.target.value
+        setRole(role)
+    }
 
     const passwordChange=(e)=>{
         const password=e.target.value
@@ -111,32 +123,45 @@ const login= ()=>{
     const emailChange=(e)=>{
         const email=e.target.value
         setEmail(email);
+        setredMessage("")
     }
 
 
-    const handleLogin=(e)=>{
+    const handleSignup=(e)=>{
         e.preventDefault();
 
-        setMessage("");
+        setredMessage("");
+        setgreenMessage("")
         setLoading(true)
 
         
         form.current.validateAll()
         
         if(checkbtn.current.context._errors.length===0){
-            AuthService.login( email, password)
+            AuthService.signup(email, role, password)
                 .then(
-                    ()=>{
-                        window.location.href=("/")
+                    (response)=>{
+                        if(response.status===201){
+                            console.log(response.data.message)
+                            window.location.href=("/signin")
+                            setgreenMessage(response.data.message)
+                            setLoading(false)
+    
+                        }else{
+                            console.log(response.data.message)
+                            setredMessage(response.data.message)
+                            setLoading(false)
 
-                    },
-                    (error)=>{
-                       const showMessage= error.Error
-                        console.log(showMessage)
-                        setMessage(showMessage)                        
-                        setLoading(false)
-                    }
-                )
+                        }
+                   
+                   
+                    }).catch(err=>{
+                        console.error(err)
+                        //const showMessage= error.err
+                        //setMessage(showMessage)                        
+                            setLoading(false)
+                    })
+                
         }
         else{
             setLoading(false)
@@ -151,13 +176,35 @@ const login= ()=>{
             <Logincontainer>
                 <Iconimage >< FaUserCircle /></Iconimage>
                 
-                <Form method="" ref={form} onSubmit={handleLogin} >
+                <Form method="" ref={form} onSubmit={handleSignup} >
+
+                    {greenmessage && (
+                        <Messagediv style={{backgroundColor:"green", color:"white", margin:"0.5rem auto", padding:"1rem", width:"80%"}}>
+                            {greenmessage}
+                        </Messagediv>
+
+                    )}
+                
                     <Emaildiv>
                         <Emailabel>Email:</ Emailabel >
-                        <Input type="text" name="email" placeholder="Johndoe23@gmail.com" value={email} onChange={emailChange} validations={[Required, IsEmail]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", color:"black"}}></Input>
+                        <Input type="text" name="email" placeholder="Johndoe23@gmail.com" value={email} onChange={emailChange} validations={[Required, IsEmail]} style={{width:"80%", height:"2rem", backgroundColor:"white", borderRadius:"10px", border:"none", fontSize:"1.2rem", color:"black"}}></Input>
                     </Emaildiv>
+                  
+                    {redmessage && (
+                        <Messagediv style={{backgroundColor:"red", color:"white", margin:"0.5rem auto -0.7rem", padding:"0.5rem 0", width:"80%"  }}>
+                                {redmessage}
+                        </Messagediv>
 
-
+                    )}
+                    <Rolediv>
+                            <Select type="select" value={role} onChange={roleChange} validations={[Required]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", backgroundColor:"white", color:"black"}}>
+                                <option value="">Select Your Role</option>
+                                <option value="REAL ESTATE AGENCY">Real Estate Agency</option>                      
+                                <option  value="TENANT">Tenant</option>
+                                <option value="LANDLORD">Land Lord</option>
+                            </Select>
+                    </Rolediv>
+                    
                     <Passwordiv>
                         <Passwordlabel>Password:</Passwordlabel>
                         <Input type="password" name="password"  value={password} onChange={passwordChange} validations={[Required]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", color: "black"}}></Input>
@@ -167,23 +214,18 @@ const login= ()=>{
                     <FormButtondiv>
                         <Button disabled={loading} > 
                         {loading ? (
-                            <SpanIcon ><LoadingIcons.SpinningCircles /></SpanIcon>
+                            <SpanIcon ><LoadingIcons.SpinningCircles/></SpanIcon>
 
                             
                         ):
                         (
-                            <Spanbutton>SIGN IN</Spanbutton>
+                            <Spanbutton>SIGN UP</Spanbutton>
                         )}
                         
                         </Button>
 
                     </FormButtondiv>
-                    {message && (
-                        <Messagediv>
-                            <div >{message}</div>
-                        </Messagediv>
-
-                    )}
+       
                     <CheckButton style={{display:"none"}} ref={checkbtn}/>
                 </Form>
             </Logincontainer>
@@ -196,4 +238,4 @@ const login= ()=>{
 }
 
 
-export default login
+export default signup
