@@ -6,9 +6,9 @@ import Select from "react-validation/build/select"
 import {isEmail} from "validator"
 import {FaUserCircle} from "react-icons/fa"
 import LoadingIcons from "react-loading-icons"
-import AuthService from "./Auth.services"
+import signupservice from "./Auth.services"
 import styled from "styled-components"
-
+import * as BsIcons from "react-icons/bs"
 
 // background-color:#F0ECF5;
 const Registrationcontainer=styled.div`
@@ -52,9 +52,27 @@ const Passwordlabel=styled.div`
     font-size:1.2rem;
 `
 
+
 const Passwordiv=styled.div`
-    padding-top:1rem;
+    padding-top:0.5rem;
+    font-size:1rem;
+
 `
+const Showpassdiv=styled.div`
+    display:flex;
+    margin-left:2rem;
+    width:82%;
+    justify-content:space-between;
+    
+`
+
+const IconButton=styled.span`
+    justify-content: flex-end;
+    font-size:1.5rem;
+    margin-top:0.2rem;
+
+`
+
 const FormButtondiv=styled.div`
     padding-top:1rem;
 `
@@ -108,6 +126,7 @@ const signup= ()=>{
     const [password, setPassword]= useState("")
     const [email, setEmail]= useState("")
     const [loading, setLoading]= useState(false)
+    const [show, setshow]= useState(false)
 
     const roleChange=(e)=>{
         const role=e.target.value
@@ -118,7 +137,9 @@ const signup= ()=>{
         const password=e.target.value
         setPassword(password);
     }
-
+    const handleClickShowPassword=(e)=>{
+        setshow(!show)
+    }
 
     const emailChange=(e)=>{
         const email=e.target.value
@@ -138,7 +159,7 @@ const signup= ()=>{
         form.current.validateAll()
         
         if(checkbtn.current.context._errors.length===0){
-            AuthService.signup(email, role, password)
+            signupservice(email, role, password)
                 .then(
                     (response)=>{
                         if(response.status===201){
@@ -204,17 +225,28 @@ const signup= ()=>{
                                 <option value="LANDLORD">Land Lord</option>
                             </Select>
                     </Rolediv>
-                    
                     <Passwordiv>
                         <Passwordlabel>Password:</Passwordlabel>
-                        <Input type="password" name="password"  value={password} onChange={passwordChange} validations={[Required]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", color: "black"}}></Input>
+                        <Showpassdiv>
+
+                            <Input type={show ? "text" : "password" } name="password"  value={password} onChange={passwordChange} validations={[Required]} 
+                                style={{ borderRadius:"10px", width:"125%" , height:"2rem", fontSize:"1rem",
+                                border:"none", color: "black"}}>
+                              {/* onMouseDown={handleMouseDownPassword} */}
+                            </Input>
+                            <IconButton onClick={handleClickShowPassword} >
+                                  {show ? <BsIcons.BsEye /> :  <BsIcons.BsEyeSlash/>}
+                            </IconButton>
+
+                        </Showpassdiv>
+
+
+                     
                     </Passwordiv>
-
-
                     <FormButtondiv>
                         <Button disabled={loading} > 
                         {loading ? (
-                            <SpanIcon ><LoadingIcons.SpinningCircles/></SpanIcon>
+                            <SpanIcon ><LoadingIcons.SpinningCircles  style={{height:"1.5rem"}} /></SpanIcon>
 
                             
                         ):

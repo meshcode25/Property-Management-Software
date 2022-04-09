@@ -7,6 +7,9 @@ import {Fake} from "../src/Pages/Fake"
 import Test from "../src/Pages/Test"
 import Empty from './Pages/Empty';
 import Verify from "./components/VerifyComponent"
+import Verifysuccess from "./components/VerificationSuccess"
+import Verifyfail from './components/verifyfail';
+
 
 const App = () => {
   return(
@@ -14,6 +17,8 @@ const App = () => {
       
         <Routes>
             <Route path="/confirm/:verificationcode" element={<Verify/>} />
+            <Route path="/verifysuccess" element={<Verifysuccess/>} />
+            <Route path="/verifyfail" element={<Verifyfail/>} />
             <Route path="/signin" element={<Login/>} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >

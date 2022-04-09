@@ -1,7 +1,9 @@
 const express=require("express");
 const router=express.Router();
 const verifyemailController=require("../controllers/verifyemailController")
+//l
 
-router.get("/", verifyemailController.verifyEmail)
+
+router.get("/:verificationcode", verifyemailController.verifyEmail)
 
 module.exports= router

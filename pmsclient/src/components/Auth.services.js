@@ -11,12 +11,14 @@ const url= "http://localhost:8000/o/auth/"
             (response)=>{
                 if(response.accesstoken){
 
-                    console.log(response)
+                    console.log("here is the token you have been waiting and secrtely fearing" + response)
                     localStorage.setItem("user", JSON.stringify(response))
                 }
                 else{
-                    console.log(response.data)
-                    return response.data
+                    console.log("here is the data without hhe tokens" + response.data)
+                    console.log(response)
+                    return response
+
                 }
             },
         
@@ -26,7 +28,7 @@ const url= "http://localhost:8000/o/auth/"
 
 
 
-    const signup=(email,role,password)=>{
+    export default function(email,role,password){
         return axios.post(url+ "signup", {email, role, password})
             .then((response)=>{
                 console.log(response)
@@ -44,17 +46,18 @@ const url= "http://localhost:8000/o/auth/"
     
     }
 
-    const verifyuser=(verificationcode)=>{
-       return axios.get(url + "/verify" + verificationcode, ).then((response)=>{
+    const verify= (verificationcode)=>{
+       return axios.get(url + `verify/${verificationcode}` ).then((response)=>{
+            console.log(response)
             return response
         }).catch(err=> console.error(err))
     }
 
-export default{
+export {
     login,
-    signup,
+    verify, 
     signout,
     getCurrentUser,
-    verifyuser
+
 
 }

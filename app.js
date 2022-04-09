@@ -6,6 +6,7 @@ const compression= require('compression')
 const path= require("path")
 const cors=require("cors")
 const http= require('http')
+const jwt= require("jsonwebtoken")
 
 const cookieParser = require("cookie-parser")
 
@@ -58,11 +59,14 @@ app.set("view engine", "ejs")
 app.use(cors(corsOptions))
 //use url paths as middlewares
 app.use("/o/auth/login", loginRouter)
-app.use("/o/auth/verify/:verificationcode", verifyemailRouter)
+app.use("/o/auth/verify", verifyemailRouter)
 app.use("/o/auth/signup", signupRouter)
 app.use("/", indexRouter)
+
+// 
 /*app.use("/propertymanager", propertyMangerRouter)
 app.use("/landlord", landLordRouter)
+
 app.use("/tenant", tenantRouter)
 app.use("/maintenance", maintenanceRouter)
 */

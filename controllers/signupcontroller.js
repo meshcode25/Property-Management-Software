@@ -28,7 +28,7 @@ exports.signup_form_post= function(req,res, next){
             var user= new User({
                 email:req.body.email,
                 role:req.body.role,
-                password:bcrypt.hashSync(req.body.password),
+                password:bcrypt.hashSync(req.body.password, 8),
                 status:"pending",
                 verificationcode:verification
             })

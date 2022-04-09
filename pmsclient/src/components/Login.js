@@ -5,8 +5,12 @@ import CheckButton from "react-validation/build/button"
 import {isEmail} from "validator"
 import {FaUserCircle} from "react-icons/fa"
 import LoadingIcons from "react-loading-icons"
-import AuthService from "./Auth.services"
+import {login} from "./Auth.services"
 import styled from "styled-components"
+import * as BsIcons from "react-icons/bs"
+
+
+
 
 
 // background-color:#F0ECF5;
@@ -48,8 +52,25 @@ const Passwordlabel=styled.div`
 `
 
 const Passwordiv=styled.div`
-    padding-top:3rem;
+    padding-top:1.5rem;
+    font-size:1rem;
+
 `
+const Showpassdiv=styled.div`
+    display:flex;
+    margin-left:2rem;
+    width:82%;
+    justify-content:space-between;
+    
+`
+
+const IconButton=styled.span`
+    justify-content: flex-end;
+    font-size:1.5rem;
+    margin-top:0.2rem;
+
+`
+
 const FormButtondiv=styled.div`
     padding-top:1rem;
 `
@@ -80,18 +101,17 @@ const Messagediv=styled.div`
 
 const Required=(value)=>{
     if(!value)
-    return <div style={{backgroundColor:"red", color:"white", padding:"0.25rem 0", margin: "0.25rem auto", width:"80%",}}>Required</div>
+    return <div style={{backgroundColor:"red", color:"white", padding:"0.25rem 0", display:"block", margin: "0.25rem auto", width:"80%",}}>Required</div>
     
 }
 
 const IsEmail= (value)=>{
     if(!isEmail(value))
-
     return <div style={{backgroundColor:"red", color:"white", padding:"0.25rem 0", margin: "0.25rem auto", width:"80%", }}>Enter a valid Email</div>
 }
 
 
-const login= ()=>{
+const Login= ()=>{
     const checkbtn=useRef()
     const form= useRef()
 
@@ -99,44 +119,55 @@ const login= ()=>{
     const [password, setPassword]= useState("")
     const [email, setEmail]= useState("")
     const [loading, setLoading]= useState(false)
-
+    const [show, setshow]= useState(false)
+    const [messagecolor, setMessageColor]=useState("")
 
 
     const passwordChange=(e)=>{
         const password=e.target.value
         setPassword(password);
+        setMessage("")
     }
-
+    
 
     const emailChange=(e)=>{
         const email=e.target.value
         setEmail(email);
+        setMessage("")
     }
 
-
+    const handleClickShowPassword=(e)=>{
+        setshow(!show)
+    }
     const handleLogin=(e)=>{
         e.preventDefault();
 
         setMessage("");
         setLoading(true)
 
-        
+    
         form.current.validateAll()
         
         if(checkbtn.current.context._errors.length===0){
-            AuthService.login( email, password)
+            login( email, password)
                 .then(
-                    ()=>{
-                        window.location.href=("/")
+                    (response)=>{
+                        if(response.status===201){
+                            console.log(response.message)
+                            // window.location.href=("/signin")
+                             setMessage(response.data.message)
+                             setMessageColor(response.data.color)
+                            setLoading(false)
+    
+                        }else{
+                            console.log(response.data.message)
+                             setMessage(response.data.message)
+                             setMessageColor(response.data.color)
+                            setLoading(false)
 
-                    },
-                    (error)=>{
-                       const showMessage= error.Error
-                        console.log(showMessage)
-                        setMessage(showMessage)                        
-                        setLoading(false)
-                    }
-                )
+                        }
+                   
+                }).catch(err=>console.error(err))
         }
         else{
             setLoading(false)
@@ -151,6 +182,12 @@ const login= ()=>{
             <Logincontainer>
                 <Iconimage >< FaUserCircle /></Iconimage>
                 
+                {message && (
+                        <Messagediv style={{margin:"0.5rem auto", width:"90%", backgroundColor:`${messagecolor}`, color :"white", padding:"0.5rem" }}>
+                            <div >{message}</div>
+                        </Messagediv>
+
+                    )}
                 <Form method="" ref={form} onSubmit={handleLogin} >
                     <Emaildiv>
                         <Emailabel>Email:</ Emailabel >
@@ -160,14 +197,28 @@ const login= ()=>{
 
                     <Passwordiv>
                         <Passwordlabel>Password:</Passwordlabel>
-                        <Input type="password" name="password"  value={password} onChange={passwordChange} validations={[Required]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", color: "black"}}></Input>
+                        <Showpassdiv>
+
+                            <Input type={show ? "text" : "password" } name="password"  value={password} onChange={passwordChange} validations={[Required]} 
+                                style={{ borderRadius:"10px", width:"125%" , height:"2rem", fontSize:"1rem",
+                                border:"none", color: "black"}}>
+                              {/* onMouseDown={handleMouseDownPassword} */}
+                            </Input>
+                            <IconButton onClick={handleClickShowPassword} >
+                                  {show ? <BsIcons.BsEye /> :  <BsIcons.BsEyeSlash/>}
+                            </IconButton>
+
+                        </Showpassdiv>
+
+
+                     
                     </Passwordiv>
 
 
                     <FormButtondiv>
                         <Button disabled={loading} > 
                         {loading ? (
-                            <SpanIcon ><LoadingIcons.SpinningCircles /></SpanIcon>
+                            <SpanIcon ><LoadingIcons.SpinningCircles style={{height:"1.5rem"}} /></SpanIcon>
 
                             
                         ):
@@ -178,12 +229,7 @@ const login= ()=>{
                         </Button>
 
                     </FormButtondiv>
-                    {message && (
-                        <Messagediv>
-                            <div >{message}</div>
-                        </Messagediv>
-
-                    )}
+                 
                     <CheckButton style={{display:"none"}} ref={checkbtn}/>
                 </Form>
             </Logincontainer>
@@ -196,4 +242,4 @@ const login= ()=>{
 }
 
 
-export default login
+export default Login
