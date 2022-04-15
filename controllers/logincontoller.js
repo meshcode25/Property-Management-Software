@@ -20,16 +20,10 @@ exports.login_form_post=function(req,res,next){
         email:req.body.email
     }).exec().then(user=>{
         if(user){
-            console.log(user)
-            console.log(user.status)
-            bcrypt.compareSync
             const validPassword= bcrypt.compareSync(
                 req.body.password,
                 user.password
             )
-            console.log("Hashed password from database" + " " + user.password)
-            console.log("Password from Form" + "" + req.body.password)
-            console.log("Is the password valid" + " " + validPassword)
 
             const isVerifiedEmail=()=>{
                 if(user.status==="pending"){
@@ -42,27 +36,31 @@ exports.login_form_post=function(req,res,next){
             }
           
           const verified=isVerifiedEmail()
-          console.log(" Is the Email  verified?" + " " + verified)
-
 
             if(!validPassword){
                 return res.status(200).send({message: "Invalid Password or Email", accesstoken:null, color: "red", type:"invalid"})
             }
             else{
-                if(!isVerifiedEmail){
-                    return res.status(200).send({message: "Unverified Email, Please Check you Email and Verify your Email", color: "red", type:"unverified"})
+                if(!verified){
+                    return res.status(200).send({message: "Unverified Email, Please Check you Email to Verify your Account", color: "red", type:"unverified"})
+                
+                }else{
+
+                    const token= jwt.sign({id:user.id}, secret, {
+                        expiresIn:(10*60),
+    
+                    })
+    
+                    return res.status(201).send({
+                        type:"successlogin",
+                        message:"Login Success, wait as we redirect you to the next page",
+                        accesstoken: token, 
+                        color:"green"
+                    })
+
+
                 }
-                const token= jwt.sign({id:user.id}, secret, {
-                    expiresIn:(10*60),
-
-                })
-
-                return res.status(201).send({
-                    type:"successlogin",
-                    message:"Login Success, wait as we redirect you to the next page",
-                    accesstoken: token, 
-                    color:"green"
-                })
+                
             }
 
 
@@ -70,7 +68,7 @@ exports.login_form_post=function(req,res,next){
         }  
         else{
     
-            return res.status(200).send({message:"Invaliddd Email or Password", color: "red", type:"invalid"})
+            return res.status(200).send({message:"Invalidd Email or Password", color: "red", type:"invalid"})
     
         
     }

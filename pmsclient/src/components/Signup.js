@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 import React, {useRef, useState} from "react"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
@@ -100,6 +101,33 @@ const Messagediv=styled.div`
     width:50%;
     
 `
+const Logindiv=styled.div`
+
+    color:white;
+    padding:0.3rem;
+  
+    border:none;
+   
+    font-size:0.9rem;
+    margin: 1.5     rem 0 0 0rem;
+
+`
+const Loginbutton=styled.button`
+    border:none;
+    width:30%;
+    padding:0.4rem;
+    border-radius:9px;
+    background-color: blue;
+    `
+    // margin-left:15rem;
+    // color:white;
+    // width:5.5rem;
+    const Loginlink=styled(Link)`
+ 
+    text-decoration:none;
+    color:white;
+ 
+`
 
 const Required=(value)=>{
     if(!value)
@@ -164,14 +192,23 @@ const signup= ()=>{
                     (response)=>{
                         if(response.status===201){
                             console.log(response.data.message)
-                            window.location.href=("/signin")
+                            let redirect= setTimeout(()=>{return window.location.href=("/signin")}, 15000 )
                             setgreenMessage(response.data.message)
                             setLoading(false)
+                            redirect();
+
+                            setPassword("");
+                            setEmail("");
+                            setRole("")
     
                         }else{
                             console.log(response.data.message)
                             setredMessage(response.data.message)
                             setLoading(false)
+
+                            setPassword(password);
+                            setEmail(email);
+                            setRole(role)
 
                         }
                    
@@ -200,23 +237,24 @@ const signup= ()=>{
                 <Form method="" ref={form} onSubmit={handleSignup} >
 
                     {greenmessage && (
-                        <Messagediv style={{backgroundColor:"green", color:"white", margin:"0.5rem auto", padding:"1rem", width:"80%"}}>
+                        <Messagediv style={{backgroundColor:"green", color:"white", margin:"0.5rem auto", padding:"1rem", width:"95%"}}>
                             {greenmessage}
                         </Messagediv>
 
                     )}
-                
-                    <Emaildiv>
-                        <Emailabel>Email:</ Emailabel >
-                        <Input type="text" name="email" placeholder="Johndoe23@gmail.com" value={email} onChange={emailChange} validations={[Required, IsEmail]} style={{width:"80%", height:"2rem", backgroundColor:"white", borderRadius:"10px", border:"none", fontSize:"1.2rem", color:"black"}}></Input>
-                    </Emaildiv>
-                  
+
+
                     {redmessage && (
                         <Messagediv style={{backgroundColor:"red", color:"white", margin:"0.5rem auto -0.7rem", padding:"0.5rem 0", width:"80%"  }}>
                                 {redmessage}
                         </Messagediv>
 
                     )}
+                    <Emaildiv>
+                        <Emailabel>Email:</ Emailabel >
+                        <Input type="text" name="email" placeholder="Johndoe23@gmail.com" value={email} onChange={emailChange} validations={[Required, IsEmail]} style={{width:"80%", height:"2rem", backgroundColor:"white", borderRadius:"10px", border:"none", fontSize:"1.2rem", color:"black"}}></Input>
+                    </Emaildiv>
+                  
                     <Rolediv>
                             <Select type="select" value={role} onChange={roleChange} validations={[Required]} style={{width:"80%", height:"2rem", borderRadius:"10px", border:"none", fontSize:"1.2rem", backgroundColor:"white", color:"black"}}>
                                 <option value="">Select Your Role</option>
@@ -260,8 +298,9 @@ const signup= ()=>{
        
                     <CheckButton style={{display:"none"}} ref={checkbtn}/>
                 </Form>
+            
+            <Logindiv> <Loginbutton><Loginlink  to="/signin " >SIGN IN </Loginlink></Loginbutton>    </Logindiv>   
             </Logincontainer>
-
 
 
         </Registrationcontainer>

@@ -17,7 +17,7 @@ exports.signup_form_post= function(req,res, next){
         if(user){
             console.log(user)
 
-           return res.status(200).send({message:"Email Already Registered, Please Login!"})
+           return res.status(200).send({message:"Email Already Registered, Please Login!" })
           
 
         }  
@@ -41,7 +41,7 @@ exports.signup_form_post= function(req,res, next){
             }
             else{
             nodemailer(user.email, user.verificationcode)
-            return res.status(201).send({message:"New account successfully created!"})
+            return res.status(201).send({message:"Account Created Successfully, Check your Email to Verify your Account"})
             
             }
         })

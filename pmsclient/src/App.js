@@ -9,7 +9,7 @@ import Empty from './Pages/Empty';
 import Verify from "./components/VerifyComponent"
 import Verifysuccess from "./components/VerificationSuccess"
 import Verifyfail from './components/verifyfail';
-
+import Passwordreset from "./components/Forgotpasscomp"
 
 const App = () => {
   return(
@@ -20,6 +20,7 @@ const App = () => {
             <Route path="/verifysuccess" element={<Verifysuccess/>} />
             <Route path="/verifyfail" element={<Verifyfail/>} />
             <Route path="/signin" element={<Login/>} />
+            <Route path="/passwordreset" element={<Passwordreset />}  />
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >
               <Route>

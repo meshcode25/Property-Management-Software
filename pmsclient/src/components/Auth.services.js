@@ -27,6 +27,26 @@ const url= "http://localhost:8000/o/auth/"
     }
 
 
+    const passwordreset=(email, password)=>{
+        return axios.post(url + "passwordreset", {email,password})
+        .then(
+            (response)=>{
+                if(response.accesstoken){
+
+                    console.log("Has token but now for password reset" + response)
+                    localStorage.setItem("user", JSON.stringify(response))
+                }
+                else{
+                    console.log("Response for reset password" + response.data)
+          
+                    return response
+
+                }
+            },
+        
+        
+        )
+    }
 
     export default function(email,role,password){
         return axios.post(url+ "signup", {email, role, password})
@@ -58,6 +78,6 @@ export {
     verify, 
     signout,
     getCurrentUser,
-
+    passwordreset
 
 }

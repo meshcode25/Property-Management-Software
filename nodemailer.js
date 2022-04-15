@@ -14,8 +14,8 @@ const transport=nodemailer.createTransport({
 
 ///
 const sendMail=(email,verificationcode)=>{
-    console.log("check")
-
+    console.log("Verify Email Password Sent")
+    
     
     transport.sendMail({
         from:authconfig.user,

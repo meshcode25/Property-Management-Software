@@ -8,14 +8,21 @@ import LoadingIcons from "react-loading-icons"
 import {login} from "./Auth.services"
 import styled from "styled-components"
 import * as BsIcons from "react-icons/bs"
+import {Link} from "react-router-dom"
+// import { createGlobalStyle } from "styled-components"
 
 
 
 
+// const GlobalStyle= createGlobalStyle`
+//     html:{
+//         background-color:#F0ECF5;
+//     }
 
+// `
 // background-color:#F0ECF5;
 const Registrationcontainer=styled.div`
-    background-color:#EFEBF3;
+     background-color:#EFEBF3;
     padding:0rem;
     height:75vh;
     text-align:center;
@@ -25,6 +32,7 @@ const Registrationcontainer=styled.div`
 
 const Logincontainer=styled.div`
    width:90%;
+
    height:100%;
    margin:0rem auto;
 
@@ -98,6 +106,18 @@ const Messagediv=styled.div`
     width:50%;
     
 `
+const Forgotpassdiv=styled.div`
+
+padding:0rem;
+margin:3rem 0 0 3rem;
+
+`
+// margin:2rem 0rem 0rem 6rem;
+const Forgotpasslink=styled(Link)`
+margin-left:10rem;
+color:blue;
+`
+
 
 const Required=(value)=>{
     if(!value)
@@ -154,7 +174,7 @@ const Login= ()=>{
                     (response)=>{
                         if(response.status===201){
                             console.log(response.message)
-                            // window.location.href=("/signin")
+                            setTimeout( ()=>{window.location.href=("/")} ,4000)// 
                              setMessage(response.data.message)
                              setMessageColor(response.data.color)
                             setLoading(false)
@@ -178,7 +198,8 @@ const Login= ()=>{
 
 
     return(
-        <Registrationcontainer>
+
+            <Registrationcontainer>
             <Logincontainer>
                 <Iconimage >< FaUserCircle /></Iconimage>
                 
@@ -232,11 +253,17 @@ const Login= ()=>{
                  
                     <CheckButton style={{display:"none"}} ref={checkbtn}/>
                 </Form>
+
+            <Forgotpassdiv><Forgotpasslink  to="/passwordreset">Forgot Password?</Forgotpasslink></Forgotpassdiv>
             </Logincontainer>
 
 
 
         </Registrationcontainer>
+        
+
+
+
         
     )
 }
