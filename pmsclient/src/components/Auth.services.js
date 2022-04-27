@@ -9,13 +9,15 @@ const url= "http://localhost:8000/o/auth/"
         return axios.post(url + "login", {email,password})
         .then(
             (response)=>{
-                if(response.accesstoken){
+                if(response.data.accesstoken){
 
-                    console.log("here is the token you have been waiting and secrtely fearing" + response)
+                    console.log("here is the token you have been waiting and secretly fearing" + response.data.accesstoken)
                     localStorage.setItem("user", JSON.stringify(response))
+                    console.log(response.data.accesstoken)
+                    return response
                 }
                 else{
-                    console.log("here is the data without hhe tokens" + response.data)
+                    console.log("here is the data without the tokens" + response.data)
                     console.log(response)
                     return response
 

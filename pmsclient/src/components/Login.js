@@ -173,8 +173,8 @@ const Login= ()=>{
                 .then(
                     (response)=>{
                         if(response.status===201){
-                            console.log(response.message)
-                            setTimeout( ()=>{window.location.href=("/")} ,4000)// 
+                            console.log(response.data.message)
+                            setTimeout( ()=>{window.location.href=("/")} ,10000)
                              setMessage(response.data.message)
                              setMessageColor(response.data.color)
                             setLoading(false)

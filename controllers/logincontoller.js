@@ -51,7 +51,9 @@ exports.login_form_post=function(req,res,next){
     
                     })
     
+                    console.log(user)
                     return res.status(201).send({
+                        email:user.email,
                         type:"successlogin",
                         message:"Login Success, wait as we redirect you to the next page",
                         accesstoken: token, 

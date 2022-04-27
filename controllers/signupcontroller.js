@@ -24,7 +24,7 @@ exports.signup_form_post= function(req,res, next){
         else{
     
             const verification=verificationCode();
-    
+            console.log("this is the verification code we are talking about " + verification)
             var user= new User({
                 email:req.body.email,
                 role:req.body.role,
