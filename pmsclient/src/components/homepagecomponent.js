@@ -35,7 +35,6 @@ const Nav = styled.div`
 // position:fixed;
 // overflow:scroll;
 // top:0;
-
 // height:100vh;
   display:grid;
   grid-template-columns: ${({sidebar})=> sidebar ? `1fr 3fr ` : ` 10.5% 89.5% `} ;
@@ -50,43 +49,14 @@ const Logodiv=styled.div`
 // color:white;
 grid-column: 1/2;
 grid-row:  1/2;
-// position:fixed;
-// overflow:hidden;
-color:indigo;
-background-color:indigo;
+position:fixed;
+overflow:hidden;olor:indigo;
 display:flex;
 justify-content:center;
-// text-align:center;
-
-`
-
-
-const Navigation=styled.div  `
-
-display:flex;
-//  position:fixed;
-//  top:0;
-justify-content:space-between;
-align-items:center;
-background-color:black;
-
-
-`
-const SidebarNav=styled.div  `
-// position:sticky;
-// overflow: scroll;
-// position:fixed;
-// overflow:scroll;
-// top:50px;
-background-color:black;
- 
-`
-
+  ` 
 const Switchdiv= styled.div`
 grid-column:2/3;
 grid-row:2/3;
-// position:fixed;
-// overflow:scroll;
 background-color:indigo;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
 
 
@@ -94,7 +64,6 @@ background-color:indigo;                                                        
 
 const Navdiv= styled.div`
 position:fixed;
-
 top:0;
 left:20%;
 
