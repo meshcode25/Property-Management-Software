@@ -5,8 +5,18 @@
 // import { BsWindowSidebar } from "react-icons/bs"
 
 
-*/
+
+
+
+
+const Logodiv=styled.div`
+
+`
+ <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
 const logo= require ("./easyclickslogo.png")
+
+`
+*/
 import React, {useState, useEffect} from "react"
 import styled from "styled-components"
 import {VscMenu} from "react-icons/vsc"
@@ -16,33 +26,74 @@ import { Link, Outlet} from "react-router-dom"
 import * as RiIcons from "react-icons/ri"
 import Submenu from "./Submenu"
 import {FaUserCircle} from "react-icons/fa"
+// console.log(logo)
 
-console.log(logo)
+const logo= require ("./easy4.png")
+
 
 const Nav = styled.div`
-position:fixed;
-top:0;
+// position:fixed;
+// overflow:scroll;
+// top:0;
+// height:100vh;
+  display:grid;
+  grid-template-columns: ${({sidebar})=> sidebar ? `1fr 3fr ` : ` 10.5% 89.5% `} ;
+  grid-template-rows:51px  auto ;
+
+
 `
+
+
+
+const Logodiv=styled.div`
+// color:white;
+grid-column: 1/2;
+grid-row:  1/2;
+position:fixed;
+overflow:hidden;
+color:indigo;
+display:flex;
+justify-content:center;
+// text-align:center;yled.div
+
+`
+
+
+const Navigation=styled.div  `
+position:fixed;
+overflow:hidden;
+color:indigo;
+
+
+`
+const SidebarNav=styled.div  `
+position:fixed;
+overflow: scroll;
+ 
+`
+
+const Switchdiv= styled.div`
+grid-column:2/3;
+grid-row:2/3;
+position:fixed;
+overflow:scroll;
+background-color:indigo;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
+
+
+`
+
 const Navdiv= styled.div`
 position:fixed;
 top:0;
 left:20%;
 
 `
-const Logodiv=styled.div`
 
+const Logo= styled.div`
+text-align:center;
 
 `
-const Navigation = styled.div`
-position:fixed;
-background-color:black;
-display:flex;
-align-items:center;  
-width:100%;
-height:50px;
 
-justify-content:space-between;
-`
 
 const Registerdiv=styled.div`
 margin-right:5rem;
@@ -50,6 +101,13 @@ display:flex;
 height:25%;
 justify-content:space-around;
 align-items:center;
+
+`
+const Tenantlogo= styled.div`
+text-transform:uppercase;
+color:white;
+margin-left:1rem;
+font-weight:bold;
 
 `
 const SignIn=styled.button`
@@ -84,20 +142,24 @@ const Naviconburger= styled(Link)`
   text-decoration:none;
  
 ` 
+// const Scroll=styled.div`
+// background-color:yellow;
+// display:flex;
 
-const SidebarNav= styled.div`
-  position:fixed;
-  height:100vh;
-  color:black;
-  overflow: scroll;
-  background-color:black;
-  width:21%;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 %;
-  top:51px;
-  z-index:10;
-  
-  transition:0.65s;
-  left: ${({sidebar})=> sidebar ? `0 ` : `-100%; `}
-  `    
+// justify-content:space-between;
+// align-items:center;
+// `
+// const Openscroll=styled.div`
+// color:blue;
+// width:20px;
+// display:flex;
+
+// overflow:hidden;
+// height:100vh;
+// z-index:11;
+// `
+
+   
   const Wholeprofile=styled.div`
     left:85%;
     position:fixed; 
@@ -237,11 +299,17 @@ const Sidebar = () => {
 
   return(
   <div>
-    <Nav>
+    <Nav sidebar={sidebar? 1: 0}>
+      <Logodiv >
+          <Logo >
+            <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
+          </Logo>
+      </Logodiv>
       <Navigation>
-        <Logodiv >
-        <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" />
-          </Logodiv>
+        <Tenantlogo>
+
+          Tenant Logo
+        </Tenantlogo>
         <Navdiv>
           <Naviconburger to='#' onClick={showSidebar} sidebar={sidebar? 1:0}>
               {sidebar?  <MdIcons.MdOutlineClose /> : <VscMenu />}
@@ -306,14 +374,20 @@ const Sidebar = () => {
      
       </Navigation>
       <SidebarNav sidebar={sidebar? 1 :0}>
-            {Sidebardata.map((menu,index) => { 
-              return <Submenu menu={menu} key={index}/>
-            })}    
+              {Sidebardata.map((menu,index) => { 
+                return <Submenu menu={menu} key={index}/>
+              })}    
       </SidebarNav>
+        {/* <Openscroll>pw
+          HERE IS THE CLOSE AND OPEN ICON
+        </Openscroll> */}
+        {/* <Scroll>
+      </Scroll> */}
+    
+      <Switchdiv>
+          <Outlet />
+      </Switchdiv>                               
     </Nav>
-    <div>
-        <Outlet />
-    </div>
 </div>
 
   
