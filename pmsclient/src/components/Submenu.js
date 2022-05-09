@@ -93,9 +93,16 @@
 //   }
 
 //   // console.log(menu)
-//   const showSubmenu= ()=>{
-//     setSubmenu(!submenu);
-//     handlehideSubmenu(number)
+//   const showSubmenu= (id)=>{
+//     if(id===number){
+//         // menu.status=true;
+//         setSubmenu(!submenu);
+//       }else{
+//         // menu.status=false
+//         // setSubmenu(!submenu);
+//       }
+      
+//     // handlehideSubmenu(number)
 //     console.log(submenu)
 //   }
   
@@ -107,7 +114,7 @@
 
 //   return (
 //     <div >
-//       <Submenuwrap onClick={showSubmenu} to={!menu.submenu && menu.path}>
+//       <Submenuwrap onClick={()=>showSubmenu(number)} to={!menu.submenu && menu.path}>
 //       {/* showSubmenu */}
 //         <div>
 //           <Span >{menu.icon} </Span>

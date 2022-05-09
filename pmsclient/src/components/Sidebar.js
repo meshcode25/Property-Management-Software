@@ -219,8 +219,6 @@ const Naviconburger= styled(Link)`
   `
   const Profile  = styled.div`
 
-
-
   `
   const Profileshow = styled(Link)`
     display:flex;
@@ -282,16 +280,11 @@ const Naviconburger= styled(Link)`
 
    margin-right:0.5rem;
  `
-
-
 // Here is some content from the drop xDownloadOptions, 
 //  const Dropdownmenu= styled.div` 
 //  padding:0rem;
 
-
-
 // `
-
 
 const Submenuwrap= styled(Link)`
     display:flex;
@@ -346,8 +339,6 @@ const Dropdownspan= styled.span`
 const Dropdownsidebarlebel= styled.span` 
 
 ` 
-
-
   
 const Sidebar = () => {
   const [sidebar, setSidebar ]= useState(false);
@@ -374,29 +365,31 @@ const Sidebar = () => {
 
     }
 
-
     // const handlesubmenu=()=>{
     //  sethidesubmenu(!hidesubmenu)
     //   console.log( hidesubmenu);
     // }
   
-  
+    const handleSub= (id)=>{
 
-    const handleSub= ()=>{
-      setSub(!sub);
+      if(id===submenu){
+        setSub(!sub);
+      } 
+      else{
+        setSub(true)
+      }
       // handlehideSubmenu(number)
-      console.log(sub);
+      // console.log(sub);
     }
-
 
     const showSubmenu= (number)=>{
-      setSubmenu(number)
+      handleSub(number)
       // handlehideSubmenu(number)
       console.log(submenu)
-      // handleSub()
+        setSubmenu(number)
+
+      
     }
-
-
 
   // console.log("here is the accutal boolean value" + showProfile)
   // console.log(getCurrentUser)
@@ -474,8 +467,6 @@ const Sidebar = () => {
                     <Username>My Account Settings</Username>
                   </Settingrow>
 
-            
-                 
                   <Settingrow to="#">
                     <Icons><RiIcons.RiTeamLine/></Icons>
                     <Username>My Team Members</Username>
@@ -491,14 +482,9 @@ const Sidebar = () => {
                     <Username style={{marginLeft:"-4.5rem"}} >Log Out</Username>
                   </Settingrow>
                   
-
-
                 </Profilehide> 
-            
             }
 
-            
-              
             </Profile>
           </Wholeprofile>
             :
@@ -506,13 +492,12 @@ const Sidebar = () => {
                 <Link to="/signin"><SignIn>SIGN IN</SignIn></Link> 
                 <Link to="/signup"><SignUp>SIGN UP</SignUp></Link>    
               </Registerdiv>
-
         }
     </Navigation>
     <SidebarNav sidebar={sidebar? 1: 0}>         
           {Sidebardata.map((menu,index) => {
-            // return <Submenu key={index} menu={menu} number={index} to="#"/>
-            return (
+            // return <Submenu key={index} menu={menu} number={index} to="#"/       
+          return (
               <div key={index}>
                 <Submenuwrap  onClick={()=>{showSubmenu(index)}} sub={sub?1:0} to={!menu.submenu && menu.path}>
                 {/* showSubmenu */}
@@ -524,23 +509,27 @@ const Sidebar = () => {
                     {submenu ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }
                   </Dropicon>
                </Submenuwrap> 
-                {(submenu===index && menu.submenu && sub) && menu.submenu.map((dropdownmenu, index) =>  { 
-          
-                return(
-                    <Dropdownmenu dropdownmenu={dropdownmenu} key={index+ 5} >
-                      <Eachdropdowndiv to={dropdownmenu.path} >
-                        <div>                          
-                        <Dropdownspan >{dropdownmenu.icon} </Dropdownspan>
-                        <Dropdownsidebarlebel>{dropdownmenu.title}</Dropdownsidebarlebel>
-                        </div>
-                      </Eachdropdowndiv>
-                    </Dropdownmenu> 
-                  )
-                })}
+               
+                {(submenu===index && menu.submenu && sub) && menu.submenu.map((dropdownmenu, index) =>  {
+                      return(                      
+                        <Dropdownmenu dropdownmenu={dropdownmenu} key={index+ 5} >
+                          <Eachdropdowndiv to={dropdownmenu.path} >
+                            <div>                          
+                            <Dropdownspan >{dropdownmenu.icon} </Dropdownspan>
+                            <Dropdownsidebarlebel>{dropdownmenu.title}</Dropdownsidebarlebel>
+                            </div>
+                          </Eachdropdowndiv>
+                        </Dropdownmenu> 
+                      )             
+                  })
+                  
+                    
+                    
+              })
+              
+              
             </div>
             )
-
-
           })}   
         {/* <Barcontent>        </Barcontent> */}
     </SidebarNav>
@@ -548,10 +537,7 @@ const Sidebar = () => {
       <Openscroll to="#">     
         <Link style={{fontSize:"1.2rem", color: "white"}} to="#"> {sidebar ? <MdIcons.MdOutlineArrowForwardIos/> : <MdIcons.MdOutlineArrowBackIosNew/>  }</Link>
     </Openscroll> 
-  </Scroll> 
-    
-      
-    
+  </Scroll>
       <Switchdiv>
           <Outlet />
       </Switchdiv>                               
