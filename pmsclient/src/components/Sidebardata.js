@@ -20,6 +20,7 @@ const Sidebardata = () => (
     path:"/dashboard",
     iconOpen: <MdIcons.MdExpandMore/>,
     iconClosed:<AiIcons.AiOutlineRight/>,
+    status:"hide",
     /*submenu: [
       {
         title:"Find Properties",
@@ -45,6 +46,8 @@ const Sidebardata = () => (
     path:"/properties",
     iconClosed:<AiIcons.AiOutlineRight/>,
     iconOpen: <MdIcons.MdExpandMore/>,
+    status:"hide",
+
     submenu: [
       {
         title:"View All Properties",
@@ -70,6 +73,7 @@ const Sidebardata = () => (
     path:"/landlords",
     iconClosed:<AiIcons.AiOutlineRight/>,
     iconOpen: <MdIcons.MdExpandMore/>,
+    status:"hide",
     submenu: [
       {
         title:"All Landlords",
@@ -101,6 +105,7 @@ const Sidebardata = () => (
     path:"/units",
     iconClosed:<AiIcons.AiOutlineRight/>,
     iconOpen: <MdIcons.MdExpandMore/>,
+    status:"hide",
     submenu: [
       {
         title:"All Units",
@@ -132,6 +137,7 @@ const Sidebardata = () => (
     path:"/maintenance",
     iconClosed:<AiIcons.AiOutlineRight/>,
     iconOpen: <MdIcons.MdExpandMore/>,
+    status:"hide",
     submenu: [
       {
         title:"All Technicians",
@@ -156,6 +162,7 @@ const Sidebardata = () => (
     path:"/caretakers",
     iconClosed:<AiIcons.AiOutlineRight/>,
     iconOpen: <MdIcons.MdExpandMore/>,
+    status:"hide",
     submenu: [
       {
         title:"All Caretakers",
@@ -181,11 +188,12 @@ const Sidebardata = () => (
     },
                 
     {
-      title:"Attachements",
+      title:"Attachments",
       icon: <VscIcons.VscFileSubmodule/>,
       path:"/attachments",
       iconClosed:<AiIcons.AiOutlineRight/>,
       iconOpen: <MdIcons.MdExpandMore/>,
+      status:"hide",
       submenu: [
         {
           title:"Work Orders",
@@ -226,6 +234,7 @@ const Sidebardata = () => (
       path:"/support",
       iconClosed:<AiIcons.AiOutlineRight/>,
       iconOpen: <MdIcons.MdExpandMore/>,
+      status:"hide",
     }, 
 
     {
@@ -234,6 +243,7 @@ const Sidebardata = () => (
       path:"/Reports",
       iconClosed:<AiIcons.AiOutlineRight/>,
       iconOpen: <MdIcons.MdExpandMore/>,
+      status:"hide",
       submenu: [
         {
           title:"Monthly Expenditure",

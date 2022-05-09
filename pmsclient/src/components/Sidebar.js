@@ -13,10 +13,9 @@ const Logodiv=styled.div`
 
 `
  <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
-const logo= require ("./easyclickslogo.png")
-
-`
-*/
+ 
+ `
+ */
 import React, {useState, useEffect} from "react"
 import styled from "styled-components"
 import {VscMenu} from "react-icons/vsc"
@@ -24,22 +23,21 @@ import * as MdIcons from "react-icons/md"
 import Sidebardata from "./Sidebardata"
 import { Link, Outlet} from "react-router-dom"
 import * as RiIcons from "react-icons/ri"
-import Submenu from "./Submenu"
+// import Submenu from "./Submenu"
 import {FaUserCircle} from "react-icons/fa"
+// import xDownloadOptions from "helmet/dist/types/middlewares/x-download-options"
 // console.log(logo)
 
+// const logo= require ("./easyclickslogo.png")
 const logo= require ("./easy4.png")
 
 
 const Nav = styled.div`
-// position:fixed;
-// overflow:scroll;
-// top:0;
-
-// height:100vh;
+  z-index:10;
   display:grid;
-  grid-template-columns: ${({sidebar})=> sidebar ? `1fr 3fr ` : ` 10.5% 89.5% `} ;
+  grid-template-columns: ${({sidebar})=> sidebar ? `6% 94% ` : `24% 76%`} ;
   grid-template-rows:51px  auto ;
+
 
 
 `
@@ -47,46 +45,103 @@ const Nav = styled.div`
 
 
 const Logodiv=styled.div`
-// color:white;
+color:white;
 grid-column: 1/2;
 grid-row:  1/2;
+text-align:center;
+color:indigo;
+background-color:black;
 // position:fixed;
 // overflow:hidden;
-color:indigo;
-background-color:indigo;
-display:flex;
-justify-content:center;
-// text-align:center;
+// display:flex;
+// justify-content:center;
 
 `
 
 
 const Navigation=styled.div  `
-
+position:fixed;
+overflow:hidden;
 display:flex;
-//  position:fixed;
-//  top:0;
+top:0;
+z-index:5;
+left:0;
+width:100%;
+height:51px;
 justify-content:space-between;
 align-items:center;
 background-color:black;
 
 
 `
+
+
+
 const SidebarNav=styled.div  `
-// position:sticky;
-// overflow: scroll;
-// position:fixed;
-// overflow:scroll;
-// top:50px;
+position:fixed;
+overflow:scroll;
+top:51px;
+width:22.5%;
+display:grid;
+grid-template-column:99% 1%;
+height:90vh;
+left:${({sidebar})=> sidebar ? "-100%": "0"};
 background-color:black;
- 
+
+
+
+::-webkit-scrollbar {
+  width: 5px;               /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: black;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+
+`
+// const Barcontent= styled.div` 
+
+// grid-column:1/2;
+
+// `
+const Scroll=styled.div`
+background-color:black;
+display:flex;
+text-align:center;
+position:fixed;
+left:${({sidebar})=> sidebar ? "6%": "22.5%" };
+top:0;
+z-index:1;
+width:10px;
+height:100vh;
+justify-content:space-between;
+
+`
+const Openscroll=styled.div`
+text-decoration:none;
+width:20px;
+height:100px;
+display:flex;
+align-items:center;
+color:white;
+text-align:center;
+background-color:black;
+align-self:center;
+border-radius:17%;
+
 `
 
 const Switchdiv= styled.div`
-grid-column:2/3;
-grid-row:2/3;
-// position:fixed;
-// overflow:scroll;
+ grid-column:2/3;
+ grid-row:2/3;
+//  position:fixed;
+//  overflow:scroll;
 background-color:indigo;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
 
 
@@ -94,7 +149,6 @@ background-color:indigo;                                                        
 
 const Navdiv= styled.div`
 position:fixed;
-
 top:0;
 left:20%;
 
@@ -114,13 +168,13 @@ justify-content:space-around;
 align-items:center;
 
 `
-const Tenantlogo= styled.div`
-text-transform:uppercase;
-color:white;
-margin-left:1rem;
-font-weight:bold;
+// const Tenantlogo= styled.div`
+// text-transform:uppercase;
+// color:white;
+// margin-left:1rem;
+// font-weight:bold;
 
-`
+// `
 const SignIn=styled.button`
 fontSize:4rem;
 color:white;
@@ -153,22 +207,6 @@ const Naviconburger= styled(Link)`
   text-decoration:none;
  
 ` 
-// const Scroll=styled.div`
-// background-color:yellow;
-// display:flex;
-
-// justify-content:space-between;
-// align-items:center;
-// `
-// const Openscroll=styled.div`
-// color:blue;
-// width:20px;
-// display:flex;
-
-// overflow:hidden;
-// height:100vh;
-// z-index:11;
-// `
 
    
   const Wholeprofile=styled.div`
@@ -246,12 +284,79 @@ const Naviconburger= styled(Link)`
  `
 
 
+// Here is some content from the drop xDownloadOptions, 
+//  const Dropdownmenu= styled.div` 
+//  padding:0rem;
 
+
+
+// `
+
+
+const Submenuwrap= styled(Link)`
+    display:flex;
+    color:white;
+    text-decoration:none;
+    padding:0.5rem 0; 
+    justify-content:space-between;
+    align-items:center;
+    &:hover{
+      background-color:blue;
+      margin-left:0.5rem;
+      transition:0.5s;
+    }
+    margin-right:2rem;
+`
+const Span=styled.span`
+margin-left: 1rem;
+font-size:1.5rem;
+
+`
+const Sidebarlebel= styled.span`
+margin-left:1rem;
+font-size:1.2rem;
+
+`
+
+// const Dropicon= styled.div`
+// margin-left:2rem;
+// `
+
+const Eachdropdowndiv= styled(Link)` 
+  text-decoration:none;
+  color:Violet;
+  display:flex;
+  margin-left:1.5rem;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1.15rem;
+  padding:0.5rem 3rem 0.5rem 2rem; 
+  ` 
+
+const Dropdownmenu= styled.div` 
+  padding:0rem;
+
+
+
+`
+
+const Dropdownspan= styled.span` 
+
+` 
+const Dropdownsidebarlebel= styled.span` 
+
+` 
 
 
   
 const Sidebar = () => {
   const [sidebar, setSidebar ]= useState(false);
+    
+  const [sub, setSub]= useState(false)
+  const [submenu, setSubmenu]= useState()
+  
+  // const [hidesubmenu, sethidesubmenu ]= useState(true);
+
   const [isloggedin, setloggedIn]= useState(false);
   const [showProfile, setshowProfile]= useState(false)
         
@@ -269,8 +374,31 @@ const Sidebar = () => {
 
     }
 
+
+    // const handlesubmenu=()=>{
+    //  sethidesubmenu(!hidesubmenu)
+    //   console.log( hidesubmenu);
+    // }
   
-  console.log("here is the accutal boolean value" + showProfile)
+  
+
+    const handleSub= ()=>{
+      setSub(!sub);
+      // handlehideSubmenu(number)
+      console.log(sub);
+    }
+
+
+    const showSubmenu= (number)=>{
+      setSubmenu(number)
+      // handlehideSubmenu(number)
+      console.log(submenu)
+      // handleSub()
+    }
+
+
+
+  // console.log("here is the accutal boolean value" + showProfile)
   // console.log(getCurrentUser)
     const logedin=JSON.parse(localStorage.getItem("user"))
     // console.log(logedin);
@@ -282,7 +410,7 @@ const Sidebar = () => {
     } 
     else{
       var email = logedin.data.email;
-      console.log("this is the email" + email)
+      // console.log("this is the email" + email)
       name= email.substring(0, email.lastIndexOf("@"))
     }
 
@@ -311,19 +439,19 @@ const Sidebar = () => {
   return(
   <div>
     <Nav sidebar={sidebar? 1: 0}>
-      <Logodiv >
-          <Logo >
-            <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
-          </Logo>
-      </Logodiv>
+     
       <Navigation>
-        <Tenantlogo>
+     
+        <Logodiv>
+          <Logo>
+          <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
 
-          Tenant Logo
-        </Tenantlogo>
+          </Logo>
+        </Logodiv>
+              
         <Navdiv>
           <Naviconburger to='#' onClick={showSidebar} sidebar={sidebar? 1:0}>
-              {sidebar?  <MdIcons.MdOutlineClose /> : <VscMenu />}
+              {sidebar?   <VscMenu /> :<MdIcons.MdOutlineClose />}
           </Naviconburger>
         </Navdiv>
         {isloggedin ?  
@@ -378,22 +506,51 @@ const Sidebar = () => {
                 <Link to="/signin"><SignIn>SIGN IN</SignIn></Link> 
                 <Link to="/signup"><SignUp>SIGN UP</SignUp></Link>    
               </Registerdiv>
-              
-          
 
-            }
-     
-      </Navigation>
-      <SidebarNav sidebar={sidebar? 1 :0}>
-              {Sidebardata.map((menu,index) => { 
-                return <Submenu menu={menu} key={index}/>
-              })}    
-      </SidebarNav>
-        {/* <Openscroll>pw
-          HERE IS THE CLOSE AND OPEN ICON
-        </Openscroll> */}
-        {/* <Scroll>
-      </Scroll> */}
+        }
+    </Navigation>
+    <SidebarNav sidebar={sidebar? 1: 0}>         
+          {Sidebardata.map((menu,index) => {
+            // return <Submenu key={index} menu={menu} number={index} to="#"/>
+            return (
+              <div key={index}>
+                <Submenuwrap  onClick={()=>{showSubmenu(index)}} sub={sub?1:0} to={!menu.submenu && menu.path}>
+                {/* showSubmenu */}
+                  <div>
+                    <Span >{menu.icon} </Span>
+                    <Sidebarlebel>{menu.title}</Sidebarlebel>
+                  </div>
+                  <Dropicon>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                    {submenu ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }
+                  </Dropicon>
+               </Submenuwrap> 
+                {(submenu===index && menu.submenu && sub) && menu.submenu.map((dropdownmenu, index) =>  { 
+          
+                return(
+                    <Dropdownmenu dropdownmenu={dropdownmenu} key={index+ 5} >
+                      <Eachdropdowndiv to={dropdownmenu.path} >
+                        <div>                          
+                        <Dropdownspan >{dropdownmenu.icon} </Dropdownspan>
+                        <Dropdownsidebarlebel>{dropdownmenu.title}</Dropdownsidebarlebel>
+                        </div>
+                      </Eachdropdowndiv>
+                    </Dropdownmenu> 
+                  )
+                })}
+            </div>
+            )
+
+
+          })}   
+        {/* <Barcontent>        </Barcontent> */}
+    </SidebarNav>
+    <Scroll sidebar={sidebar? 1: 0} onClick={showSidebar}>
+      <Openscroll to="#">     
+        <Link style={{fontSize:"1.2rem", color: "white"}} to="#"> {sidebar ? <MdIcons.MdOutlineArrowForwardIos/> : <MdIcons.MdOutlineArrowBackIosNew/>  }</Link>
+    </Openscroll> 
+  </Scroll> 
+    
+      
     
       <Switchdiv>
           <Outlet />
