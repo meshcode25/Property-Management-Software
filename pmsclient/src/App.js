@@ -24,6 +24,10 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >
               <Route>
+                <Route path="/dashboard" element={<Empty />} />  
+                <Route index element={<Test />  } />  
+              </Route>
+              <Route>
                 <Route path="/properties/list-property" element={<Test />} />
                 <Route path="/properties/find-new-properties" element={<Fake />} />
                 <Route index element={<Empty />  } />   
@@ -63,8 +67,11 @@ const App = () => {
                 <Route path="/reports/monthy-expenses" element={<Test />} />
                 <Route path="/reports/monthly-income" element={<Fake />} />
               </Route>
+              <Route>
+                <Route path="/support" element={<Fake />} />  
+                <Route index element={< Fake/>  } />  
+              </Route>
         </Route> 
-        <Route path="/support" element={<Fake />} />
          
           
       </Routes>

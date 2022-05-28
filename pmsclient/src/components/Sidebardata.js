@@ -228,14 +228,6 @@ const Sidebardata = () => (
         }
       ]
     }, 
-    {
-      title:"Support",
-      icon: <VscIcons.VscFileSubmodule/>,
-      path:"/support",
-      iconClosed:<AiIcons.AiOutlineRight/>,
-      iconOpen: <MdIcons.MdExpandMore/>,
-      status:"hide",
-    }, 
 
     {
       title:"Reports",
@@ -261,6 +253,14 @@ const Sidebardata = () => (
         
       ]
     },
+    {
+      title:"Support",
+      icon: <VscIcons.VscFileSubmodule/>,
+      path:"/support",
+      iconClosed:<AiIcons.AiOutlineRight/>,
+      iconOpen: <MdIcons.MdExpandMore/>,
+      status:"hide",
+    }, 
 ]
 
 
