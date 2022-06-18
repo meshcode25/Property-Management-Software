@@ -5,78 +5,19 @@
 // import { BsWindowSidebar } from "react-icons/bs"
 
 
-
-
-
-
 const Logodiv=styled.div`
 
 `
  <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
  
  `
-
-
-
-
-
-
-
-
-        //       <SidebarNav sidebar={sidebar? 1: 0} style={{overflow:"visible", width:"50px"}}>        
-
-        //       <div style={{}}>
-
-
-
-        //       {Sidebardata.map((menu,index) => {
-        //           // return <Submenu key={index} menu={menu} number={index} to="#"/       
-        //         return (
-        //             <div key={index}>
-        //               <Submenuwrap  onMouseOver={()=>{showSubmenu(index)}} sub={sub?1:0}  to={!menu.submenu && menu.path}>
-        //                showSubmenu 
-        //                 <div >
-        //                   <Span >{menu.icon} </Span>
-        //                   /* <Sidebarlebel>{menu.title}</Sidebarlebel> */
-
-        //                   <span style={{color:"white"}}>
-        //                       {(submenu===index && menu.submenu && sub) ? <span>{menu.title} </span> : null}
-        //                  </span>  
-        //                 </div>
-        //                 <Dropicon>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-        //                   {(submenu===index && menu.submenu && sub) && submenu ? menu.iconOpen: menu.submenu? null :null   }
-        //                 </Dropicon>
-        //              </Submenuwrap> 
-                        
-        //               <div style={{marginLeft:"2rem"}}>
-        //                 {(submenu===index && menu.submenu && sub) && menu.submenu.map((dropdownmenu, index) =>  {
-        //                       return(                      
-        //                         <Dropdownmenu sidebar={sidebar? 1:0} dropdownmenu={dropdownmenu} key={index+ 5} style={{width:"300px"}}>
-        //                           <Eachdropdowndiv to={dropdownmenu.path} >
-        //                             <div>                          
-        //                             <Dropdownspan >{dropdownmenu.icon} </Dropdownspan>
-        //                             <Dropdownsidebarlebel>{dropdownmenu.title}</Dropdownsidebarlebel>
-        //                             </div>
-        //                           </Eachdropdowndiv>
-        //                         </Dropdownmenu> 
-        //                       )             
-        //                   })    
-        //               })         
-        //               </div>
-
-
-
-        //           </div>
-        //           )
-        //         })}  
-        //       </div>
-        
-        // </SidebarNav>
+ */
  
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, createContext, useContext} from "react"
 import styled from "styled-components"
 import {VscMenu} from "react-icons/vsc"
 import * as MdIcons from "react-icons/md"
+import Empty from "../Pages/Empty"
 import Sidebardata from "./Sidebardata"
 import { Link, Outlet} from "react-router-dom"
 import * as RiIcons from "react-icons/ri"
@@ -139,7 +80,7 @@ background-color:black;
 const SidebarNav=styled.div  `
 position:fixed;
 overflow:scroll;
-top:51px;
+top:${({sidebar})=>sidebar? "51px":"52px"};
 width:${({sidebar})=> sidebar ? "3.5%": "21.5%"};
 display:grid;
 height:90vh;
@@ -202,7 +143,7 @@ const Switchdiv= styled.div`
  width:${({sidebar})=> sidebar ? "96%": "77.5%"};
  overflow-x:hidden;
  overflow-y:scroll;
- background-color:indigo;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
 
 
 `
@@ -417,10 +358,9 @@ background-color:black;
 
 const Fixed=styled.div`
 position:fixed;
-left:4.5%;
 z-index:1;
 margin-top:-2rem;
-top:${({height})=>{ if(height===1){"50px"} }};
+left:${({height})=> (height===4)? "5%" : "4.4%"};
 box-sizing:border-box;
 background-color:black; 
 opacity:2;
@@ -443,13 +383,15 @@ const Dropdownspan= styled.span`
 const Dropdownsidebarlebel= styled.span` 
 
 ` 
+export const  Sharesidebar=  createContext();
   
 const Sidebar = () => {
   const [sidebar, setSidebar ]= useState(false);
-    
+  const [height, setHeight]=useState()
   const [sub, setSub]= useState(false)
   const [submenu, setSubmenu]= useState()
-  
+
+   
   // const [hidesubmenu, sethidesubmenu ]= useState(true);
 
   const [isloggedin, setloggedIn]= useState(false);
@@ -485,9 +427,11 @@ const Sidebar = () => {
 
       if(id===submenu){
         setSub(!sub)
+        
       } 
       else{
         setSub(true);
+     
       }
       // handlehideSubmenu(number)
       // console.log(sub);
@@ -495,12 +439,15 @@ const Sidebar = () => {
 
     const showSubmenu= (number)=>{
       handleSub(number)
-      // handlehideSubmenu(number)
-      // setHeight(number)
+
+
       setSubmenu(number)
-      // console.log(submenu)
-      // console.log(number)
-      // console.log(height)
+
+      if(number===4){
+        setHeight(4)
+      }else{
+        setHeight()
+      }
       }
         
         // console.log("here is the accutal boolean value" + showProfile)
@@ -555,11 +502,11 @@ const Sidebar = () => {
           </Logo>
         </Logodiv>
               
-        <Navdiv>
+        {/* <Navdiv>
           <Naviconburger to='#' onClick={showSidebar} sidebar={sidebar? 1:0}>
               {sidebar?   <VscMenu /> :<MdIcons.MdOutlineClose />}
           </Naviconburger>
-        </Navdiv>
+        </Navdiv> */}
         {isloggedin ?  
           <Wholeprofile >
             
@@ -620,7 +567,7 @@ const Sidebar = () => {
 
                                   </Submenuwrap> 
 
-                                  <Fixed onMouseLeave={()=>{setSub(false)}}  height={index}>
+                                  <Fixed onMouseLeave={()=>{setSub(false); setHeight()} } height={height}>
 
                                   {menu.submenu? 
 
@@ -702,9 +649,11 @@ const Sidebar = () => {
         <Link style={{fontSize:"1.35rem", color:"white"}} to="#"> {sidebar ? <MdIcons.MdOutlineArrowForwardIos/> : <MdIcons.MdOutlineArrowBackIosNew/>  }</Link>
       </Openscroll> 
     </Scroll>
-      <Switchdiv sidebar={sidebar? 1: 0}>
-          <Outlet />
-      </Switchdiv>                               
+    <Switchdiv > 
+      <Sharesidebar.Provider value={sidebar}>
+        <Outlet />
+      </Sharesidebar.Provider>    
+    </Switchdiv>                                
     </Nav>
 </div>
 

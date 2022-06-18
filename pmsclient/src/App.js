@@ -28,7 +28,7 @@ const App = () => {
                 <Route index element={<Test />  } />  
               </Route>
               <Route>
-                <Route path="/properties/list-property" element={<Test />} />
+                <Route path="/properties/list-property" element={<Empty />} />
                 <Route path="/properties/find-new-properties" element={<Fake />} />
                 <Route index element={<Empty />  } />   
               </Route>
