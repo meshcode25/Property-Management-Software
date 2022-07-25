@@ -80,6 +80,7 @@ export {
     verify, 
     signout,
     getCurrentUser,
-    passwordreset
+    passwordreset,
+
 
 }

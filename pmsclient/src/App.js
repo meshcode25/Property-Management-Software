@@ -10,6 +10,19 @@ import Verify from "./components/VerifyComponent"
 import Verifysuccess from "./components/VerificationSuccess"
 import Verifyfail from './components/verifyfail';
 import Passwordreset from "./components/Forgotpasscomp"
+import Addproperty from "./Pages/Addproperty"
+import Addproperty2 from "./Pages/Addproperty2"
+import Addpropstep1 from "./Pages/Addpropstep1";
+import Addpropstep2 from "./Pages/Addpropstep2";
+import Addpropstep3 from "./Pages/Addpropstep3";
+import Addpropstep4 from "./Pages/Addpropstep4";
+import Addpropstep5 from "./Pages/Addpropstep5";
+import Addpropstep6 from "./Pages/Addpropstep6";
+import Addpropstep7 from "./Pages/Addpropstep7";
+import Addpropstep8 from "./Pages/Addpropstep8";
+
+// import Nameless from "./Pages/nameless"
+// import Addpropstep7 from "./Pages/Addpropfolder/Addpropstep7";
 
 const App = () => {
   return(
@@ -23,18 +36,35 @@ const App = () => {
             <Route path="/passwordreset" element={<Passwordreset />}  />
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >
-              <Route>
-                <Route path="/dashboard" element={<Empty />} />  
-                <Route index element={<Test />  } />  
+                <Route>
+                  <Route path="/dashboard" element={<Empty />} />  
+                  <Route index element={<Test />  } />  
+                </Route>
+
+                <Route >
+
+                   <Route path="/properties/list-property" element={<Addpropstep1 />} />    
+                  <Route path="/properties/list-property/step1" element={<Addpropstep1 />} />                       
+                  <Route path="/properties/list-property/step2" element={<Addpropstep2 />} />             
+                  <Route path="/properties/list-property/step3" element={<Addpropstep3 />} />            
+                  <Route path="/properties/list-property/step4" element={<Addpropstep4 />} />            
+                  <Route path="/properties/list-property/step5" element={<Addpropstep5 />} />                          
+                  <Route path="/properties/list-property/step6" element={<Addpropstep6 />} />  
+                  <Route path="/properties/list-property/step7" element={<Addpropstep7 />} />   
+                  <Route path="/properties/list-property/step8" element={<Addpropstep8 />} />   
+                  {/* <Route path="/properties/list-property/step7" element={<Addpropstep11 />} />   
+                  <Route path="/properties/list-property/step7" element={<Addpropstep11 />} />            
+                  <Route index element={<Addproperty2 />  } />    */}
               </Route>
+
               <Route>
-                <Route path="/properties/list-property" element={<Empty />} />
-                <Route path="/properties/find-new-properties" element={<Fake />} />
+                <Route path="/properties/find-new-properties" element={<Empty />} />
                 <Route index element={<Empty />  } />   
               </Route>
+
               <Route>
                 <Route path="/landlords/all-landlords" element={<Test />} />
-                <Route path="/landlords/create-new-landlord" element={<Fake />} />
+                <Route path="/landlords/create-new-landlord" element={<Test />} />
                 <Route path="/landlords/find-landlord" element={<Fake />} />
                 <Route index element={<Empty />  } />   
               </Route>

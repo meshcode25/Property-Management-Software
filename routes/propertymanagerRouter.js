@@ -6,6 +6,25 @@ const unitController= require("../controllers/unitcontroller")
 const landLordController= require("../controllers/landlordcontroller")
 const careTakerController= require("../controllers/caretakercontroller")
 
+//Post request for creating a new apartment
+
+router.post("/list-property/step1", function (req,res,next){
+    console.log(req.body);
+    res.status(200).send({Listpropertymessage:req.body});
+})
+
+
+// , propertyController.create_apartement_post)
+
+// //Get request for updating an apartement to show form for updating apartement
+// router.get("/apartement/:id/update", propertyController.update_apartement_get)
+
+// //Post request for updating apartement
+// router.post("/apartement/:id/update ", propertyController.update_apartement_post)
+
+
+
+
 /*
 
 ////API ROUTES FOR APARTEMENTS BEING MANAGED BY A REAL ESTATE AGENCY////
@@ -19,15 +38,6 @@ router.get("/apartement", propertyController.apartement_details)
 //Get request to create a new apartement
 router.get("/apartement/create", propertyController.create_apartement_get)
 
-//Post request for creating a new apartment
-
-router.post("/apartement/create", propertyController.create_apartement_post)
-
-//Get request for updating an apartement to show form for updating apartement
-router.get("/apartement/:id/update", propertyController.update_apartement_get)
-
-//Post request for updating apartement
-router.post("/apartement/:id/update ", propertyController.update_apartement_post)
 
 
 //Get request for deleting an apartement to show form for deleting an apartement

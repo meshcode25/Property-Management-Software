@@ -143,9 +143,6 @@ const Switchdiv= styled.div`
  width:${({sidebar})=> sidebar ? "96%": "77.5%"};
  overflow-x:hidden;
  overflow-y:scroll;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
-
-
 `
 
 const Navdiv= styled.div`
@@ -582,7 +579,6 @@ const Sidebar = () => {
                                   
                                   }
 
-
                         
                                     {(submenu===index && menu.submenu && sub) && menu.submenu.map((dropdownmenu, index) =>  { 
                                                 
@@ -636,7 +632,7 @@ const Sidebar = () => {
                       </Dropdownmenu> 
                     )             
                 })    
-            })         
+            }         
           </div>
           )
         })}  

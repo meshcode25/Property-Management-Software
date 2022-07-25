@@ -1,5 +1,5 @@
 import React,{useRef, useState, useEffect} from 'react'
-import mapboxgl from '!mapbox-gl'; 
+import mapboxgl from '!mapbox-gl'; /* eslint import/no-webpack-loader-syntax: off */
 import styled from "styled-components"
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -36,17 +36,8 @@ function Test() {
     });
   });
 
-  // return (
-  //   <Div>
-      
-  //     Test
-
-  //   </Div>
-  // )
-
-
   return (
-    <div>
+    <div styled={{backgroundColor:"green"}}>
       <div ref={mapContainer} className="map-container" />
     </div>
     );

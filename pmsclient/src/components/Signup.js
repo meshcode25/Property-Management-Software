@@ -137,7 +137,6 @@ const Required=(value)=>{
 
 const IsEmail= (value)=>{
     if(!isEmail(value))
-
     return <div style={{backgroundColor:"red", color:"white", padding:"0.25rem 0", margin: "0.25rem auto", width:"80%", }}>Enter a valid Email</div>
 }
 
@@ -169,6 +168,8 @@ const signup= ()=>{
         setshow(!show)
     }
 
+
+
     const emailChange=(e)=>{
         const email=e.target.value
         setEmail(email);
@@ -192,7 +193,7 @@ const signup= ()=>{
                     (response)=>{
                         if(response.status===201){
                             console.log(response.data.message)
-                            let redirect= setTimeout(()=>{return window.location.href=("/signin")}, 15000 )
+                            let redirect= setTimeout(()=>{return window.location.href=("/signin")},100)
                             setgreenMessage(response.data.message)
                             setLoading(false)
                             redirect();

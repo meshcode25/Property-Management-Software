@@ -20,7 +20,7 @@ const indexRouter= require("./routes/indexRouter")
 const signupRouter= require("./routes/signupRouter")
 const verifyemailRouter=require("./routes/verifyemailRouter")
 const passwordresetRouter= require("./routes/passwordresetRouter")
-//const propertyMangerRouter= require("./routes/propertymanagerRouter")
+const propertyMangerRouter= require("./routes/propertymanagerRouter")
 //const landLordRouter= require("./routes/landlordRouter")
 //const tenantRouter= require("./routes/tenantRouter")
 //const maintenanceRouter= require("./routes/maintenanceRouter")
@@ -65,13 +65,16 @@ app.use("/o/auth/verify", verifyemailRouter)
 app.use("/o/auth/signup", signupRouter)
 app.use("/", indexRouter)
 
-// 
-/*app.use("/propertymanager", propertyMangerRouter)
-app.use("/landlord", landLordRouter)
+
+app.use("/properties", propertyMangerRouter)
+
+/*app.use("/landlord", landLordRouter)
 
 app.use("/tenant", tenantRouter)
 app.use("/maintenance", maintenanceRouter)
 */
+
+
 //middlewares
 app.use(compression())
 app.use(helmet())

@@ -1,11 +1,15 @@
 import React, {useState, useContext,useRef} from 'react'
 import styled from "styled-components"
+import {BrowserRouter as Router, Route,Routes, Link} from "react-router-dom"
 import {Sharesidebar} from "../components/Sidebar"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
 import Select from "react-validation/build/select"
+import Textarea from "react-validation/build/textarea"
 import Groupselect from "react-select"
+import {Fake} from "./Fake"
+import step1addapartment, {step1addproperty} from "../components/addproperty";
 // import  {Groupselect}  from "react-multi-select-component";
 
 
@@ -74,7 +78,7 @@ z-index:100;
 `
 
 const Prog =styled.span`
-height:${({sidebar})=> sidebar ? "15px": "10px"};
+height:${({sidebar})=> sidebar ? "10px": "8px"};
 width:${({sidebar})=> sidebar ? "80px": "50px" };
 border-radius:5px;
 background-color:blue;
@@ -122,6 +126,8 @@ background-color:blue;
 font-weight:${({sidebar})=> sidebar ? "600": "800" };
 font-size:${({sidebar})=> sidebar ? "1.2rem": "0.9rem" };
 color:white;
+width:48%;
+margin:0 0.5rem;  
 border-radius:6.79px;
 border:none;
 padding:${({sidebar})=> sidebar ? "0.5rem": "0.2rem" };
@@ -131,21 +137,68 @@ padding:${({sidebar})=> sidebar ? "0.5rem": "0.2rem" };
 
 `
 
+
+// const Backbutton=styled.button`
+// background-color:blue;
+// font-weight:${({sidebar})=> sidebar ? "600": "800" };
+// font-size:${({sidebar})=> sidebar ? "1.2rem": "0.9rem" };
+// color:white;
+// width:48%;
+// padding:
+// margin:0 0.5rem;  
+// border-radius:6.79px;
+// border:none;
+// padding:${({sidebar})=> sidebar ? "0.5rem": "0.2rem" };
+// &:hover{
+//   cursor:pointer;
+// }
+
+// `
+const Backbutton=styled(Link)`
+background-color:#F5F5F5;
+text-decoration:none;
+font-weight:${({sidebar})=> sidebar ? "600": "600" };
+font-size:${({sidebar})=> sidebar ? "1.2rem": "1.2rem" };
+margin:1rem 30% 1rem 2rem;  
+border-radius:6.79px;
+border:none;
+padding:${({sidebar})=> sidebar ? "0.5rem": "0.5rem" };
+color:blue;
+&:hover{
+  cursor:pointer;
+  padding:0.5rem;
+  color:white;
+  background-color:blue;
+}
+
+`
+
+
 const Divtwo= styled.div`
-    width:46%;
-    // left:52%;
+    width:47%;
     position:fixed;
-    top:52px;
-    overflow:scroll;
+    top:53px;
+    overflow-y:scroll;
     overflow-x:hidden;
-    left:${({sidebar})=>sidebar? "10%": "70.5%"}
-    height:400px;
+    left:${({sidebar})=>sidebar? "52%": "52%"};
+    height:42vh;
     background-color:yellow;
     color:black;
-    font-size:3rem;
-    text-align:start;
-    padding-left:2rem;
-    padding-top:1rem;
+    font-size:2rem;
+  
+`
+
+const Divthree= styled.div`
+    width:47%;
+    position:fixed;
+    top:53vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    left:${({sidebar})=>sidebar? "52%": "52%"};
+    height:42vh;
+    color:black;
+    font-size:2rem;
+  
 `
  const Addpropertycontainer= styled.div`
  margin:0 auto;
@@ -166,6 +219,7 @@ const Divtwo= styled.div`
  `
  const Numberofroomsdiv=styled.div`
  margin:1rem 0;
+ width:100%;
  `
   
  const Roomslabel=styled.span`
@@ -182,172 +236,355 @@ const Divtwo= styled.div`
  margin:1rem 0;
  `
 
-function Empty() {
+ const Nameofproperty=styled.div`
+ margin:1rem 0;
+ `
+ const Totalnoofunitsdiv=styled.div`
+ margin:1rem 0;
+ `
+
+const Numberofunitsavailable=styled.div`
+margin:1rem 0;
+`
+
+
+const Propertydescriptiondiv=styled.div`
+margin:1rem 0;
+`
+const Propertydescriptionheaderdiv=styled.div`
+
+`
+   
+
+const Propertydescriptionareadiv=styled.div`
+
+`
+
+function Empty( ){
 
   const insideoptions=[
-    { value: 'alarm', label:"Alarm"},        
-    { value: 'backupgenerator', label:"Backup Generator Available"},             
-    { value: 'ensuite', label:"En Suite"},
-    { value: 'fibreinternet', label:"Internet Available"},
-    { value: 'furnished', label:"Furnished"},
-    { value: 'serviced', label:"Serviced"},
-    { value: 'servicechargeincluded', label: "Service Charge Include"},                
-    { value: 'walkincloset', label:"Walk In Closet"},
-    { value: 'openkitchen', label:"Open Kitchen Plan"},
-    { value: 'aircondition', label:"Air Conditioning"}
-  ]
+      { value: 'alarm', label:"Alarm"},        
+      { value: 'backupgenerator', label:"Backup Generator Available"},             
+      { value: 'ensuite', label:"En Suite"},
+      { value: 'fibreinternet', label:"Internet Available"},
+      { value: 'furnished', label:"Furnished"},
+      { value: 'serviced', label:"Serviced"},
+      { value: 'servicechargeincluded', label: "Service Charge Include"},                
+      { value: 'walkincloset', label:"Walk In Closet"},
+      { value: 'openkitchen', label:"Open Kitchen Plan"},
+      { value: 'aircondition', label:"Air Conditioning"}
+    ]
 
-  const outsideoptions=[
-    { value: 'balcony', label:"  Balcony"},        
-    { value: 'bbq', label:"BBQ"},             
-    { value: 'electricfence', label:"Electric Fence"},
-    { value: 'cctv', label:"CCTV"},
-    { value: 'borehole', label:"Borehole"},
-    { value: 'garden', label:"Garden"},
-    { value: 'parking', label: "Parking"},                
-    { value: 'staffquaters', label:"Staff Quarters"},
-    { value: 'swimmingpool', label:"Swimming Pool"},
-    { value: 'wheelchairaccess', label:"Wheelchair Access"},
-    { value: 'gym', label:"GYM"},
-    { value: 'garden', label:"Garden"}
-  ]
+    const outsideoptions=[
+      { value: 'balcony', label:"  Balcony"},        
+      { value: 'bbq', label:"BBQ"},             
+      { value: 'electricfence', label:"Electric Fence"},
+      { value: 'cctv', label:"CCTV"},
+      { value: 'borehole', label:"Borehole"},
+      { value: 'garden', label:"Garden"},
+      { value: 'parking', label: "Parking"},                
+      { value: 'staffquaters', label:"Staff Quarters"},
+      { value: 'swimmingpool', label:"Swimming Pool"},
+      { value: 'wheelchairaccess', label:"Wheelchair Access"},
+      { value: 'gym', label:"GYM"},
+      { value: 'garden', label:"Garden"}
+    ]
 
-  const nearbyoptions=[
+    const nearbyoptions=[
 
-    { value: 'busstop', label:"Bus Stop"},
-    { value: 'hospital', label:"Hospital"},
-    { value: 'golfcourse', label: "Golf Course"},                
-    { value: 'scenicview', label:"Scenic View"},
-    { value: 'beach', label:"Beach"},
-    { value: 'seaview', label:"Sea View"},
-    { value: "shoppingcenter", label:"Shopping Center"},
-    { value: 'school', label:"School"}
-  ]
+      { value: 'busstop', label:"Bus Stop"},
+      { value: 'hospital', label:"Hospital"},
+      { value: 'golfcourse', label: "Golf Course"},                
+      { value: 'scenicview', label:"Scenic View"},
+      { value: 'beach', label:"Beach"},
+      { value: 'seaview', label:"Sea View"},
+      { value: "shoppingcenter", label:"Shopping Center"},
+      { value: 'school', label:"School"}
+    ]
 
-  const Required=()=>{
+    const numberofroomsoptions=[
+      { value: '0', label:"Bedsitters"},
+      { value: '1', label:"1 Bedrooms"},
+      { value: '2', label:"2 Bedrooms "},
+      { value: '3', label: "3 Bedrooms"},                
+      { value: '4', label:"4 Bedrooms"},
+      { value: '5', label:"5 Bedrooms"},
+      { value: '6', label:"6 Bedrooms"},
+      { value: "7", label:"7 Bedrooms"},
+      { value: '8', label:"8 Bedrooms"},
+      { value: "9", label:"9 Bedrooms"},
+      { value: '10', label:"10 Bedrooms"},
+      { value: '10+', label:"10+ Bedrooms"},
 
 
+    ]
+
+
+
+    const side=useContext(Sharesidebar);
+    const form=useRef();
+    const checkbtn=useRef()
+
+
+    const [roomsperunit, setRoomsperunit]= useState()
+    const [listingtype, setListingtype]= useState()
+    const [propertytype, setPropertype]=useState();
+    const [totalunits, setTotalunits]=useState();
+    const [propertyname, setPropertyname]=useState();
+    const [availableunits, setAvailableunits]=useState()
+    const [propertydetailsdescription, setPropertydetailsdescription]=useState(); 
+    const [descriptionheading, setDescriptionheading]=useState();
+    const [insidefeatures, setInsidefeatures]=useState();
+    const [outsidefeatures, setOutsidefeatures]=useState();
+    const [nearbyfacilities, setNearbyfacilities]=useState();
+
+
+    const [color, setColor]= useState()
+
+    
+     
+  const Required=(value)=>{
+    if(!value){
+      return <div style={{backgroundColor:"", color:"red", padding:"", margin: "", width:"100%"}}>Required</div>
+    
+      // console.log(propertyname)
+    }
+    else{ 
+  
+    }
   }
 
-  const side=useContext(Sharesidebar);
-  const form=useRef();
-  const checkbtn=useRef()
+  const Color =(value)=>{
+    if(!value){
+      // console.log("here it is ")
+      // console.log(propertyname)
+      // return <div style={{backgroundColor:"", color:"red", padding:"", margin: "", width:"100%"}}>Required</div>
 
-console.log(side)
-  const [numberofrooms, setNumberofrooms]= useState()
-  const [listingtype, setListingtype]= useState()
-  const [propertytype, setPropertype]=useState();
-  
-  
-  
-  
-  
-  const handleSubmitproperty=()=>{   }
+    }
 
-  const handleListingTypeChange=(e)=>{
+  
     
   }
-
-
-  const handleNumberOfRoomsChange=(e)=>{
-    
+  const listingTypeChange=(e)=>{
+    const listingtype=e.target.value;
+    setListingtype(listingtype);
   }
 
-  const handlePropertyTypeChange=(e)=>{
+  const noOfRoomsPerUnitChange=(e)=>{
+    console.log(e[0])
+    console.log(e);
+    var loop=[]
+
+    for(let i=0; i<e.length; i++){
+      loop.push(i)
+
+    }
     
+    // const rooms=e.call.slice[]
+    // setRoomsperunit(rooms);
+    console.log(loop);
+  }
+  
+  const propertyTypeChange=(e)=>{
+    const name=e.target.value;
+    setPropertype(name);
+  }
+
+  const propertyNameChange=(e)=>{
+    const name=e.target.value;
+    setPropertyname(name);
+  }
+
+  const availableUnitsChange=(e)=>{
+    const availableunits=e.target.value;
+    setAvailableunits(availableunits);
+
+  }
+
+  const totalUnitsChange=(e)=>{
+    const totalunits=e.target.value;
+    setTotalunits(totalunits);
+
+  }
+  const headingDescriptionChange=(e)=>{
+    const headingdescription=e.target.value;
+    setDescriptionheading(headingdescription);            
+  
+  }
+  const descriptonAreaChange=(e)=>{
+    const detaildescription=e.target.value;
+    setPropertydetailsdescription(detaildescription);
+
+  }
+
+  const insideFeaturesChange=(e)=>{
+    const insidefeatures=e.target.value;
+    // setInsidefeatures(insidefeatures);
+
+  }
+
+  const outsideFeaturesChage=(e)=>{
+    const insidefeatures=e.target.value;
+    // setOutsidefeatures(outsidefeatures);
+  }
+
+  const nearbyFacilitiesChange=(e)=>{
+    const nearbyfeatures=e.target.value;
+    // setNearbyfacilities(nearbyfeatures);
   }
 
 
+    
+  const handleSubmitProperty=(e)=>{
+    e.preventDefault();
 
-  return (
-      <Listpropdiv >
-          <Div sidebar={side? 1:0}>  
-              <ListHeader sidebar={side?1:0}>
-                <Headertitle sidebar={side?1:0}>List new property</Headertitle>
-                <Draftsavebutton sidebar={side?1:0}>Save Draft</Draftsavebutton>  
-                <Listfooter sidebar={side? 1:0}>Next Step</Listfooter>
-              </ListHeader>
-              <Progressbar sidebar={side?1:0}>
-                <Prog sidebar={side?1:0} ></Prog>
-                <Prog sidebar={side?1:0}></Prog>
-                <Prog sidebar={side?1:0}></Prog>
-                <Prog sidebar={side?1:0} style={{backgroundColor:"#F8F8F8"}}></Prog>
-                <Prog sidebar={side?1:0}style={{backgroundColor:"#F8F8F8"}}></Prog>
-                <Prog sidebar={side?1:0}style={{backgroundColor:"#F8F8F8"}}></Prog>
-                <Prog sidebar={side?1:0}></Prog>
-              </Progressbar>
 
-              <Listbody  sidebar={side? 1:0}>
-                  <Addpropertycontainer>
-                    <Propertycontainer>
+    form.current.validateAll();
 
-                        <Form method="" ref={form} onSubmit={handleSubmitproperty} >  
-                            <Listingtype>
-                                    <Roomslabel>Select Your Listing type:</ Roomslabel >
-                                    <Select type="select" value={listingtype} onChange={handleListingTypeChange} validations={[Required]} style={{width:"100%", height:"3rem", borderRadius:"5px", border:"none", fontSize:"1.2rem", backgroundColor:"white", color:"black"}}>
-                                        <option value="">Listing Type</option>
-                                        <option value="rent">For Rent</option>
-                                        <option value="sale">For Sale</option>
-                                        <option value="lease">For Lease</option>
-                                    </Select>
-                            </Listingtype>
-                            <Propertytypediv>
-                                    <Roomslabel>Select Your Property Type:</ Roomslabel >
-                                    <Select type="select" value={propertytype} onChange={handlePropertyTypeChange} validations={[Required]} style={{width:"100%", height:"3rem", borderRadius:"5px", border:"none", fontSize:"1.2rem", backgroundColor:"white", color:"black"}}>
-                                        <option value="">Type of Property</option>
-                                        <option value="room/bedsitter">Room/Bedsitter</option>
-                                        <option value="house">House/Bungalow</option>                      
-                                        <option  value="flat/apartment">Apartment/Flat</option>
-                                        <option value="townhouse">Town House</option>
-                                        <option value="warehouse">Ware Houses</option>
-                                        <option value="offices">Offices</option>                      
-                                        <option  value="commercialproperty">Commercial Property</option>
-                                        <option value="villa">Villa</option>
-                                        <option value="shops">Shops</option>
-                                    </Select>
-                            </Propertytypediv>
-                            {/* <div>{sidebar}</div> */}
-                            <Numberofroomsdiv>
-                                <Roomslabel>Number of Rooms In Your Property:</ Roomslabel >
-                                <Input type="number" name="noRooms" placeholder="Add The number of Rooms" value={numberofrooms} onChange={handleNumberOfRoomsChange} validations={[Required]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:"none", fontSize:"1rem", color:"black"}}></Input>
-                            </Numberofroomsdiv>
+    if(checkbtn.current.context._errors.length===0){
+      step1addapartment(listingtype,propertytype,propertyname,totalunits,availableunits,roomsperunit,insidefeatures,outsidefeatures,nearbyfacilities,descriptionheading,propertydetailsdescription)
+      .then(response=>{
+        console.log(response);
+
+
+      }).catch(err=>console.error(err))
+      
+    }else{
+      // console.log("don't you dare submit that form")
+      
+    
+    }
+
+
+
+
+  }
+
+    return (
+        <Listpropdiv >
+            <Div sidebar={side? 1:0}>  
+                <ListHeader sidebar={side?1:0}>
+                  <Headertitle sidebar={side?1:0}>List new property</Headertitle>
+                  <Draftsavebutton sidebar={side?1:0}>Save Draft</Draftsavebutton>  
+                  {/* <Listfooter sidebar={side? 1:0}>Next Step</Listfooter> */}
+                </ListHeader>
+                <Progressbar sidebar={side?1:0}>
+                  <Prog sidebar={side?1:0} ></Prog>
+                  <Prog sidebar={side?1:0}></Prog>
+                  <Prog sidebar={side?1:0}></Prog>
+                  <Prog sidebar={side?1:0} style={{backgroundColor:"#F8F8F8"}}></Prog>
+                  <Prog sidebar={side?1:0}style={{backgroundColor:"#F8F8F8"}}></Prog>
+                  <Prog sidebar={side?1:0}style={{backgroundColor:"#F8F8F8"}}></Prog>
+                  <Prog sidebar={side?1:0}></Prog>
+                </Progressbar>
+
+                <Listbody  sidebar={side? 1:0}>
+                    <Addpropertycontainer>
+                      <Propertycontainer>
+
+                          <Form method="" ref={form} onSubmit={handleSubmitProperty} >  
+                              <Listingtype>
+                                      <Roomslabel>Select Listing Purpose:</ Roomslabel >
+                                      <Select name="listingpurpose" type="select" value={listingtype} onChange={listingTypeChange} validations={[Required]} style={{width:"100%", height:"3rem", borderRadius:"5px", border:"none", fontSize:"1rem", backgroundColor:"white", color:"black"}}>
+                                          <option value="">Listing Purpose</option>
+                                          <option value="rent">For Rent</option>
+                                          <option value="sale">For Sale</option>
+                                          <option value="lease">For Lease</option>
+                                      </Select>
+                              </Listingtype>
+                              <Propertytypediv>
+                                      <Roomslabel>Select Your Property Type:</ Roomslabel >
+                                      <Select name="typeofproperty" type="select" value={propertytype} onChange={propertyTypeChange} validations={[Required]} style={{width:"100%", height:"3rem", borderRadius:"5px", border:"none", fontSize:"1rem", backgroundColor:"white", color:"black"}}>
+                                          <option value="">Select Type of Property</option>
+                                          <option value="bedsitter">Room/Bedsitter</option>
+                                          <option value="house">House/Bungalow</option>                      
+                                          <option  value="apartment">Apartment/Flat</option>
+                                          <option value="townhouse">Town House</option>
+                                          <option value="warehouse">Ware Houses</option>
+                                          <option value="offices">Offices</option>                      
+                                          <option  value="commercialproperty">Commercial Property</option>
+                                          <option value="villa">Villa</option>
+                                          <option value="shops">Shops</option>
+                                      </Select>
+                              </Propertytypediv>
+                              
+                              <Nameofproperty>
+                                <Roomslabel>Name of your Property :</ Roomslabel >
+                                <Input type="text" name="nameofproperty" placeholder="Enter The Name of Your Property" value={propertyname} onChange={propertyNameChange} validations={[Required, Color]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px solid ${color}`, fontSize:"1rem", color:"black"}}></Input>            
+                              </Nameofproperty>                              
+
+                              <Totalnoofunitsdiv>
+                                <Roomslabel>Total Number of Units In Apartment:</ Roomslabel >
+                                <Input type="number" name="totalnoofunits" placeholder="Total Number of Units in This Apartment" value={totalunits}  onChange={availableUnitsChange} validations={[Required]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:"none", fontSize:"1rem", color:"black"}}></Input>            
+                              </Totalnoofunitsdiv>
+
+                              <Numberofunitsavailable>
+                                  <Roomslabel>Number of Currently Letting Units/Available :</ Roomslabel >
+                                  <Input type="number" name="noofunitsnowavailable" placeholder="Available Units Currently Now" value={availableunits} onChange={totalUnitsChange} validations={[Required]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:"none", fontSize:"1rem", color:"black"}}></Input>
+                              </Numberofunitsavailable>
+
+                              <Numberofroomsdiv>
+                                  <Roomslabel>Number of Rooms Per Unit:</ Roomslabel >
+                                  <Groupselect name="numberofroomsperunit"  onChange={noOfRoomsPerUnitChange} options={numberofroomsoptions} isOptionSelected  isMulti/>
+                              </Numberofroomsdiv>   
+                              
+                              <Availableinsidefeaturesdiv>
+                                  <Roomslabel>Select All Features Inside your Property:</ Roomslabel >
+                                  <Groupselect name="featuresinsideproperty"onChange={insideFeaturesChange} validations={[Required]} value={[insidefeatures]} options={insideoptions} isMulti/>
+                              </Availableinsidefeaturesdiv>
+                              
+                              <Availableoutsidefeaturesdiv>
+                                  <Roomslabel>Select All Features Around Your Property:</ Roomslabel >
+                                  <Groupselect name="featuresaroundproperty"  onChange={outsideFeaturesChage } validations={[Required]} value={outsidefeatures} options={outsideoptions} isMulti/>
+                              </Availableoutsidefeaturesdiv>
+                              
+                              <Availablenearbyfeaturesdiv>
+                                  <Roomslabel>Select All Facilities Nearby:</ Roomslabel >
+                                  <Groupselect options={nearbyoptions} onChange={nearbyFacilitiesChange} validations={[Required]} value={[nearbyfacilities]} isMulti name="nearbyfacilities"/>
+                              </Availablenearbyfeaturesdiv>
                             
-                            <Availableinsidefeaturesdiv>
-                                <Roomslabel>Select All Features Inside your Property:</ Roomslabel >
-                                <Groupselect options={insideoptions} isMulti/>
-                            </Availableinsidefeaturesdiv>
-                            
-                            <Availableoutsidefeaturesdiv>
-                                <Roomslabel>Select All Features Around Your Property:</ Roomslabel >
-                                <Groupselect options={outsideoptions} isMulti/>
-                            </Availableoutsidefeaturesdiv>
-                            
-                            <Availablenearbyfeaturesdiv>
-                                <Roomslabel>Select All Facilities Nearby:</ Roomslabel >
-                                <Groupselect options={nearbyoptions} isMulti/>
-                            </Availablenearbyfeaturesdiv>
-                                        
-                            <CheckButton style={{display:"none"}} ref={checkbtn}/>
-                        </Form>  
-                    </Propertycontainer>
-                  </Addpropertycontainer>              
-        
+                              <Propertydescriptiondiv>
+                                  <Propertydescriptionheaderdiv>
+                                    <Roomslabel>Property Description Heading:</ Roomslabel >
+                                    <Input type="text" name="descriptionheader" placeholder="Property Description Heading" value={descriptionheading} onChange={headingDescriptionChange} validations={[Required, Color]} style={{width:"100%", border:`2px solid ${color}`, height:"3rem", backgroundColor:"white", borderRadius:"5px", fontSize:"1rem", color:"black"}}></Input>
+                                  </Propertydescriptionheaderdiv>      
+
+
+                                  <Propertydescriptionareadiv>
+                                    <Roomslabel>Describe your Property:</ Roomslabel >
+                                    {/* <Input type="texarea" name="descriptionarea" placeholder="Description of your Property" value={propertydescriptionarea} onChange={handleDescriptonAreaChange} validations={[Required]} style={{width:"100%", height:"6rem", backgroundColor:"white", border:"none", fontSize:"1rem", color:"black "}}></Input> */}
+                                  <Textarea type="texarea" name="descriptionarea" placeholder="Description of your Property" value={propertydetailsdescription} onChange={descriptonAreaChange} validations={[Required]} style={{width:"100%", height:"6rem"}} /> </Propertydescriptionareadiv>  
+                              </Propertydescriptiondiv>
+                              <div style={{display:"flex", jusitfyContent:"space-between", alignItems:"center"}}>
+                              <Backbutton to="/properties/list-property/step7"  sidebar={side? 1:0}>Back</Backbutton>  
+                                <Listfooter sidebar={side? 1:0}>Next Step</Listfooter> 
+                                {/* <Backbutton sidebar={side? 1:0}>Back</Backbutton>      */}
+                                <CheckButton style={{display:"none"}} ref={checkbtn}/>
+                              </div>
+                          </Form>  
+                      </Propertycontainer>
+                    </Addpropertycontainer>              
           
-              </Listbody>
-          </Div>
+            
+                </Listbody>
+            </Div>
 
-          <Divtwo sidebar={side? 1: 0}> 
-            <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
-            <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
-            <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
-            <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
-            <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
-            <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
-         </Divtwo>
-      </Listpropdiv>
+            <Divtwo sidebar={side ? 1:0}> 
+              <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
+              <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
+              <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
+              <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
+              <div>This is simply for testing routers purposes, When specific parent is clicked show this index page jalkdfjalkfjdk</div>
+              <div>thiohiohoiahdfoiaj ipoiajfoija iopjapodifjaopijfopi qajfiojadoif j</div>
+          </Divtwo>
 
-  
-  )
+          <Divthree sidebar={side ? 1:0}> 
+          <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=mombasa%20&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameBorder="0" scrolling="yes" ></iframe>
+          </Divthree>
+        </Listpropdiv>
+
+    
+    )
 }
 
 export default Empty
