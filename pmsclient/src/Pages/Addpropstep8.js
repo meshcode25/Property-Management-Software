@@ -8,24 +8,62 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { urlValidate } from 'express-validators';
 import * as MdIcons from "react-icons/md"
+import * as BiIcons from "react-icons/bi"
+// import e from 'express';
 
 
-const Listpropdiv=styled.div`
-height:${({sidebar})=> sidebar ? "90%": "89.5%" };
+const Breadcrumbs=styled.div`
 position:fixed;
-left:${({sidebar})=> sidebar ? "4.5%": "22.5%" };
-top:52px;
-overflow:scroll;
-overflow-x:hidden;
-width:${({sidebar})=> sidebar ? "95.5%": "77.5%" };
+top:67px;
+text-align:center;
+display:flex;
+align-items:center;
+// vertical-align:middle;
+height:45px;
+box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+left:${({sidebar})=> sidebar ? "5.5%": "23.5%"};
+width:${({sidebar})=> sidebar ? "92.5%": "74.5%"};
 `
+const Crumbsicons=styled.div`
+margin-left:2rem;
+`
+const Listpropdiv=styled.div`
+position:fixed;
+top:116px;
+height:78vh;
+overflow-y:scroll;
+overflow-x:hidden;
+left:${({sidebar})=> sidebar ? "6%": "24%"};
+width:${({sidebar})=> sidebar ? "93%": "75%"};
 
+
+::-webkit-scrollbar {
+  width: 10px;               /* width of the entire scrollbar */
+  height:7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;    /* color of the scroll thumb */
+  // border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+::-webkit-scrollbar-corner {
+  background-color: #F8F8F8;    /* color of the scroll thumb */
+  // border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+
+`
 const ListHeader=styled.div`
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 width:100%;
 padding:0.5rem;
 margin:0 auto;
 `
+
 const Headertitle=styled.div`
 width:90%;
 margin:0 auto;
@@ -126,16 +164,16 @@ margin:2rem 0 2rem 1.5rem ;
 
 const Label=styled.div`
 font-weight:800;
+margin:0.3em 0;
 
 
 `
 const Imagesdiv=styled.div` 
 display:flex;
-justify-content:space-around;
+justify-content:space-evenly;
 align-items:center;
 wrap-direction:row;
 flex-wrap:wrap;
-
 
 `
 const Imagesdiv2=styled.div`
@@ -152,13 +190,13 @@ border-radius:10px;
 const Imagediv=styled.div`
 background-image:url(${({src})=>{return src}});
 margin:0.05rem 0.1rem 0.6rem 0rem;
+width:13.5rem;
+height:11.5rem;
+background-size:13.5rem 11.5rem;
 background-position:center;
-height:170px;
 position:relative;
-width:250px;
 background-repeat:no-repeat;
-background-size:250px 170px;
-background-color:blue;
+background-color:#F8F8F8;
 border-radius:10px;
 `
 const Removebutton=styled.button`
@@ -185,7 +223,17 @@ input[type=file]::-webkit-file-upload-button {
 }
 
 `
+const Inputlabel=styled.label`
 
+&:hover{
+  background-color:#F8F8F8;
+  cursor:pointer;
+}
+`
+
+const Invalidimage=()=>{
+  return <div style={{backgroundColor:"white", color:"red", padding:"0.25rem 0", fontSize:"1rem", margin: "0.25rem auto", width:"100%",}}>Invalid document upload Image</div> 
+}
 const Required=(value)=>{
     if(!value)
     return <div style={{backgroundColor:"white", color:"red", padding:"0.25rem 0", fontSize:"1rem", margin: "0.25rem auto", width:"100%",}}>Required</div>
@@ -231,54 +279,172 @@ function Addpropstep8 (){
   if(storedpics===null){
       pics=[];
      console.log("NO STOREDpICS ARE THE FOLLOWING " + storedpics)
-    }
-    else{
-        console.log("STOREDPICS ARE THE FOLLOWING " + storedpics);
-        pics=storedpics.saved.prop;
-        console.log(pics);
-      }
+  }
+  else{
+    console.log("STOREDPICS ARE THE FOLLOWING " + storedpics);
+    pics=storedpics.saved.prop;
+    console.log(pics);
+  }
 
       const side=useContext(Sharesidebar);
       const form=useRef();
       const checkbtn=useRef();
 
       const [disabled, setDisabled]=useState(true)
+      const [valid, setValid]=useState(true);
+      const [validsize, setValidsize]=useState(true);
       const [path, setPath]=useState("#");
 
       const [src1, setSrc1]=useState(); 
       const  [outsidephoto, setoutsidePhoto]=useState(pics);  
       const  [insidephoto, setinsidePhoto]=useState([]);  
       const  [anyotherphoto, setanyotherPhoto]=useState([]);  
-
+      const [displaypreview, setDisplaypreview]=useState(false);
         
     // const photoChange =(event)=>{
     //   const a=event.target.value;
     //   setAvailableunits(a);
     // }
 
-
+    console.log(storedpics);
+    console.log(outsidephoto);
+    
     useEffect(()=>{
       if(outsidephoto.length>0){
         setDisabled(false);
+        setDisplaypreview(true);
         console.log(outsidephoto);
         setPath("/properties/list-property/step7");
         
       }else{
         setDisabled(true);
         setPath("#");
-        
+        setDisplaypreview(false);
       }
 
     }, [outsidephoto]);
 
   const outsidePhotoChange=(e)=>{
-
+    const file=e.target.files[0];
     const image=URL.createObjectURL(e.target.files[0]);
     setSrc1(image);
-    setoutsidePhoto([...outsidephoto, image]);
+    console.log(file.type);
+    console.log(file);
+    console.log(image);
+
+    console.log(file.size);
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        // console.log(e.target.result);
+          imageExists(e.target.result, function(exists){
+              if (exists) {
+                  // Do something with the image file..
+                  if(file.size<=10000000){
+                    setoutsidePhoto([...outsidephoto, image]);
+                    console.log("Valid Image");
+                    setValid(true);
+                    setValidsize(true);
+                  }else{
+                    setValidsize(false);
+
+                  } 
+                
+              } else {
+                  // different file format
+                  console.log("INVALID Image")
+                  setValid(false);
+              }
+          });
+        };
+
+        reader.readAsDataURL(file);
+
+        // console.log(reader.readAsDataURL(file));
+
+        function imageExists(url, callback) {
+            var img = new Image();
+            img.onload = function() { callback(true); };
+            img.onerror = function() { callback(false); };
+            img.src = url;
+        }
+    }
 
 
+  
+  const extractImageLink=(e)=>{
+    e.preventDefault();
+    const file=e.dataTransfer.files;
+    const image=URL.createObjectURL(e.dataTransfer.files[0]);
+    setSrc1(image);
+    console.log(image);
+    console.log(file);
+    console.log(file[0].type);
+    console.log(typeof(file));
+    console.log(file[0].size);
+    
+    // console.log(String(file[0].type) === ("image/jpeg" || "image/jpg" || "image/png" || "image/svg"))
+    // if(String(file[0].type)!==("image/jpg" || "image/png" || "image/svg" || "image/jpeg" || "image/jfif" || "image/pjpeg" || "image/pjp")){
+    //   // different file format
+    //     console.log("INVALID file Format accepts Images only e.g .png, .jpeg, .jpeg, .svg etc.")
+    //     setValid(false);  
+    //   } 
+    // else {
+    //   // Do something with the image file..
+    //   if(file[0].size<=10000000){
+    //     setoutsidePhoto([...outsidephoto, image]);
+    //     console.log("Valid Image");
+    //     setValid(true);
+    //     setValidsize(true);
+    //   }
+    //   else{
+    //     setValidsize(false);
+    //     console.log("valide shit")
+    //   } 
+    // }
+
+
+
+
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      // console.log(e.target.result);
+        imageExists(e.target.result, function(exists){
+            if (exists) {
+                // Do something with the image file..
+                if(file[0].size<=10000000){
+                  setoutsidePhoto([...outsidephoto, image]);
+                  console.log("Valid Image");
+                  setValid(true);
+                  setValidsize(true);
+                }else{
+                  setValidsize(false);
+
+                } 
+              
+            } else {
+                // different file format
+                console.log("INVALID Image")
+                setValid(false);
+            }
+        });
+      };
+
+      reader.readAsDataURL(file[0]);
+
+      // console.log(reader.readAsDataURL(file));
+
+      function imageExists(url, callback) {
+          var img = new Image();
+          img.onload = function() { callback(true); };
+          img.onerror = function() { callback(false); };
+          img.src = url;
+      }
   }
+  
+
   const removeImage=(imageurl)=>{
     const remainingimages=outsidephoto.filter((remain)=> remain!==imageurl)
   
@@ -355,12 +521,16 @@ function Addpropstep8 (){
 
 
       return (
-          <Listpropdiv  sidebar={side? 1:0} >
+      <div>
+        <Breadcrumbs sidebar={side?1:0}>
+            <Crumbsicons sidebar={side?1:0}>Icons will go here</Crumbsicons>
+        </Breadcrumbs>
 
+        <Listpropdiv  sidebar={side? 1:0} >
               <ListHeader sidebar={side?1:0}>
                   <Headertitle sidebar={side?1:0}>List new property</Headertitle>
               </ListHeader>
-            
+              
               <Listbody  sidebar={side? 1:0}>
                     <Progressbar sidebar={side?1:0}></Progressbar>
                   
@@ -372,7 +542,7 @@ function Addpropstep8 (){
                               <Label>Property/ Apartment Photos  :</ Label>
                               <Labelpara>Upload some of the best photos of your apartment/property..</Labelpara>
                           
-                                {outsidephoto ?
+                                {displaypreview ?
                                   <Imagesdiv src={src1}>
                                     
                                     {outsidephoto.map((photo,index)=>{
@@ -383,23 +553,34 @@ function Addpropstep8 (){
                                  </Imagesdiv>
                                     
                                     :
-                                    <div>Fuck THIS SHIT EINT WORKING WHY?</div>
+                                      null
                                 }
                                 
                             </Listingpurposediv> 
 
                             <Nameofproperty>
+                              {!valid &&
+                                  <div style={{backgroundColor:"white", color:"red", padding:"0.25rem 0", fontSize:"0.82rem", margin: "0.25rem auto", width:"100%",}}>Invalid file format! Images only e.g .png, .jpeg, ...</div>
+                              }
+                              {!validsize &&
+                                  <div style={{backgroundColor:"white", color:"red", padding:"0.25rem 0", fontSize:"0.82rem", margin: "0.25rem auto", width:"100%",}}>Image too big, Only Accepts upto 10Mbs Image </div>
+                              }
                                 <Label>Outside of the Apartement Photos :</ Label >
-                                {/* {outsidephoto && 
-                                  // <Imagesdiv2 src={src1}></Imagesdiv2>
-                                }
-                                 */}
+                                {/*                                 
+                                  </Nameofproperty>/* {outsidephoto && 
+                                  <Imagesdiv2 src={src1}></Imagesdiv2> 
+                                */}
 
-                                <Input type="file" name="outsideviews" accept=".png , .jpeg, .jpg" title="upload photos of your Apartment"  onChange={outsidePhotoChange}  style={{width:"100%", height:"5rem", backgroundColor:"white", borderRadius:"5px", border:`2px dashed grey`, fontSize:"1rem", color:"black"}}></Input>            
+                                <Inputlabel className="uploaddiv" onDragOver={(e)=>{e.preventDefault()}} onDrop={extractImageLink} style={{width:"100%", height:"6.6rem", border:"2px dashed grey",  display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column"}}>
+                                    <div className="uploadicon" style={{ color:"grey"}}>< BiIcons.BiImageAdd /></div>
+                                    <div className="uploadhere" style={{ }}>Drag and Drop or Click <span style={{color:"blue"}}>Here</span> to upload Photos</div>
+                                    <div className="pictype" style={{paddingLeft:"0.2rem"}}>(Accepts .jpg, .jpeg, .svg, .png upto 10Mbs)</div>
+                                  <Input style={{position:"absolute", width:"100%", top:"0", botton:"0", display:"flex", alignItems:"center", backgroundColor:"red", justifyContent:"space-between", opacity:"0", }} type="file" name="outsideviews" accept=".png , .jpeg, .jpg, .svg, .jfif, .pjpeg, .pjp" title="upload photos of your Apartment"  onChange={outsidePhotoChange} ></Input>            
+                                </Inputlabel>
                             </Nameofproperty>                              
 
                               <Totalnoofunitsdiv>
-                                <Label for="outide">Photos of Inside the Apartment:</ Label >
+                                <Label Htmlfor="outide">Photos of Inside the Apartment:</ Label >
                                 
                                   <div className="outside" >
                                     <Check style={{width:"90%", margin:"2rem auto"}}>
@@ -414,23 +595,25 @@ function Addpropstep8 (){
                                   <Input type="file" name="anyotherviews" accept=".png , .jpeg, .jpg" title="upload photos of Around your apartment" value={anyotherphoto} onChange={anyotherPhotoChange}  style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px dashed grey`, fontSize:"1rem", color:"black"}}></Input>            
                               </Numberofunitsavailable>
                                
-                            <div style={{ width:"100%", margin:"1rem 0rem 1rem 1rem"}}>
-                              <Backbutton to="/properties/list-property/step7" onClick={saveBack} sidebar={side? 1:0} >Back</Backbutton>    
+                            <div style={{ width:"40%", margin:"3rem auto", backgroundColor:""}}>
+                                <Backbutton to="/properties/list-property/step7" onClick={saveBack} sidebar={side? 1:0} >Back</Backbutton>    
 
-                              {disabled?
-                              <Button disableed={disabled?1:0} style={{padding:"0.5rem 1rem", margin:"0.5rem"}}>Next Step</Button>
-                              : 
-                              <Nextbutton to={path} onClick={saveDraft} disabled={disabled?1:0}>Next Step</Nextbutton>
-                              }
-                              
+                                {disabled?
+                                <Button disableed={disabled?1:0} style={{padding:"0.5rem 1rem", margin:"0.5rem"}}>Next Step</Button>
+                                : 
+                                <Nextbutton to={path} onClick={saveDraft} disabled={disabled?1:0}>Next Step</Nextbutton>
+                                }
+                                
 
-                            <CheckButton style={{display:"none"}} ref={checkbtn}/> 
+                              <CheckButton style={{display:"none"}} ref={checkbtn}/> 
                             </div>
 
                         </Form>  
                     </Propertycontainer>                           
               </Listbody>
-          </Listpropdiv>    
+          </Listpropdiv> 
+          </div>
+   
       )
   }
 

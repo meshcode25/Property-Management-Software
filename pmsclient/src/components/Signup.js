@@ -193,10 +193,10 @@ const signup= ()=>{
                     (response)=>{
                         if(response.status===201){
                             console.log(response.data.message)
-                            let redirect= setTimeout(()=>{return window.location.href=("/signin")},100)
+                            let redirect= setTimeout(()=>{return window.location.href=("/signin")},10000000)
                             setgreenMessage(response.data.message)
                             setLoading(false)
-                            redirect();
+                            // redirect();
 
                             setPassword("");
                             setEmail("");

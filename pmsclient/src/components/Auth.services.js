@@ -5,6 +5,7 @@ import axios from "axios";
 const url= "http://localhost:8000/o/auth/"
 
 
+// , {headers:{authorization:`bearer${token}`}
    const login=(email, password)=>{
         return axios.post(url + "login", {email,password})
         .then(

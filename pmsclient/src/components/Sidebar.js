@@ -29,36 +29,22 @@ import {FaUserCircle} from "react-icons/fa"
 // const logo= require ("./easyclickslogo.png")
 const logo= require ("./easy4.png")
 
-
+const King= styled.div`
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0; 
+background-color:#F8F8F8;
+`
 const Nav = styled.div`
-  display:grid;
-  grid-template-columns: ${({sidebar})=> sidebar ? `4% 96% ` : `22.5% 77.5%`} ;
-  grid-template-rows:51px  auto ;
-
+  // display:grid;
+  // grid-template-columns: ${({sidebar})=> sidebar ? `4% 96% ` : `22.5% 77.5%`} ;
+  // grid-template-rows:600px  auto ;
+  background-color:blue;
 
 
 `
-
-
-
-const Logodiv=styled.div`
-font-size:1.5rem;
-font-weight:300;
-Margin-left:0.35rem;
-grid-column: 1/2;
-grid-row:  1/2;
-text-align:center;
-color:indigo;
-color:violet;
-background-color:black;
-// position:fixed;
-// overflow:hidden;
-// display:flex;
-// justify-content:center;
-
-`
-
-
 const Navigation=styled.div  `
 position:fixed;
 overflow:hidden;
@@ -67,88 +53,44 @@ top:0;
 z-index:20;
 left:0;
 width:100%;
-height:51px;
+height:60px;
 justify-content:space-between;
 align-items:center;
-background-color:black;
-
-
-`
+background-color:#F8F8F8;
+box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
 
 
-const SidebarNav=styled.div  `
-position:fixed;
-overflow:scroll;
-top:${({sidebar})=>sidebar? "51px":"52px"};
-width:${({sidebar})=> sidebar ? "3.5%": "21.5%"};
-display:grid;
-height:90vh;
-left:${({sidebar})=> sidebar ? "0": "0"};
-background-color:black;
-box-sizing:border-box;
-
-::-webkit-scrollbar {
-  width: 7.5px;               /* width of the entire scrollbar */
-}
-
-::-webkit-scrollbar-track {
-  background: black;        /* color of the tracking area */
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: gray;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  // border: 1px solid orange;  /* creates padding around scroll thumb */
-}
-::-webkit-scrollbar-corner {
-  background-color: black;    /* color of the scroll thumb */
-  // border-radius: 20px;       /* roundness of the scroll thumb */
-  // border: 1px solid orange;  /* creates padding around scroll thumb */
-}
-`
-const Scroll=styled.div`
-background-color:black;
-display:flex;
-text-align:center;
-position:fixed;
-left:${({sidebar})=> sidebar ? "3.6%": "21.5%" };
-top:0;
-z-index:10;
-width:10px;
-height:97.6vh;
-justify-content:space-between;
-
-`
-const Openscroll=styled.div`
-text-decoration:none;
-width:20px;
-height:100px;
-display:flex;
-align-items:center;
-color:white;
-text-align:center;
-background-color:black;
-color:white;
-align-self:center;
-border-radius:17%;
-
-`
-
-const Switchdiv= styled.div`
- position:fixed;
- top:51px;
- left:${({sidebar})=> sidebar ? "4%": "22.5%"};
- height:90vh;
- width:${({sidebar})=> sidebar ? "96%": "77.5%"};
- overflow-x:hidden;
- overflow-y:scroll;
 `
 
 const Navdiv= styled.div`
 position:fixed;
-top:0;
-left:20%;
+top:10px;
+left:0;
+color:black;
+
+`
+
+const Naviconburger= styled(Link)` 
+  list-style:none;
+  padding:0.5rem;
+  color:rgb(85, 74, 74);
+  font-size:2.6rem;
+  text-decoration:none;
+ 
+`
+
+const Logodiv=styled.div`
+font-size:1.8rem;
+font-weight:400;
+Margin-left:4rem;
+justify-item:center;
+text-align:center;
+color:violet;
+// position:fixed;
+// overflow:hidden;
+// display:flex;
+// justify-content:center;
 
 `
 
@@ -197,14 +139,6 @@ border-radius:7px;
 font-weight:bold;
 `
 
-const Naviconburger= styled(Link)` 
-  list-style:none;
-  padding:0.5rem;
-  color:violet;
-  font-size:3rem;
-  text-decoration:none;
- 
-` 
 
    
   const Wholeprofile=styled.div`
@@ -220,9 +154,8 @@ const Naviconburger= styled(Link)`
   `
   const Profileshow = styled(Link)`
     display:flex;
+    color:rgb(59, 57, 57);
     justify-content:space-evenly;
-    color:green;
-    background-color:black;
     outline:none;
     border:none;
     align-items:center;
@@ -280,48 +213,133 @@ const Naviconburger= styled(Link)`
 
 // `
 
+
+
+
+const SidebarNav=styled.div  `
+position:fixed;
+overflow:${({sidebar})=>sidebar?"hidden": "scroll"};
+top:${({sidebar})=>sidebar? "62px":"65px"};
+width:${({sidebar})=> sidebar ? "3.5%": "21.5%"};
+display:grid;
+height:87vh;
+color:violet;
+left:${({sidebar})=> sidebar ? "0": "0"};
+background-color:black;
+box-sizing:border-box;
+// border-radius:20px;
+// overflow-x:hidden;
+
+::-webkit-scrollbar {
+  width: 7.5px;               /* width of the entire scrollbar */
+  height:7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+::-webkit-scrollbar-corner {
+  background-color: #F8F8F8;    /* color of the scroll thumb */
+  // border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+`
+const Scroll=styled.div`
+background-color:violet;
+display:flex;
+text-align:center;
+position:fixed;
+left:${({sidebar})=> sidebar ? "3.6%": "21.5%" };
+top:0;
+z-index:10;
+width:10px;
+height:97.6vh;
+justify-content:space-between;
+
+`
+const Openscroll=styled.div`
+left:${({sidebar})=> sidebar ? "3.5%": "21.5%" };
+z-index:10;
+position:fixed;
+text-decoration:none;
+width:20px;
+height:90px;
+display:flex;
+align-items:center;
+color:white;
+text-align:center;
+background-color:purple;
+border-top-right-radius:16%;
+top:40%;
+border-bottom-right-radius:16%;
+&hover:{
+  cursor:pointer;
+
+}
+`
+
+const Switchdiv= styled.div`
+ position:fixed;
+ top:65px;
+ border-radius:20px;
+ left:${({sidebar})=> sidebar ? "5.2%": "23.2%"};
+ width:${({sidebar})=> sidebar ? "93.8%": "75.8%"};
+ height:86vh;
+ background-color:white;
+ 
+ //  border:3px solid black;
+//  overflow-x:hidden;
+//  overflow-y:scroll;
+`
+
 const Submenuwrap= styled(Link)`
     display:flex;
-    color:white;
+    padding:0.5rem 0;
     text-decoration:none;
     align-items:center;
     box-sizing:border-box;
     margin-right:0rem;
-    // background-color:red;
     justify-content:space-between;
     width:${({sidebar})=>sidebar? "100%" : "100%"};
-    &:hover {${({sidebar})=>sidebar? `background-color:blue; transition:0.2s;` :`background-color:blue; margin-left:0.2rem;  transition:0.5s;`}}
+    &:hover {${({sidebar})=>sidebar? `background-color:blue` :`background-color:blue; margin-left:0.2rem`}}
+    // &:hover {${({sidebar})=>sidebar? `background-color:blue; transition:0.2s;` :`background-color:blue; margin-left:0.2rem;  transition:0.5s;`}}
 `
 const Span=styled.span`
 font-size:1.5rem;
-bacground-color:yellow;
+color:white;
 margin-left:${({sidebar})=> sidebar ? "1rem": "1.5rem"};
 
 `
 const Sidebarlebel= styled.span`
 margin-left:1rem;
 font-size:1.2rem;
-
+color:white;
 `
-// const Dropicon= styled.div`
-// margin-left:2rem;
-// `
 
 const Eachdropdowndiv= styled(Link)` 
 text-decoration:none;
-color:Violet;
+color:violet;
 display:flex;
 box-sizing:border-box;
 margin-left:1.5rem;
 justify-content:space-between;
 align-items:center;
-font-size:1.15rem;
-padding: 0.7rem 1.5rem 0.7rem 1.5rem;  
-&:hover {background-color:blue; padding-left:1.7rem;  transition:0.5s;}
+font-size:1.015rem;
+padding: 0.5rem 1.5rem 0.5rem 1.5rem;  
+&:hover {background-color:blue; padding-left:1.7rem;}
+
+// &:hover {background-color:blue; padding-left:1.7rem;  transition:0.5s;}
 `
 const Eachdropdownsmalldiv= styled(Link)` 
 text-decoration:none;
-color:Violet;
+color:violet;
+background-color:black;
 display:flex;
 box-sizing:border-box;
 margin-left:1.5rem;
@@ -329,19 +347,18 @@ justify-content:space-between;
 align-items:center;
 font-size:1.15rem;
 padding: 0.7rem 2rem 0.7rem 2rem;  
-&:hover {background-color:green;  padding-left:2.1rem;  transition:0.2s;}
+&:hover {background-color:green;  padding-left:2.1rem; }
+
+// &:hover {background-color:green;  padding-left:2.1rem;  transition:0.2s;}
 `
 const Lebel=styled.div`
 font-size:1rem;
 align-self:center;
-display:flex;
 color:white;
-background-color:blue;
-padding-top:0.3rem;
 font-weight:bold;
-height:33.5px;
+height:34px;
+background-color:blue;
 box-sizing:border-box;
-vertical-align:center;
 `
 
 const Lebele=styled.div`
@@ -351,23 +368,20 @@ padding:0.5rem 0 0.5rem 0 ;
 background-color:black;
 
 `
-
-
 const Fixed=styled.div`
 position:fixed;
 z-index:1;
-margin-top:-2rem;
-left:${({height})=> (height===4)? "5%" : "4.4%"};
+margin-top:-2.72rem;
+left:${({height})=> (height===4)? "5.07%" : "3.56%"};
 box-sizing:border-box;
-background-color:black; 
 opacity:2;
+color:grey;
 
 `
 // top:50px;
 // if(height===0){"0px"} if(height===1){"0px"} if(height===2){"0"}   if(height===3){"100px"}  if(height===4){"200px"}  if(height===5){"300px"}  if(height===6){"400px"}  if(height===7){"500px"} if(height===8){"600px"}
 
 const Dropdownmenu= styled.div` 
-
 box-sizing:border-box;
 box-sizing:border-box;
 
@@ -440,7 +454,7 @@ const Sidebar = () => {
 
       setSubmenu(number)
 
-      if(number===4){
+      if(number===4 || number===3 || number===2){
         setHeight(4)
       }else{
         setHeight()
@@ -487,23 +501,24 @@ const Sidebar = () => {
   // console.log("show isLogged In?" + isloggedin)
 
   return(
-  <div>
+  <King style={{}}>
     <Nav sidebar={sidebar? 1: 0}>
      
       <Navigation>
-     
         <Logodiv>
           <Logo>
           {/* <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" />  */}
-          Easy Clicks PMS 
+            Easy Clicks PMS 
           </Logo>
         </Logodiv>
-              
-        {/* <Navdiv>
+     
+         <Navdiv>
           <Naviconburger to='#' onClick={showSidebar} sidebar={sidebar? 1:0}>
               {sidebar?   <VscMenu /> :<MdIcons.MdOutlineClose />}
           </Naviconburger>
-        </Navdiv> */}
+        </Navdiv>
+
+              
         {isloggedin ?  
           <Wholeprofile >
             
@@ -557,10 +572,10 @@ const Sidebar = () => {
                           {Sidebardata.map((menu,index) => {
                
                             return (
-                                <div  sub={sub?1:0} style={{padding:"0", backgroundColor:""}} key={index}  >
+                                <div  sub={sub?1:0} style={{padding:"0", }} key={index}  >
                                   <Submenuwrap  onMouseEnter={()=>{showSubmenu(index)}} key={index}  style={{ }} sidebar={sidebar? 1:0} sub={sub?1:0} to={!menu.submenu && menu.path}>
 
-                                    <Span sidebar={sidebar? 1: 0 } style={{fontSize:""}}>{menu.icon} </Span>
+                                    <Span sidebar={sidebar? 1: 0 } style={{fontSize:"", }}>{menu.icon} </Span>
 
                                   </Submenuwrap> 
 
@@ -569,11 +584,18 @@ const Sidebar = () => {
                                   {menu.submenu? 
 
                                   <Lebel style={{}}>                                                                                                                                                                                                           
-                                  {(menu.submenu )? (submenu===index && sub) ? <div style={{}}><span> {menu.title}</span> <span>{submenu ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }</span> </div> : null : (submenu===index && sub) && <div style={{}}><Link to={menu.path} style={{textDecoration:'none' }}> {menu.title}</Link> </div>}
+                                  {(menu.submenu )? (submenu===index && sub) ? 
+                                    <div style={{height:"2.3rem",     display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                                      <div style={{marginLeft:"0.5rem"}}> {menu.title}</div> 
+                                      
+                                      <div style={{ marginRight:"1rem", color:"violet"}}>{submenu ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }</div> 
+                                    </div>
+                                    : null : (submenu===index && sub) &&
+                                          <div style={{color:"violet"}}><Link to={menu.path} style={{textDecoration:'none', color:"yellow"}}> {menu.title}</Link> </div>}
                                   </Lebel>  
                                   : 
                                   
-                                  <Lebele style={{}}>                                                                                                                                                                                                           
+                                  <Lebele style={{padding:"0.75rem 0"}}>                                                                                                                                                                                                           
                                   {(menu.submenu )? (submenu===index && sub) ? <div style={{}}><span> {menu.title}</span> <span>{submenu ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }</span> </div> : null : (submenu===index && sub) && <div style={{}}><Link to={menu.path} style={{textDecoration:'none', color:"violet", padding:"0 0.5rem"}}> {menu.title}</Link> </div>}
                                   </Lebele>  
                                   
@@ -614,9 +636,9 @@ const Sidebar = () => {
               {/* showSubmenu */}
                 <div style={{padding:"0", margin:"0"}}>
                   <Span >{menu.icon} </Span> 
-                  <Sidebarlebel>{menu.title}</Sidebarlebel>
+                  <Sidebarlebel >{menu.title}</Sidebarlebel>
                 </div>
-                <Dropicon>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                <Dropicon style={{color:"violet", marginRight:"0.7rem"}}>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                   {(submenu===index && menu.submenu && sub) ? menu.iconOpen: menu.submenu? menu.iconClosed: null   }
                 </Dropicon>
              </Submenuwrap> 
@@ -640,18 +662,18 @@ const Sidebar = () => {
 </SidebarNav>
  
       }
-    <Scroll sidebar={sidebar? 1: 0} onClick={showSidebar}>
-      <Openscroll to="#">     
+    {/* <Scroll sidebar={sidebar? 1: 0} onClick={showSidebar}>
+    </Scroll> */}
+      <Openscroll to="#" sidebar={sidebar? 1: 0} onClick={showSidebar}>     
         <Link style={{fontSize:"1.35rem", color:"white"}} to="#"> {sidebar ? <MdIcons.MdOutlineArrowForwardIos/> : <MdIcons.MdOutlineArrowBackIosNew/>  }</Link>
       </Openscroll> 
-    </Scroll>
-    <Switchdiv > 
+    <Switchdiv sidebar={sidebar}> 
       <Sharesidebar.Provider value={sidebar}>
         <Outlet />
       </Sharesidebar.Provider>    
     </Switchdiv>                                
-    </Nav>
-</div>
+  </Nav>
+</King>
 
   
   

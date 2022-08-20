@@ -178,6 +178,7 @@ const Login= ()=>{
                             window.location.href=("/dashboard");
                              setMessage(response.data.message);
                              setMessageColor(response.data.color)
+                             console.log("Invalid shit")
                             setLoading(false)
     
                         }else{
@@ -185,6 +186,7 @@ const Login= ()=>{
                              setMessage(response.data.message)
                              setMessageColor(response.data.color)
                             setLoading(false)
+                            console.log("Show this shitp")
 
                         }
                    

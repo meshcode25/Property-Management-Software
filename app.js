@@ -5,8 +5,10 @@ const helmet= require("helmet")
 const compression= require('compression') 
 const path= require("path")
 const cors=require("cors")
-const http= require('http')
-const jwt= require("jsonwebtoken")
+// const http= require('http')
+// const jwt= require("jsonwebtoken")
+
+// const auth=require("./middlewares/authentification")
 
 const cookieParser = require("cookie-parser")
 
@@ -56,11 +58,12 @@ app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
 
+// app.use(auth);
 //Cors 
 app.use(cors(corsOptions))
 //use url paths as middlewares
 app.use("/o/auth/passwordreset", passwordresetRouter)
-app.use("/o/auth/login", loginRouter)
+app.use("/o/auth/login", auth, loginRouter)
 app.use("/o/auth/verify", verifyemailRouter)
 app.use("/o/auth/signup", signupRouter)
 app.use("/", indexRouter)

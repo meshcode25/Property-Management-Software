@@ -8,22 +8,58 @@ import CheckButton from "react-validation/build/button";
 // import {Fake} from "./Fake"
 
 
-const Listpropdiv=styled.div`
-height:${({sidebar})=> sidebar ? "90%": "89.5%" };
+const Breadcrumbs=styled.div`
 position:fixed;
-left:${({sidebar})=> sidebar ? "4.5%": "22.5%" };
-top:52px;
-overflow:scroll;
-overflow-x:hidden;
-width:${({sidebar})=> sidebar ? "95.5%": "77.5%" };
+top:67px;
+text-align:center;
+display:flex;
+align-items:center;
+// vertical-align:middle;
+height:45px;
+box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+left:${({sidebar})=> sidebar ? "5.5%": "23.5%"};
+width:${({sidebar})=> sidebar ? "92.5%": "74.5%"};
 `
+const Crumbsicons=styled.div`
+margin-left:2rem;
+`
+const Listpropdiv=styled.div`
+position:fixed;
+top:116px;
+height:78vh;
+overflow-y:scroll;
+overflow-x:hidden;
+left:${({sidebar})=> sidebar ? "6%": "24%"};
+width:${({sidebar})=> sidebar ? "93%": "75%"};
 
+
+::-webkit-scrollbar {
+  width: 10px;               /* width of the entire scrollbar */
+  height:7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;    /* color of the scroll thumb */
+  // border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+}
+::-webkit-scrollbar-corner {
+  background-color: #F8F8F8;    /* color of the scroll thumb */
+  // border-radius: 20px;       /* roundness of the scroll thumb */
+  // border: 1px solid orange;  /* creates padding around scroll thumb */
+
+`
 const ListHeader=styled.div`
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 width:100%;
 padding:0.5rem;
 margin:0 auto;
 `
+
 const Headertitle=styled.div`
 width:90%;
 margin:0 auto;
@@ -313,56 +349,62 @@ function Addpropstep7 (){
 
 
       return (
-          <Listpropdiv  sidebar={side? 1:0} >
+        <div>    
+        <Breadcrumbs sidebar={side?1:0}>
+          <Crumbsicons sidebar={side?1:0}>Icons will go here</Crumbsicons>
+        </Breadcrumbs>
+        
+        <Listpropdiv  sidebar={side? 1:0} >
 
-              <ListHeader sidebar={side?1:0}>
-                  <Headertitle sidebar={side?1:0}>List new property</Headertitle>
-              </ListHeader>
-            
-              <Listbody  sidebar={side? 1:0}>
-                    <Progressbar sidebar={side?1:0}></Progressbar>
-                  
-                    <Propertycontainer>
-                    {/* onSubmit={handleClick} */}
-                        <Form method="" ref={form} onSubmit={handleClick} >           
-                             
-                            <Listingpurposediv >
-                              <Label>Property/ Apartment Details  :</ Label>
-                              <Labelpara>Please Enter the Details of your Property below..</Labelpara>
-                            </Listingpurposediv> 
+            <ListHeader sidebar={side?1:0}>
+                <Headertitle sidebar={side?1:0}>List new property</Headertitle>
+            </ListHeader>
+          
+            <Listbody  sidebar={side? 1:0}>
+                  <Progressbar sidebar={side?1:0}></Progressbar>
+                
+                  <Propertycontainer>
+                  {/* onSubmit={handleClick} */}
+                      <Form method="" ref={form} onSubmit={handleClick} >           
+                            
+                          <Listingpurposediv >
+                            <Label>Property/ Apartment Details  :</ Label>
+                            <Labelpara>Please Enter the Details of your Property below..</Labelpara>
+                          </Listingpurposediv> 
 
-                            <Nameofproperty>
-                                <Label>Name of your Property :</ Label >
-                                <Input type="text" name="nameofproperty" placeholder="Enter The Name of Your Property" value={propertyname} onChange={propertyNameChange} validations={[Required, Color]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px solid blue`, fontSize:"1rem", color:"black"}}></Input>            
-                            </Nameofproperty>                              
+                          <Nameofproperty>
+                              <Label>Name of your Property :</ Label >
+                              <Input type="text" name="nameofproperty" placeholder="Enter The Name of Your Property" value={propertyname} onChange={propertyNameChange} validations={[Required, Color]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px solid blue`, fontSize:"1rem", color:"black"}}></Input>            
+                          </Nameofproperty>                              
 
-                              <Totalnoofunitsdiv>
-                                <Label>Total Number of Units In Apartment:</ Label >
-                                <Input type="text" name="totalunits" placeholder="Enter The Name of Your Property" value={totalunits} onChange={totalUnitsChange} validations={[Required, Nuumber, Max]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px solid blue`, fontSize:"1rem", color:"black"}}></Input>
-                              </Totalnoofunitsdiv>
+                            <Totalnoofunitsdiv>
+                              <Label>Total Number of Units In Apartment:</ Label >
+                              <Input type="text" name="totalunits" placeholder="Enter The Name of Your Property" value={totalunits} onChange={totalUnitsChange} validations={[Required, Nuumber, Max]} style={{width:"100%", height:"3rem", backgroundColor:"white", borderRadius:"5px", border:`2px solid blue`, fontSize:"1rem", color:"black"}}></Input>
+                            </Totalnoofunitsdiv>
 
-                              <Numberofunitsavailable>
-                                  <Label>Number of Currently Letting Units /Available :</ Label >
-                                   <Input type="text"  placeholder="Available Units Currently Now" value={availableunits} onChange={availableUnitsChange} validations={[Required, Nuumber, Max]} style={{width:"100%", height:"3rem", backgroundColor:"#5", borderRadius:"5px", border:"2px solid blue", fontSize:"1rem", color:"black"}}></Input>
-                              </Numberofunitsavailable>
-                               
-                            <div style={{ width:"100%", margin:"1rem 0rem 1rem 1rem"}}>
-                              <Backbutton to="/properties/list-property/step6" onClick={saveBack} sidebar={side? 1:0} >Back</Backbutton>    
-
-                              {disabled?
-                              <Button disableed={disabled?1:0} style={{padding:"0.5rem 1rem", margin:"0.5rem"}}>Next Step</Button>
-                              : 
-                              <Nextbutton to={path} onClick={saveDraft} disabled={disabled?1:0}>Next Step</Nextbutton>
-                              }
+                            <Numberofunitsavailable>
+                                <Label>Number of Currently Letting Units /Available :</ Label >
+                                  <Input type="text"  placeholder="Available Units Currently Now" value={availableunits} onChange={availableUnitsChange} validations={[Required, Nuumber, Max]} style={{width:"100%", height:"3rem", backgroundColor:"#5", borderRadius:"5px", border:"2px solid blue", fontSize:"1rem", color:"black"}}></Input>
+                            </Numberofunitsavailable>
                               
+                          <div style={{ width:"100%", margin:"1rem 0rem 1rem 1rem"}}>
+                            <Backbutton to="/properties/list-property/step6" onClick={saveBack} sidebar={side? 1:0} >Back</Backbutton>    
 
-                            <CheckButton style={{display:"none"}} ref={checkbtn}/> 
-                            </div>
+                            {disabled?
+                            <Button disableed={disabled?1:0} style={{padding:"0.5rem 1rem", margin:"0.5rem"}}>Next Step</Button>
+                            : 
+                            <Nextbutton to={path} onClick={saveDraft} disabled={disabled?1:0}>Next Step</Nextbutton>
+                            }
+                            
 
-                        </Form>  
-                    </Propertycontainer>                      
-              </Listbody>
-          </Listpropdiv>    
+                          <CheckButton style={{display:"none"}} ref={checkbtn}/> 
+                          </div>
+
+                      </Form>  
+                  </Propertycontainer>                      
+            </Listbody>
+        </Listpropdiv>    
+        </div>
       )
   }
 

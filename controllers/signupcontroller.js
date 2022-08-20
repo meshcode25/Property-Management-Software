@@ -2,10 +2,14 @@ const role=require("../models/rolesModel")
 const User=require("../models/userModel")
 const bcrypt= require("bcryptjs")
 const verificationCode = require("../verificationCode")
+const moment =require("moment")
+
 // exports.signup_form_get= function(req,res, next)
 const nodemailer= require("../nodemailer")
-
-
+const jwt=require("jsonwebtoken");
+const secret= require("../authConfig")
+const sendEmail=require("../Oauth2")
+const sendMail = require("../nodemailer")
 
 
 exports.signup_form_post= function(req,res, next){
@@ -40,9 +44,15 @@ exports.signup_form_post= function(req,res, next){
                 
             }
             else{
-            nodemailer(user.email, user.verificationcode)
-            return res.status(201).send({message:"Account Created Successfully, Check your Email to Verify your Account"})
-            
+            const token=jwt.sign({exp:Math.floor(Date.now()/1000)+ (60*60), user:user}, secret.secret)   
+            const verify=jwt.verify(token,secret.secret)
+  
+            console.log(verify);
+            console.log("here is the user  " + user)
+            // user.verificationcode
+            // nodemailer(user.email, token )
+            sendMail(user.email,token);
+            return res.status(201).send({message:`Account Created Successfully, and here is your token ${token} Check your Email to Verify your Account`})
             }
         })
 
