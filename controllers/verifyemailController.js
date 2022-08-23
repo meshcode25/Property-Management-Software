@@ -1,12 +1,22 @@
 const Mail = require("nodemailer/lib/mailer")
 const User=require("../models/userModel")
-
+const jwt=require("jsonwebtoken")
+const secret= require("../authConfig");
+const mongoose=require("mongoose");
 
 exports.verifyEmail=(req, res,next)=>{
-    console.log(req.params.verificationcode)
+    console.log(process.env.SECRET);
+    const Verifyuser=jwt.verify(req.params.verificationcode, process.env.SECRET);
+    console.log(`Here is the Verification code now callled signin token ${req.params.verificationcode}`)
+    console.log(`verified user here ${Verifyuser}`);
+    console.log(Verifyuser);
+    console.log("For the id shit her e  ")
+    console.log(Verifyuser.user._id)
+    // verificationcode:req.params.verificationcode
+    // User.findById(Verifyuser.user._id)
     User.findOne({
-        verificationcode:req.params.verificationcode
-    })
+        _id:mongoose.Types.ObjectId(Verifyuser.user._id)
+    })    
     .exec().then((user)=>{
         if(!user){
             console.log("There is not such user found in the database, keep it Status: pending")

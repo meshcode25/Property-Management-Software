@@ -12,13 +12,16 @@ var UserSchema= new Schema({
     password:{type:String, required:true},
     role:{type:String, required:true},
     status:{type:String, required: false},
-    verificationcode:{type:String, required: false}
- 
+    refreshtoken_id:{
+        type:mongoose.Types.ObjectId,
+        ref:"refreshtoken",
+    },
+    verificationcode:{type:String, required: false},
 })
 
 
 UserSchema.virtual("url").get(function(){
-    return "users"
+    return "user"
 })
 
 
