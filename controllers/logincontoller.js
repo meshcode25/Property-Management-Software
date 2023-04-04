@@ -36,7 +36,8 @@ exports.login_form_post=function(req,res,next){
             }
           
           const verified=isVerifiedEmail()
-
+            console.log(verified);
+            console.log(user);
             if(!validPassword){
                 return res.status(200).send({message: "Invalid Password or Email", accesstoken:null, color: "red", type:"invalid"})
             }
@@ -44,42 +45,25 @@ exports.login_form_post=function(req,res,next){
                 if(!verified){
                     return res.status(200).send({message: "Unverified Email, Please Check you Email to Verify your Account", color: "red", type:"unverified"})
                 
-                }else{
-
-                    const token= jwt.sign({id:user.id}, secret, {
-                        expiresIn:(10*60),
-    
-                    })
-    
+                }else{    
+                    const token=jwt.sign({exp:Math.floor(Date.now()/1000)+ (60*2), user:user}, process.env.SECRET)   
+                    const refreshtoken=jwt.sign({exp:Math.floor(Date.now()/1000)+ (60*5), user:user}, process.env.SECRET)
                     console.log(user)
+
                     return res.status(201).send({
-                        email:user.email,
+                        // email:user.email,
+                        accesstoken:token, 
                         type:"successlogin",
                         message:"Login Success, wait as we redirect you to the next page",
-                        accesstoken: token, 
+                        refreshtoken:refreshtoken,
+                        // accesstoken: token, 
                         color:"green"
                     })
-
-
-                }
-                
+                }   
             }
-
-
-
         }  
         else{
-    
-            return res.status(200).send({message:"Invalidd Email or Password", color: "red", type:"invalid"})
-    
-        
+            return res.status(200).send({message:"Invalidd Email or Password", color: "red", type:"invalid"})  
     }
     }).catch(err => console.error(`An error occured while looking at the database${err}`))
-
-
-
-
-
-
-
 }

@@ -7,32 +7,35 @@ const OAuth3=google.auth.OAuth2;
 // console.log("Here is google apis    " + OAuth3);
 
 const createTransporter =  (emailcontact, token2) => {
-    const oauth2Client = new OAuth3(
+    const Easyclicksclient = new OAuth3(
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
       "https://developers.google.com/oauthplayground"
     );
   
-    oauth2Client.setCredentials({
+    Easyclicksclient.setCredentials({
       refresh_token: process.env.REFRESH_TOKEN
     });
   
     const accessToken = () => {
-         oauth2Client.getAccessToken((err, token)=>{
+      Easyclicksclient.getAccessToken((err, token)=>{
           if (err) {
-            return console.log("Failed to create access token ");
+           console.log("Failed to create access token ");
+          
           }
-            return token;
+            console.log("acces token successfullly created")
+            return token
         });
     }
-    const accesstoken=accessToken();
+    // const accesstoken=accessToken();
+    // console.log(accesstoken)
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         type: "OAuth2",
         user: process.env.GMAIL,
-        accesstoken,
+        accessToken,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN
@@ -63,7 +66,7 @@ const createTransporter =  (emailcontact, token2) => {
         from: process.env.GMAIL
       });
     }
-    console.log("have sent the stupid email"), 
+    // console.log("have sent the stupid email"), 
 
 
 

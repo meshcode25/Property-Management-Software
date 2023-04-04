@@ -24,12 +24,16 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
+    "momentjs": "^2.0.0",
     "mongoose": "^6.1.7",
     "nodemailer": "^6.7.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
+  "engines": {
+    "node": "16.17.0"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meshcode25/Property-Management-Software.git"

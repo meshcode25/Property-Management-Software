@@ -42,6 +42,7 @@ db.once("open", ()=>{console.log("Mongoose database has been successfully connec
 
 //Cors/// Cross-Origin-Resource-Sharing
 corsOptions={
+  origin:"Access-Control-Allow-Origin", 
   origin:"*",
   credentials:"true",
   optionSuccessStatus:200
@@ -57,15 +58,17 @@ app.set(express.static(path.join(__dirname, "public")))
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
-
-// app.use(auth);
 //Cors 
 app.use(cors(corsOptions))
+
+
+
+// app.use(auth);
 //use url paths as middlewares
-app.use("/o/auth/passwordreset", passwordresetRouter)
-app.use("/o/auth/login",  loginRouter)
+app.use("/o/auth/passwordreset",  passwordresetRouter)
+app.use("/o/auth/login",   loginRouter)
 app.use("/o/auth/verify", verifyemailRouter)
-app.use("/o/auth/signup", signupRouter)
+app.use("/o/auth/signup",  signupRouter)
 app.use("/", indexRouter)
 
 

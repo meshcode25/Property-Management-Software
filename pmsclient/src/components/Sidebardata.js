@@ -52,7 +52,7 @@ const Sidebardata = () => (
       {
         title:"View All Properties",
         icon: <BiIcons.BiBuildingHouse/>,
-        path:"/properties/find-new-properties",
+        path:"/properties/view-all-properties",
         iconOpen: <MdIcons.MdExpandMore/>,
        
       },

@@ -1,51 +1,69 @@
+
+require("dotenv").config;
 const jwt = require('jsonwebtoken');
-const secret=require("../authConfig");
-console.log(secret.secret)
+const secret=process.env.SECRET
+const Refreshtoken=("../models/refreshtoken")
 
 
 module.exports = (req, res, next) =>{
 
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, secret.secret);
-    const userId = decodedToken.userId;
-    const why=secret;
 
-    if (secret===why) {
-        console.log(req.body)
-        console.log(req.headers);
-        console.log("INvalid Id")
-        throw 'Invalid user ID';
-    } else {
-        console.log("Next shit");
-        next();
-    }
+    const Verifyuser=jwt.verify(req.headers.Authorization, process.env.SECRET, (err, decoded)=>{
+        if(err){
+            console.log("that shit is expired"); 
 
-    console.log("Errorerror")
-    console.log(req.body)
-      res.status(401).json({
-      error: new Error('Invalid request!')
+        }else{
+            console.log(decoded)
+            console.log("not expired jwt, amazing")
+            console.log(decoded.user._id)
+            return decoded;
+        }
+        
     });
-  }
+    console.log(Verifyuser);
+    // console.log(`Here is the Verification code now callled signin token ${req.params.verificationcode}`)
+    // console.log(`verified user here ${Verifyuser}`);
+
+    // verificationcode:req.params.verificationcode
+    // User.findById(Verifyuser.user._id)
+    // User.findOne({
+    //     _id:mongoose.Types.ObjectId(Verifyuser.user._id)
+    // })
+    if(Verifyuser){
+
+        User.findById(Verifyuser.user._id).exec().then((user)=>{
+            if(!user){
+                console.log("There is not such user found in the database, keep it Status: pending")
+                return res.status(200).send({message: "user was not found the database"})
+            }
+    
+            user.status="active"
+            
+            user.save((err)=>{
+                console.log(user)
+                if(err){
+                    return res.status(500).send({message: err})
+                }else{
+                    console.log("User Email Verification Succcessfully completed, Valid Email")
+                    return res.status(201).send({message:"User Email Successfully Verified, Valid Email"})
+                }
+    
+            })
+    
+        }).catch(err =>{
+    
+            console.log("errors just found, what the fuck, what errors again")
+           return console.error(err)
+    
+    
+        })
+    
 
 
-try {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, secret.secret);
-    const userId = decodedToken.userId;
-    const why=secret;
-    console.log(req);
-    if (secret===why) {
-        console.log(req.body)
-        console.log("INvalid Id")
-        throw 'Invalid user ID';
-    } else {
-        console.log("Next shit");
+
+    }
+    else{
+        console.log("That shit expired ages ago")
         next();
     }
-} catch {
-    console.log("Errorerror")
-    // console.log(req.body)
-    //   res.status(401).json({
-    //   error: new Error('Invalid request!')
-    // });
-  }
+}

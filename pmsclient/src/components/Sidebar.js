@@ -1,18 +1,5 @@
-/*
-// import * as GiIcons from "react-icons/gi"
-// import  getCurrentUser  from "./Auth.services"
-// import * as RiIcons from "react-icons/ri"
-// import { BsWindowSidebar } from "react-icons/bs"
 
-
-const Logodiv=styled.div`
-
-`
- <img style={{height:"51px", width:'100%'}} src={logo} alt="Logo Goes Here" /> 
- 
- `
- */
- 
+// require ("dotenv").config() 
 import React, {useState, useEffect, createContext, useContext} from "react"
 import styled from "styled-components"
 import {VscMenu} from "react-icons/vsc"
@@ -25,7 +12,8 @@ import * as RiIcons from "react-icons/ri"
 import {FaUserCircle} from "react-icons/fa"
 // import xDownloadOptions from "helmet/dist/types/middlewares/x-download-options"
 // console.log(logo)
-
+import {useJwt, decodeToken} from "react-jwt";
+// import env from "react-dotenv"
 // const logo= require ("./easyclickslogo.png")
 const logo= require ("./easy4.png")
 
@@ -53,11 +41,12 @@ top:0;
 z-index:20;
 left:0;
 width:100%;
-height:60px;
+height:57px;
 justify-content:space-between;
 align-items:center;
-background-color:#F8F8F8;
-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+// background-color:#F8F8F8;
+background-color:black;
+// box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
 
 
@@ -74,7 +63,8 @@ color:black;
 const Naviconburger= styled(Link)` 
   list-style:none;
   padding:0.5rem;
-  color:rgb(85, 74, 74);
+  // color:rgb(85, 74, 74);
+  color:violet;
   font-size:2.6rem;
   text-decoration:none;
  
@@ -142,7 +132,7 @@ font-weight:bold;
 
    
   const Wholeprofile=styled.div`
-    right:1.5%;
+    right:3%;
     position:fixed; 
     top:0;
     color:white;
@@ -154,18 +144,21 @@ font-weight:bold;
   `
   const Profileshow = styled(Link)`
     display:flex;
-    color:rgb(59, 57, 57);
+    // color:rgb(59, 57, 57);
+    color:violet;
+    // background-color:green;
     justify-content:space-evenly;
     outline:none;
     border:none;
     align-items:center;
     text-align:center;
-    height:50px;
+    height:56px;
     text-decoration:none;
     display:flex;;
 
     &:hover{
-      background-color:#EFEBF3;
+      // background-color:#EFEBF3;
+      background-color:white;
     } 
   `
   const Profilehide = styled.div`
@@ -219,10 +212,10 @@ font-weight:bold;
 const SidebarNav=styled.div  `
 position:fixed;
 overflow:${({sidebar})=>sidebar?"hidden": "scroll"};
-top:${({sidebar})=>sidebar? "62px":"65px"};
+top:${({sidebar})=>sidebar? "56px":"58px"};
 width:${({sidebar})=> sidebar ? "3.5%": "21.5%"};
 display:grid;
-height:87vh;
+height:88vh;
 color:violet;
 left:${({sidebar})=> sidebar ? "0": "0"};
 background-color:black;
@@ -401,7 +394,7 @@ const Sidebar = () => {
   const [height, setHeight]=useState()
   const [sub, setSub]= useState(false)
   const [submenu, setSubmenu]= useState()
-
+  const [username, setuserName]=useState()
    
   // const [hidesubmenu, sethidesubmenu ]= useState(true);
 
@@ -424,9 +417,9 @@ const Sidebar = () => {
 
 
     const handleLogout= ()=>{
-      localStorage.removeItem("user")
-      window.location.href="/"
-
+      localStorage.removeItem("accesstoken")
+      window.location.href="/signin"
+      setloggedIn(false)
     }
 
     // const handlesubmenu=()=>{
@@ -459,31 +452,41 @@ const Sidebar = () => {
       }else{
         setHeight()
       }
-      }
+  }
         
-        // console.log("here is the accutal boolean value" + showProfile)
-      // console.log(getCurrentUser)
-      const logedin=JSON.parse(localStorage.getItem("user"))
-    // console.log(logedin);
   
+    const logedin=(localStorage.getItem("accesstoken"))
+    console.log(logedin);
+    const token=decodeToken(logedin)
+      // jwt.verify(logedin, env.SECRET);
 
-    var name;
-    var email;
-    if(logedin===null){
-      // console.log("No Cashed cookies")
-    } 
-    else{
-      email = logedin.data.email;
-      // console.log("this is the email" + email)
-      name= email.substring(0, email.lastIndexOf("@"))
-    }
+    console.log(token)
+    let name;
+    let email;
+
+    // if(token===null){
+    //     setaccessToken();
+    //   // setloggedIn(false)
+    // //   window.location.href="/signin"
+    // //   console.log("No Cashed cookies")
+    // } 
+    // else{
+    //   setaccessToken(token);
+    // }
 
   useEffect(()=>{
-    if(logedin===null){
+    if(token===null){
+      setloggedIn(false)
+      // window.location.href="/login"
       // console.log("No Cashed cookies")
     } 
     else{
-      if(logedin.data.accesstoken){
+      if(token.user.email){
+        setloggedIn(true);
+        email = token.user.email;
+
+        name= email.substring(0, email.lastIndexOf("@"))
+        setuserName(name)
         setloggedIn(true)
        
         // console.log("show isLogged In" + isloggedin)
@@ -497,8 +500,9 @@ const Sidebar = () => {
     
 
   }, [isloggedin])
-
-  // console.log("show isLogged In?" + isloggedin)
+  
+  
+  console.log("show isLogged In?" + isloggedin)
 
   return(
   <King style={{}}>
@@ -529,7 +533,7 @@ const Sidebar = () => {
                 <Profileshow to="#" >
 
                   <Iconimage >< FaUserCircle /></Iconimage>
-                  <Showusername>{name}</Showusername>
+                  <Showusername>{username}</Showusername>
                   <Dropicon><MdIcons.MdExpandMore/></Dropicon>
                 </Profileshow>
 
