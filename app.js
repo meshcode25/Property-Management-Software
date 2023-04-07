@@ -136,8 +136,9 @@ app.use(cookieParser())
   })
  */
 
-//const server=http.createServer(app)
-const port= 8000;
-app.listen(8000, ()=>{console.log("The PMS Server has successfully started in Port 8000")})
-//const server= http.Server(app)
+const server=http.createServer(app)
+const port= Process.env.PORT || 8000;
+app.listen(port, ()=>{console.log("The PMS Server has successfully started in Port 8000")})
+
+server(app)
 //server()
