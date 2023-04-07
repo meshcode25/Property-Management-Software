@@ -138,7 +138,7 @@ app.use(cookieParser())
 
 const server=createServer(app)
 const port= Process.env.PORT || 8000;
-server.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
+app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
 
 server(app)
 //server()
