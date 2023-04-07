@@ -1,3 +1,4 @@
+require("dotenv").config()
 const mongoose= require("mongoose")
 const express = require("express")
 const createError= require("http-errors")
@@ -34,13 +35,45 @@ const propertyMangerRouter= require("./routes/propertymanagerRouter")
 //configure MongoDb database
 //var db_url="mongodb://localhost:27017/pmsdatabase"
 //mongoose.connect(db_url, {useNewUrlParser:true})
-mongoose.connect(process.env.mongodb_url, {useNewUrlParser:true})
 
-const db=mongoose.connection
-db.on("error", (error)=>{console.error(error)})
-db.once("open", ()=>{console.log("Mongoose database has been successfully connected")})
+/*
+const db_url= "mongodb+srv://mesh:mesh@cluster0-gbbbe.mongodb.net/test?retryWrites=true&w=majority"
+mongoDB= process.env.mongoDB|| db_url;
+mongoose.connect(mongoDB, {useNewUrlParser:true, useUnifiedTopology:true, useFindAndModify:false});
+*/
 
 
+const { MongoClient } = require("mongodb");
+const username = encodeURIComponent("yegon");
+const password = encodeURIComponent("Yegon@20**");
+const cluster = "<clusterName>";
+const authSource = "<authSource>";
+const authMechanism = "<authMechanism>";
+
+
+const mongodb_uri= `mongodb+srv://${username}:${password}@pmscluster.0rags3f.mongodb.net/test`;
+
+
+console.log(mongodb_uri);
+
+mongoose.connect(mongodb_uri);
+
+//mongoose.connect("mongodb+srv://yegon:Yegon@20**@pmscluster.0rags3f.mongodb.net/test", {useNewUrlParser:true})
+
+//const db=mongoose.connection
+//db.on("error", (error)=>{console.error(error)})
+//db.once("open", ()=>{console.log("Mongoose database has been successfully connected")})
+
+let uri =
+  `mongodb+srv://${username}:${password}@${cluster}/?authSource=${authSource}&authMechanism=${authMechanism}`;
+
+  
+/*const client = new MongoClient(uri);
+async function run() {
+ 
+ client.connect();
+
+*/
 
 //Cors/// Cross-Origin-Resource-Sharing
 corsOptions={
