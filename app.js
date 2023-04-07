@@ -56,7 +56,7 @@ const mongodb_uri= `mongodb+srv://${username}:${password}@pmscluster.0rags3f.mon
 
 console.log(mongodb_uri);
 
-mongoose.connect(mongodb_uri);
+mongoose.connect(`${mongodb_uri}`);
 
 //mongoose.connect("mongodb+srv://yegon:Yegon@20**@pmscluster.0rags3f.mongodb.net/test", {useNewUrlParser:true})
 
