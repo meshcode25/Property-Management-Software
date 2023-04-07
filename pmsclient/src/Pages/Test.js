@@ -50,13 +50,13 @@ import styled from "styled-components"
 
 
 const Div= styled.div`
-width:200px;
-    height:200px;
+    width:700px;
+    height:500px;
     font-size:4rem;
     background-color:blue;
     color:white;
     text-align:center;
-    margin:200px auto;
+    margin:50px auto;
 `
 function Test() {
 
@@ -65,7 +65,7 @@ function Test() {
   
   return (
     <Div styled={{backgroundColor:"green"}}>
-        <div>Heanding for fucking test here</div>
+        <div>Hallo Geoffrey, good to see you, Whats up today??!!</div>
     </Div>
     );
 }

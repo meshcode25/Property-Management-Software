@@ -32,8 +32,10 @@ const propertyMangerRouter= require("./routes/propertymanagerRouter")
 //populatedDatabase();
 
 //configure MongoDb database
-var db_url="mongodb://localhost:27017/pmsdatabase"
-mongoose.connect(db_url, {useNewUrlParser:true})
+//var db_url="mongodb://localhost:27017/pmsdatabase"
+//mongoose.connect(db_url, {useNewUrlParser:true})
+mongoose.connect(process.env.mongodb_url, {useNewUrlParser:true})
+
 const db=mongoose.connection
 db.on("error", (error)=>{console.error(error)})
 db.once("open", ()=>{console.log("Mongoose database has been successfully connected")})
