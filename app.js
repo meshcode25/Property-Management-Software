@@ -136,7 +136,7 @@ app.use(cookieParser())
   })
  */
 
-const port= Process.env.PORT || 8000;
+const port= process.env.PORT || 8000;
 app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
 
 //server(app)
