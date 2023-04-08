@@ -138,9 +138,9 @@ app.use(express.static(clientpath));
 */
 
 
-const publicPath = path.resolve("PMS","./pmsclient/public")
+const publicPath = path.resolve("public","index.html")
 
-app.use(express.static(path.resolve(publicPath, "index.html")))
+app.use(express.static(path.resolve("public", "index.html")))
 
 const indexhtml=  path.join(publicPath, "index.html");
 
@@ -151,7 +151,7 @@ console.log(__dirname);
 
 app.get('*', (req,res)=>{
   console.log(__dirname), "pmsclient";
-  res.sendFile(publicPath, '/index.html')
+  res.sendFile(publicPath)
 }
 )
 
