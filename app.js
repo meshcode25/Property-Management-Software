@@ -7,7 +7,12 @@ const compression= require('compression')
 const path= require("path")
 const cors=require("cors")
 // const http= require('http')
-// const jwt= require("jsonwebtoken")
+// const jwt=
+
+
+const port= process.env.PORT || 8000;
+app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
+require("jsonwebtoken")
 
 const auth=require("./middlewares/authentification")
 
@@ -164,9 +169,6 @@ app.get('*', (req,res)=>{
         console.log( "there was an error with the Server")
   })
  */
-
-const port= process.env.PORT || 8000;
-app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
 
 //server(app)
 //server()
