@@ -101,6 +101,9 @@ const publicPath = path.join(__dirname ,'pmsclient');
 const public=app.use(express.static('/pmsclient'));
 
 console.log(publicPath)
+console.log(public);
+
+console.log(__dirname);
 
 
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
