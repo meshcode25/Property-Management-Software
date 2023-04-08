@@ -11,8 +11,6 @@ const cors=require("cors")
 
 const app= express()
 
-const port= process.env.PORT || 8000;
-app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
 require("jsonwebtoken")
 
 const auth=require("./middlewares/authentification")
@@ -96,15 +94,6 @@ app.use(express.urlencoded({extended:false}))
 
 
 
-const publicPath = path.join(__dirname ,'pmsclient');
-
-const public=app.use(express.static('/pmsclient'));
-
-console.log(publicPath)
-console.log(public);
-
-console.log(__dirname);
-
 
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
 
@@ -143,14 +132,24 @@ app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
 
-const clientpath=path.join(__dirname, "public")
+/*
+const clientpath=path.join(__dirname, "/public")
 app.use(express.static(clientpath));
+*/
 
+
+const publicPath = path.join(__dirname , "./pmsclient/public")
+
+app.use(express.static(publicPath, "index.html"))
+
+
+console.log(public);
+console.log(__dirname);
 
 
 app.get('*', (req,res)=>{
   console.log(__dirname), "pmsclient";
-  res.sendFile(__dirname + '/index.html')
+  res.sendFile(publicPath + '/index.html')
 }
 )
 
@@ -174,4 +173,10 @@ app.get('*', (req,res)=>{
  */
 
 //server(app)
+
+
+const port= process.env.PORT || 8000;
+app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
+
+
 //server()
