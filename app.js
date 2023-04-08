@@ -91,7 +91,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 
-const publicPath = path.join(__dirname , 'PMS');
+const publicPath = path.join(__dirname ,'./pmsclient');
 app.use(express.static(publicPath));
 
 const indexhtmlpath= path.join( publicPath,'pmsclient')
