@@ -28,10 +28,10 @@
 
 "scripts": {
   "start-client": "react-scripts start",
-  "build": "react-scripts build && (cd PMS && yarn install)",
+  "build": "react-scripts build && (cd pmsclient && npm install)",
   "test": "react-scripts test",
   "eject": "react-scripts eject",
-  "start": "cd PMS && yarn start"
+  "start": "cd pmsclient && npm start"
 },
 
   "browserslist": {
