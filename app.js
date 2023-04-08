@@ -134,6 +134,7 @@ app.use("/maintenance", maintenanceRouter)
 app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
+
 app.use(express.static(path.resolve(__dirname, ".pmsclient/build")));
 
 
