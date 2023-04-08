@@ -3,7 +3,7 @@ var router= express.Router()
 
 router.get("/", (req, res, next)=>{
     //res.send("You have hit the home page of our PMS app")
-        res.redirect("/");
+        res.redirect("/dashboard");
 })
 
 module.exports=router;
