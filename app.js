@@ -138,7 +138,7 @@ app.use(express.static(clientpath));
 */
 
 
-const publicPath = path.resolve("/PMS","..","public")
+const publicPath = path.resolve("/PMS","public")
 
 app.use(express.static(path.resolve("/public", "index.html")))
 
