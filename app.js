@@ -135,12 +135,12 @@ app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, "pmsclient"));
 
 
 
 app.get('*', (req,res)=>{
-  console.log(__dirname);
+  console.log(__dirname), "pmsclient";
   res.sendFile(__dirname + '/index.html')
 }
 )
