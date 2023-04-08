@@ -6,6 +6,18 @@
     "eject": "react-scripts eject"
   },
 
+
+
+  "scripts": {
+    "start-client": "react-scripts start",
+    "build": "react-scripts build && (cd pmsclient && npm install)",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start": "cd pmsclient && npm start"
+  },
+
+
+  
   "script": {
     "start": "node server.js",
       "heroku-postbuild": "cd pmsclient && npm install && npm run build"

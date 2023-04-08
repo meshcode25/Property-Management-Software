@@ -99,7 +99,7 @@ const public=app.use(express.static('./pmsclient'));
 
 
 app.get('*', (req,res)=>{
-  res.sendFile(path.join(publicPath, 'public/index.html'))
+  res.sendFile(path.join(publicPath, 'src/index.js'))
 }
 )
 
