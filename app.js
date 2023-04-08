@@ -94,7 +94,7 @@ app.use(express.urlencoded({extended:false}))
 const publicPath = path.join(__dirname, "..",'pmsclient');
 app.use(express.static(publicPath));
 
-const indexhtmlpath= path.join( publicPath,"..", "public")
+const indexhtmlpath= path.join( publicPath,"public")
 
 //set views and public folder for use
 //app.set(express.static(path.join(__dirname, "public")))
