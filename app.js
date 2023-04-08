@@ -93,10 +93,14 @@ app.use(express.urlencoded({extended:false}))
 
 const publicPath = path.join(__dirname ,'./pmsclient');
 
-app.use(express.static('./pmsclient').get('*', function(req,res){
-  res.sendFile('/public/index.html')
+const public=app.use(express.static('./pmsclient'));
+
+
+
+
+app.get('*', function(req,res){
+  res.sendFile(path.join(public,'/public/index.html'))
 }
-)
 )
 
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
