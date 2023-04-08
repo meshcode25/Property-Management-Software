@@ -98,11 +98,6 @@ const public=app.use(express.static('./pmsclient'));
 
 
 
-app.get('*', (req,res)=>{
-  res.sendFile(path.join(publicPath, 'public/index.html'))
-}
-)
-
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
 
 //set views and public folder for use
@@ -142,6 +137,11 @@ app.use(cookieParser())
 app.use(express.static(path.resolve(__dirname, ".pmsclient/build")));
 
 
+
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(publicPath, 'public/index.html'))
+}
+)
 
 //This will create a middleware.
 //When you navigate to the root page, it would use the built react-app
