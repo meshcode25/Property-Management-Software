@@ -93,7 +93,7 @@ app.use(express.urlencoded({extended:false}))
 
 const publicPath = path.join(__dirname ,'./pmsclient');
 
-app.use(express.static('./pmsclient').get('*', (req,res)=>{
+app.use(express.static('./pmsclient').get('*', function(req,res){
   res.sendFile('/public/index.html')
 }
 )
