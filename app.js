@@ -92,9 +92,14 @@ app.use(express.urlencoded({extended:false}))
 
 
 const publicPath = path.join(__dirname ,'./pmsclient');
-app.use(express.static(publicPath));
 
-const indexhtmlpath= path.join( publicPath,'pmsclient')
+app.use(express.static('./pmsclient').get('*', (req,res)=>{
+  res.sendFile('/public/index.html')
+}
+)
+)
+
+//const indexhtmlpath= path.join( publicPath,'pmsclient')
 
 //set views and public folder for use
 //app.set(express.static(path.join(__dirname, "public")))
@@ -102,10 +107,6 @@ app.set("views", path.join(__dirname, 'views'))
 app.set("view engine", "ejs")
 
 
-app.get('*', (req,res)=>{
-  res.sendFile(path.join(indexhtmlpath, 'public/index.html'))
-}
-)
   
 //Cors 
 app.use(cors(corsOptions))
