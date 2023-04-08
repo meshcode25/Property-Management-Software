@@ -135,8 +135,8 @@ app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
 
-const clientpath=path.join(__dirname)
-app.use(express.static(path.join(__dirname, "pmsclient")));
+const clientpath=path.join(__dirname, "public")
+app.use(express.static(clientpath));
 
 
 
