@@ -138,11 +138,11 @@ app.use(express.static(clientpath));
 */
 
 
-const publicPath = path.resolve("/public","index.html")
+const publicPath = path.resolve("./public","index.html")
 
 app.use(express.static(path.resolve("/public", "index.html")))
 
-const indexhtml=  path.resolve("/public", "index.html");
+const indexhtml=  path.resolve("./public", "index.html");
 
 console.log(indexhtml);
 //console.log(public);
