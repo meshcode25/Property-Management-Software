@@ -88,11 +88,25 @@ corsOptions={
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+
+
+
+const publicPath = path.join(__dirname, '..','public');
+app.use(express.static(publicPath));
+
+
+
 //set views and public folder for use
-app.set(express.static(path.join(__dirname, "public")))
+//app.set(express.static(path.join(__dirname, "public")))
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
+
+app.get("*", (req,res)=>{
+  res.sendFile(path.join(publicPath, "index.html"))
+}
+)
+  
 //Cors 
 app.use(cors(corsOptions))
 
@@ -120,6 +134,13 @@ app.use("/maintenance", maintenanceRouter)
 app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
+app.use(express.static(path.resolve(__dirname, ".pmsclient/build")));
+
+
+
+//This will create a middleware.
+//When you navigate to the root page, it would use the built react-app
+
 
 //catch 404 error and foward to error handler
 /*app.use(function(req, res,next){
