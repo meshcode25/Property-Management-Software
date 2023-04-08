@@ -94,16 +94,16 @@ app.use(express.urlencoded({extended:false}))
 const publicPath = path.join(__dirname  + 'pmsclient');
 app.use(express.static(publicPath));
 
-const indexhtmlpath= path.join( publicPath,"public")
+const indexhtmlpath= path.join( publicPath,'public')
 
 //set views and public folder for use
 //app.set(express.static(path.join(__dirname, "public")))
-app.set("views", path.join(__dirname, "views"))
+app.set("views", path.join(__dirname, 'views'))
 app.set("view engine", "ejs")
 
 
-app.get("*", (req,res)=>{
-  res.sendFile('/PMS/pmsclient/public/index.html')
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(indexhtmlpath, 'index.html'))
 }
 )
   
