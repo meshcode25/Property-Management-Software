@@ -91,11 +91,11 @@ app.use(express.urlencoded({extended:false}))
 
 
 
-const publicPath = path.join(__dirname ,'./pmsclient');
+const publicPath = path.join(__dirname ,'/pmsclient');
 
 const public=app.use(express.static('./pmsclient'));
 
-
+console.log(publicPath)
 
 
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
@@ -108,7 +108,7 @@ app.set("view engine", "ejs")
 
   
 //Cors 
-app.use(cors(corsOptions))
+//app.use(cors(corsOptions))
 
 
 
