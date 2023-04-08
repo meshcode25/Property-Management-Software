@@ -25,10 +25,15 @@
   },
 
 
-"script": {
-  "start": "node server.js",
-    "heroku-postbuild": "cd pmsclient && npm install && npm run build"
+
+"scripts": {
+  "start-client": "react-scripts start",
+  "build": "react-scripts build && (cd PMS && yarn install)",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
+  "start": "cd PMS && yarn start"
 },
+
   "browserslist": {
     "production": [
       ">0.2%",
