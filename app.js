@@ -9,6 +9,7 @@ const cors=require("cors")
 // const http= require('http')
 // const jwt=
 
+const app= express()
 
 const port= process.env.PORT || 8000;
 app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
@@ -19,7 +20,6 @@ const auth=require("./middlewares/authentification")
 const cookieParser = require("cookie-parser")
 
 // configure server
-const app= express()
 
 
 //set the roots to be used for the app
