@@ -24,12 +24,13 @@
     "validator": "^13.7.0"
   },
 
-"scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test --env=jsdom",
-  "eject": "react-scripts eject"
-},
+  "scripts": {
+    "start-client": "react-scripts start",
+    "build": "react-scripts build && (cd pmsclient && yarn install)",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start": "cd pmsclient && yarn start"
+  },
 
   "browserslist": {
     "production": [
