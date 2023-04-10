@@ -143,13 +143,13 @@ app.use(express.static(clientpath));
 */
 
 
-const publicPath = path.join("./public", "index.html");
+const publicPath = path.join("/PMS", "public");
 
 app.use(express.static(path.join(publicPath, "index.html")))
 
 //const indexhtml=  path.join(publicPath, "index.html");
 
-console.log(publicPath);
+console.log(path.join(publicPath, "index.html"));
 //console.log(public);
 console.log(__dirname);
 
