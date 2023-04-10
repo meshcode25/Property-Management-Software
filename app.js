@@ -120,7 +120,7 @@ app.use("/o/auth/passwordreset",  passwordresetRouter)
 app.use("/o/auth/login",   loginRouter)
 app.use("/o/auth/verify", verifyemailRouter)
 app.use("/o/auth/signup",  signupRouter)
-app.use("/", indexRouter)
+//app.use("/", indexRouter)
 
 
 app.use("/properties", propertyMangerRouter)
@@ -145,7 +145,7 @@ app.use(express.static(clientpath));
 
 const publicPath = path.join("/PMS", "public");
 
-app.use(express.static(path.join(publicPath, "index.html")))
+app.use(express.static((publicPath)))
 
 //const indexhtml=  path.join(publicPath, "index.html");
 
@@ -153,13 +153,12 @@ app.use(express.static(path.join(publicPath, "index.html")))
 //console.log(public);
 console.log(__dirname);
 
-/*
+
 app.get('*', (req,res)=>{
   console.log(__dirname, "pmsclient");
-  sendFile(publicPath);
+  sendFile(path.join(publicPath, "index.html"));
 }
 )
-*/
 
 //This will create a middleware.
 //When you navigate to the root page, it would use the built react-app
