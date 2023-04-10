@@ -153,12 +153,13 @@ console.log(path.join(publicPath, "index.html"));
 //console.log(public);
 console.log(__dirname);
 
-
+/*
 app.get('*', (req,res)=>{
   console.log(__dirname, "pmsclient");
   sendFile(publicPath);
 }
 )
+*/
 
 //This will create a middleware.
 //When you navigate to the root page, it would use the built react-app
