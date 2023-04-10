@@ -137,15 +137,21 @@ app.use(compression())
 app.use(helmet())
 app.use(cookieParser())
 
+
+
+const publicPath = path.join(__dirname, "pmsclient");
+
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static((publicPath)))
+ 
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
 /*
 const clientpath=path.join(__dirname, "/public")
 app.use(express.static(clientpath));
 */
 
-
-const publicPath = path.join(__dirname, "pmsclient");
-
-app.use(express.static((publicPath)))
 
 //const indexhtml=  path.join(publicPath, "index.html");
 
@@ -154,12 +160,13 @@ app.use(express.static((publicPath)))
 console.log(__dirname);
 console.log(publicPath);
 
+/*
 app.get('/', (req,res)=>{
   console.log(__dirname, "pmsclient");
   res.sendFile(path.join(publicPath, "public", "index.html"));
 }
 )
-
+*/
 //This will create a middleware.
 //When you navigate to the root page, it would use the built react-app
 
