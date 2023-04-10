@@ -149,7 +149,7 @@ app.use(express.static(path.join(publicPath, "index.html")))
 
 //const indexhtml=  path.join(publicPath, "index.html");
 
-console.log(path.join(publicPath, "index.html"));
+//console.log(path.join(publicPath, "index.html"));
 //console.log(public);
 console.log(__dirname);
 
