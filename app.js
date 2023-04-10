@@ -141,11 +141,11 @@ app.use(cookieParser())
 
 const publicPath = path.join(__dirname, "pmsclient");
 
-app.use(express.static(path.join(__dirname, "pmsclient")));
+app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
  
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "pmsclient", "index.html"));
+  res.sendFile(path.join(__dirname, "pmsclient", "build", "index.html"));
 });
 /*
 const clientpath=path.join(__dirname, "/public")
