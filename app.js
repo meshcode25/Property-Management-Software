@@ -143,11 +143,11 @@ app.use(express.static(clientpath));
 */
 
 
-const publicPath = path.dirname(path.join("PMS", "public"));
+const publicPath = path.join("./public", "index.html");
 
 app.use(express.static(path.join(publicPath, "index.html")))
 
-const indexhtml=  path.join(publicPath, "index.html");
+//const indexhtml=  path.join(publicPath, "index.html");
 
 console.log(indexhtml);
 //console.log(public);
@@ -156,7 +156,7 @@ console.log(__dirname);
 
 app.get('*', (req,res)=>{
   console.log(__dirname, "pmsclient");
-  res.sendFile(path.join(publicPath, "index.html"));
+  sendFile(publicPath);
 }
 )
 
