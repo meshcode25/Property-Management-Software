@@ -152,7 +152,7 @@ app.use(express.static((publicPath)))
 //console.log(path.join(publicPath, "index.html"));
 //console.log(public);
 console.log(__dirname);
-
+console.log(publicPath);
 
 app.get('/', (req,res)=>{
   console.log(__dirname, "pmsclient");
