@@ -107,7 +107,11 @@ app.set("view engine", "ejs")
 //Cors 
 app.use(cors(corsOptions))
 
-
+const index=()=>{
+ console.log("Please work man am loosing it")
+  sendFile("hey what the fuck man!!")
+  
+}
 
 // app.use(auth);
 //use url paths as middlewares
@@ -115,7 +119,7 @@ app.use("/o/auth/passwordreset",  passwordresetRouter)
 app.use("/o/auth/login",   loginRouter)
 app.use("/o/auth/verify", verifyemailRouter)
 app.use("/o/auth/signup",  signupRouter)
-app.use("/", indexRouter)
+app.use("/", index)
 
 
 app.use("/properties", propertyMangerRouter)
