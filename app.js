@@ -151,7 +151,7 @@ console.log(__dirname);
 
 app.get('*', (req,res)=>{
   console.log(__dirname), "pmsclient";
-  res.sendFile(path.join("this shit should be working now"))
+  res.sendFile(("this shit should be working now"))
 }
 )
 
