@@ -8,6 +8,7 @@ const path= require("path")
 const cors=require("cors")
 // const http= require('http')
 // const jwt=
+const React= require("react");
 const App= require("./pmsclient/src/App")
 
 const app= express()
@@ -149,7 +150,7 @@ app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
 
 app.use((req, res, next) => {
-  const html = renderToString(App());
+  const html = React.renderToString(App());
   res.send(html);
   
 });
