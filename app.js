@@ -7,9 +7,20 @@ const compression= require('compression')
 const path= require("path")
 const cors=require("cors")
 // const http= require('http')
+
+
+import fs from "fs";
+
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+
+import App from "../pmsclient/public/index.html"
+
+
+
+
 // const jwt=
 const React= require("react");
-import {App} from "../pmsclient/src/index"
 
 const app= express()
 
@@ -149,13 +160,27 @@ const publicPath = path.join(__dirname, "pmsclient");
 app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((path.join(__dirname, "public" ))));
 
+app.get("/", (req, res) => {
+  fs.readFile(path.join(publicPath, "public", "index.html"), "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("An error occurred");
+    }
 
+    return res.send(
+      data.replace(
+        '<div id="root"></div>',
+        `<div id="root">${ReactDOMServer.renderToString(<App />)}</div>`
+      )
+    );
+  });
+});
+/*
 app.use((req, res, next) => {
   const html = renderToString(App());
   res.send(html);
   
 });
-/*
 app.use((req, res, next) => {
  res.sendFile(path.join(publicPath, "public", "index.html"));
 })
