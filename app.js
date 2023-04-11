@@ -9,7 +9,7 @@ const cors=require("cors")
 // const http= require('http')
 // const jwt=
 const React= require("react");
-import App from "./pmsclient/src/App"
+import App from "./pmsclient/src/index"
 
 const app= express()
 
