@@ -13,7 +13,7 @@ hydrateRoot(
   <App />
 );
 
-
+module.exports=App;
 /*
 ReactDOM.render(
   <App />,
