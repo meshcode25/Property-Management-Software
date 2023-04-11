@@ -8,6 +8,7 @@ const path= require("path")
 const cors=require("cors")
 // const http= require('http')
 // const jwt=
+const App= require("./pmsclient/src/App")
 
 const app= express()
 
@@ -139,15 +140,26 @@ app.use(cookieParser())
 
 
 
+import { renderToString } from 'react-dom/server';
+
+
 const publicPath = path.join(__dirname, "pmsclient");
 
 app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
- 
+
 app.use((req, res, next) => {
-  res.sendFile(path.join(publicPath, "public", "index.html"));
+  const html = renderToString(<App />);
+  res.send(html);
+  
 });
+
 /*
+
+app.use((req, res, next) => {
+ res.sendFile(path.join(publicPath, "public", "index.html"));
+});
+
 const clientpath=path.join(__dirname, "/public")
 app.use(express.static(clientpath));
 */
