@@ -12,8 +12,6 @@ hydrateRoot(
   document.getElementById('root'),
   <App />
 );
-
-module.exports=App;
 /*
 ReactDOM.render(
   <App />,

@@ -14,7 +14,7 @@ import fs from "fs";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 
-import App from "./pmsclient/public/index.html"
+import App from "./pmsclient/src/index.js"
 
 
 
