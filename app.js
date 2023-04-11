@@ -149,7 +149,7 @@ app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
 
 app.use((req, res, next) => {
-  const html = renderToString(<App />);
+  const html = renderToString(App());
   res.send(html);
   
 });
