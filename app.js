@@ -145,7 +145,7 @@ app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
  
 app.use((req, res, next) => {
-  res.sendFile(path.join(publicPath, "public", "index.html"));
+  res.sendFile(path.join(publicPath, "build", "index.html"));
 });
 /*
 const clientpath=path.join(__dirname, "/public")
