@@ -147,7 +147,7 @@ const renderToString  =require('react-dom/server');
 const publicPath = path.join(__dirname, "pmsclient");
 
 app.use(express.static(path.join(__dirname, "pmsclient", "build")));
-app.use(express.static((publicPath)))
+app.use(express.static((path.join(__dirname, "public" ))));
 
 app.use((req, res, next) => {
  res.sendFile(path.join(publicPath, "public", "index.html"));
