@@ -8,8 +8,8 @@ const path= require("path")
 const cors=require("cors")
 // const http= require('http')
 // const jwt=
-//const React= require("react");
-//const App= require("./pmsclient/src/App")
+const React= require("react");
+const App= require("./pmsclient/src/App")
 
 const app= express()
 
@@ -141,7 +141,7 @@ app.use(cookieParser())
 
 
 
-//const renderToString  =require('react-dom/server');
+const renderToString  =require('react-dom/server');
 
 
 const publicPath = path.join(__dirname, "pmsclient");
@@ -149,17 +149,17 @@ const publicPath = path.join(__dirname, "pmsclient");
 app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((path.join(__dirname, "public" ))));
 
-app.use((req, res, next) => {
- res.sendFile(path.join(publicPath, "public", "index.html"));
-})
-/*
-
 
 app.use((req, res, next) => {
   const html = renderToString(App());
   res.send(html);
   
 });
+/*
+app.use((req, res, next) => {
+ res.sendFile(path.join(publicPath, "public", "index.html"));
+})
+
 });
 
 const clientpath=path.join(__dirname, "/public")
