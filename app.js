@@ -150,15 +150,16 @@ app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((publicPath)))
 
 app.use((req, res, next) => {
+ res.sendFile(path.join(publicPath, "public", "index.html"));
+})
+/*
+
+
+app.use((req, res, next) => {
   const html = renderToString(App());
   res.send(html);
   
 });
-
-/*
-
-app.use((req, res, next) => {
- res.sendFile(path.join(publicPath, "public", "index.html"));
 });
 
 const clientpath=path.join(__dirname, "/public")
