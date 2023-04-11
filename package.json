@@ -26,14 +26,15 @@
     "moment": "^2.29.4",
     "momentjs": "^2.0.0",
     "mongoose": "^6.1.7",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
   "engines": {
     "node": "16.17.0"
-    },
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meshcode25/Property-Management-Software.git"
