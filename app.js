@@ -160,6 +160,13 @@ const publicPath = path.join(__dirname, "pmsclient");
 app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((path.join(__dirname, "public" ))));
 
+app.get("/", (req, res, next) => {
+  const html = ReactDOMServer.renderToString(<App />)
+  
+  res.send(html);
+  
+});
+/*
 app.get("/", (req, res) => {
   fs.readFile(path.join(publicPath, "public", "index.html"), "utf8", (err, data) => {
     if (err) {
@@ -174,12 +181,6 @@ app.get("/", (req, res) => {
       )
     );
   });
-});
-/*
-app.use((req, res, next) => {
-  const html = renderToString(App());
-  res.send(html);
-  
 });
 app.use((req, res, next) => {
  res.sendFile(path.join(publicPath, "public", "index.html"));
