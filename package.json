@@ -2,7 +2,7 @@
   "name": "pms",
   "version": "1.0.0",
   "main": "app.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "node app.js ",
     "dev": " nodemon app.js"
