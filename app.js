@@ -141,7 +141,7 @@ app.use(cookieParser())
 
 
 
-const renderToString  =require('react-dom/server');
+//const renderToString  =require('react-dom/server');
 
 
 const publicPath = path.join(__dirname, "pmsclient");
