@@ -8,7 +8,7 @@ const path= require("path")
 const cors=require("cors")
 // const http= require('http')
 // const jwt=
-const React= require("react");
+//const React= require("react");
 const App= require("./pmsclient/src/App")
 
 const app= express()
