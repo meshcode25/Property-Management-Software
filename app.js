@@ -12,7 +12,7 @@ const cors=require("cors")
 import fs from "fs";
 import Reactrender from "./pmsclient/src/Reactrender.js" 
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+//import ReactDOMServer from "react-dom/server";
 
 import App from "./pmsclient/src/index.js"
 
