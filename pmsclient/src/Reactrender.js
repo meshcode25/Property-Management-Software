@@ -3,7 +3,7 @@ import React from "react"
 import fs from "fs";
 import Reactrender from "./pmsclient/src/reactrender.js" 
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import * as ReactDOMServer from "react-dom/server";
 import path from "path";
 import app from ".../app.js"
 import App from "./App"
