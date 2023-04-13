@@ -161,9 +161,8 @@ app.use(express.static(path.join(__dirname, "pmsclient", "build")));
 app.use(express.static((path.join(__dirname, "public" ))));
 
 app.get("/", (req, res, next) => {
-  const html = ReactDOMServer.renderToString(<App />)
-  
-  res.send(html);
+  Reactrender();
+  console.log("we should now be able to render, oder ?")
   
 });
 /*
