@@ -38,7 +38,6 @@ const React = require("react");
 const ReactDOMServer = require("react-dom/server");
 const App = require("./pmsclient/src/app").default
 
-const path = require("path");
 const fs = require("fs");
 
 
