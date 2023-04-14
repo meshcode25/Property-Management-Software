@@ -4,7 +4,7 @@
   "main": "app.js",
   "type": "commonjs",
   "scripts": {
-    "build": "babel app.js -o babelapp.js",
+    "build": "./node_modules/.bin/babel app.js -o babelapp.js",
     "start": "npm run build && node babelapp.js",
     "serve": "node babelapp.js"
   },
