@@ -1,3 +1,19 @@
+require("@babel/register")({
+  presets: ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    [
+      "transform-assets",
+      {
+        "extensions": [
+          "css",
+          "svg"
+        ],
+        "name": "static/media/[name].[hash:8].[ext]"
+      }
+    ]
+  ]
+});
+
 require("dotenv").config()
 const mongoose= require("mongoose")
 const express = require("express")
@@ -8,15 +24,22 @@ const path= require("path")
 const cors=require("cors")
 // const http= require('http')
 
-
+/*
 import fs from "fs";
 import Reactrender from "./pmsclient/src/Reactrender.js" 
 import React from "react";
-//import ReactDOMServer from "react-dom/server";
+import ReactDOMServer from "react-dom/server";
 
-import App from "./pmsclient/src/index.js"
+import App from "./pmsclient/src/app".default
+*/ 
 
 
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
+const App = require("./pmsclient/src/app").default
+
+const path = require("path");
+const fs = require("fs");
 
 
 // const jwt=
@@ -155,17 +178,41 @@ app.use(cookieParser())
 //const renderToString  =require('react-dom/server');
 
 
-const publicPath = path.join(__dirname, "pmsclient");
+const publicPath = path.join(__dirname, "./pmsclient");
 
-app.use(express.static(path.join(__dirname, "pmsclient", "build")));
+app.get("/*", (req, res, next) => {
+  console.log(`Request URL = ${req.url}`);
+  if (req.url !== '/') {
+    return next();
+  }
+  const reactApp = ReactDOMServer.renderToString(React.createElement(App));
+  console.log(reactApp);
+  
+  const indexFile = path.resolve(publicPath, "build", "index.html");
+  console.log("this is the indexfile route:", indexFile)
+  fs.readFile(indexFile, "utf8", (err, data) => {
+    if (err) {
+      const errMsg = `There is an error: ${err}`;
+      console.error(errMsg);
+      return res.status(500).send(errMsg);
+    }
+
+    return res.send(
+      data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`)
+    );
+  });
+});
+
+
+app.use(express.static(path.join(__dirname, "./pmsclient", "build")));
 app.use(express.static((path.join(__dirname, "public" ))));
 
+/*
 app.get("/", (req, res, next) => {
   Reactrender();
   console.log("we should now be able to render, oder ?")
   
 });
-/*
 app.get("/", (req, res) => {
   fs.readFile(path.join(publicPath, "public", "index.html"), "utf8", (err, data) => {
     if (err) {

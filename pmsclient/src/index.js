@@ -4,13 +4,14 @@ import App from './App.js';
 import './index.css';
 
 import { hydrateRoot } from 'react-dom/client';
+import * as serviceWorker from "./serviceWorker";
 
 const domNode = document.getElementById('root');
 const root = hydrateRoot(domNode, reactNode);
 
-hydrateRoot(
-  document.getElementById('root'),
-  <App />
+ReactDOM.hydrate(
+  <App />,
+  document.getElementById('root')
 );
 /*
 ReactDOM.render(
@@ -18,3 +19,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 */
+
+serviceWorker.unregestered();

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0a0e7733.css",
+    "main.js": "/static/js/main.5383ec6b.js",
+    "static/media/PRESTASHOP12.png": "/static/media/PRESTASHOP12.4317508dabcb12f7e1cc.png",
+    "static/media/easy4.png": "/static/media/easy4.47a58ff1bd1b3e7027e9.png",
+    "index.html": "/index.html",
+    "main.0a0e7733.css.map": "/static/css/main.0a0e7733.css.map",
+    "main.5383ec6b.js.map": "/static/js/main.5383ec6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a0e7733.css",
+    "static/js/main.5383ec6b.js"
+  ]
+}

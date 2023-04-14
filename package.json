@@ -31,6 +31,8 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
+    "@babel/register": "^7.21.0",
+    "babel-plugin-transform-assets": "^1.0.2",
     "nodemon": "^2.0.15"
   },
   "engines": {
