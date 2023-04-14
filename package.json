@@ -4,9 +4,9 @@
   "main": "app.js",
   "type": "commonjs",
   "scripts": {
-    "build": "babel ./Server/app.js -d dist",
-    "start": "npm run build && node dist/app.js",
-    "serve": "node dist/app.js"
+    "build": "babel app.js -o babelapp.js",
+    "start": "npm run build && node babelapp.js",
+    "serve": "node babelapp.js"
   },
   "author": "",
   "license": "ISC",
