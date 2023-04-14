@@ -1,27 +1,18 @@
 require("@babel/register")({
   presets: ["@babel/preset-env", "@babel/preset-react"],
-  "plugins": [
-    [
-      "transform-assets",
-      {
-        "extensions": [
-          "css",
-          "svg"
-        ],
-        "name": "static/media/[name].[hash:8].[ext]"
-      }
-    ]
-  ]
+  "plugins": [["transform-assets", {
+    "extensions": ["css", "svg", "png"],
+    "name": "static/media/[name].[hash:8].[ext]"
+  }]]
 });
-
-require("dotenv").config()
-const mongoose= require("mongoose")
-const express = require("express")
-const createError= require("http-errors")
-const helmet= require("helmet")
-const compression= require('compression') 
-const path= require("path")
-const cors=require("cors")
+require("dotenv").config();
+const mongoose = require("mongoose");
+const express = require("express");
+const createError = require("http-errors");
+const helmet = require("helmet");
+const compression = require('compression');
+const path = require("path");
+const cors = require("cors");
 // const http= require('http')
 
 /*
@@ -31,37 +22,29 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 
 import App from "./pmsclient/src/app".default
-*/ 
-
+*/
 
 const React = require("react");
 const ReactDOMServer = require("react-dom/server");
-const App = require("./pmsclient/src/app").default
-
+const App = require("../pmsclient/src/App").default;
 const fs = require("fs");
-
 
 // const jwt=
 
-
-const app= express()
-
-require("jsonwebtoken")
-
-const auth=require("./middlewares/authentification")
-
-const cookieParser = require("cookie-parser")
+const app = express();
+require("jsonwebtoken");
+const auth = require("../middlewares/authentification");
+const cookieParser = require("cookie-parser");
 
 // configure server
 
-
 //set the roots to be used for the app
-const loginRouter= require ("./routes/loginRouter")
-const indexRouter= require("./routes/indexRouter")
-const signupRouter= require("./routes/signupRouter")
-const verifyemailRouter=require("./routes/verifyemailRouter")
-const passwordresetRouter= require("./routes/passwordresetRouter")
-const propertyMangerRouter= require("./routes/propertymanagerRouter")
+const loginRouter = require("../routes/loginRouter");
+const indexRouter = require("../routes/indexRouter");
+const signupRouter = require("../routes/signupRouter");
+const verifyemailRouter = require("../routes/verifyemailRouter");
+const passwordresetRouter = require("../routes/passwordresetRouter");
+const propertyMangerRouter = require("../routes/propertymanagerRouter");
 //const landLordRouter= require("./routes/landlordRouter")
 //const tenantRouter= require("./routes/tenantRouter")
 //const maintenanceRouter= require("./routes/maintenanceRouter")
@@ -80,20 +63,16 @@ mongoDB= process.env.mongoDB|| db_url;
 mongoose.connect(mongoDB, {useNewUrlParser:true, useUnifiedTopology:true, useFindAndModify:false});
 */
 
-
-const { MongoClient } = require("mongodb");
+const {
+  MongoClient
+} = require("mongodb");
 const username = encodeURIComponent("yegon");
 const password = encodeURIComponent("Yegon@20**");
 const cluster = "<clusterName>";
 const authSource = "<authSource>";
 const authMechanism = "<authMechanism>";
-
-
-const mongodb_uri= `mongodb+srv://${username}:${password}@pmscluster.0rags3f.mongodb.net/test`;
-
-
+const mongodb_uri = `mongodb+srv://${username}:${password}@pmscluster.0rags3f.mongodb.net/test`;
 console.log(mongodb_uri);
-
 mongoose.connect(`${mongodb_uri}`);
 
 //mongoose.connect("mongodb+srv://yegon:Yegon@20**@pmscluster.0rags3f.mongodb.net/test", {useNewUrlParser:true})
@@ -102,10 +81,8 @@ mongoose.connect(`${mongodb_uri}`);
 //db.on("error", (error)=>{console.error(error)})
 //db.once("open", ()=>{console.log("Mongoose database has been successfully connected")})
 
-let uri =
-  `mongodb+srv://${username}:${password}@${cluster}/?authSource=${authSource}&authMechanism=${authMechanism}`;
+let uri = `mongodb+srv://${username}:${password}@${cluster}/?authSource=${authSource}&authMechanism=${authMechanism}`;
 
-  
 /*const client = new MongoClient(uri);
 async function run() {
  
@@ -114,33 +91,29 @@ async function run() {
 */
 
 //Cors/// Cross-Origin-Resource-Sharing
-corsOptions={
-  origin:"Access-Control-Allow-Origin", 
-  origin:"*",
-  credentials:"true",
-  optionSuccessStatus:200
-}
+corsOptions = {
+  origin: "Access-Control-Allow-Origin",
+  origin: "*",
+  credentials: "true",
+  optionSuccessStatus: 200
+};
 
 //Middlewares
 //body parser and urlencode
-app.use(express.json())
-app.use(express.urlencoded({extended:false}))
-
-
-
-
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false
+}));
 
 //const indexhtmlpath= path.join( publicPath,'pmsclient')
 
 //set views and public folder for use
 //app.set(express.static(path.join(__dirname, "public")))
-app.set("views", path.join(__dirname, 'views'))
-app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
 
-
-  
 //Cors 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
 /*
 const index=()=>{
@@ -151,14 +124,13 @@ const index=()=>{
 */
 // app.use(auth);
 //use url paths as middlewares
-app.use("/o/auth/passwordreset",  passwordresetRouter)
-app.use("/o/auth/login",   loginRouter)
-app.use("/o/auth/verify", verifyemailRouter)
-app.use("/o/auth/signup",  signupRouter)
+app.use("/o/auth/passwordreset", passwordresetRouter);
+app.use("/o/auth/login", loginRouter);
+app.use("/o/auth/verify", verifyemailRouter);
+app.use("/o/auth/signup", signupRouter);
 //app.use("/", indexRouter)
 
-
-app.use("/properties", propertyMangerRouter)
+app.use("/properties", propertyMangerRouter);
 
 /*app.use("/landlord", landLordRouter)
 
@@ -166,19 +138,14 @@ app.use("/tenant", tenantRouter)
 app.use("/maintenance", maintenanceRouter)
 */
 
-
 //middlewares
-app.use(compression())
-app.use(helmet())
-app.use(cookieParser())
-
-
+app.use(compression());
+app.use(helmet());
+app.use(cookieParser());
 
 //const renderToString  =require('react-dom/server');
 
-
-const publicPath = path.join(__dirname, "./pmsclient");
-
+const publicPath = path.join(__dirname, "../pmsclient");
 app.get("/*", (req, res, next) => {
   console.log(`Request URL = ${req.url}`);
   if (req.url !== '/') {
@@ -186,25 +153,19 @@ app.get("/*", (req, res, next) => {
   }
   const reactApp = ReactDOMServer.renderToString(React.createElement(App));
   console.log(reactApp);
-  
   const indexFile = path.resolve(publicPath, "build", "index.html");
-  console.log("this is the indexfile route:", indexFile)
+  console.log("this is the indexfile route:", indexFile);
   fs.readFile(indexFile, "utf8", (err, data) => {
     if (err) {
       const errMsg = `There is an error: ${err}`;
       console.error(errMsg);
       return res.status(500).send(errMsg);
     }
-
-    return res.send(
-      data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`)
-    );
+    return res.send(data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`));
   });
 });
-
-
-app.use(express.static(path.join(__dirname, "./pmsclient", "build")));
-app.use(express.static((path.join(__dirname, "public" ))));
+app.use(express.static(path.join(__dirname, "../pmsclient", "build")));
+app.use(express.static(path.join(__dirname, "public")));
 
 /*
 app.get("/", (req, res, next) => {
@@ -237,7 +198,6 @@ const clientpath=path.join(__dirname, "/public")
 app.use(express.static(clientpath));
 */
 
-
 //const indexhtml=  path.join(publicPath, "index.html");
 
 //console.log(path.join(publicPath, "index.html"));
@@ -254,7 +214,6 @@ app.get('/', (req,res)=>{
 */
 //This will create a middleware.
 //When you navigate to the root page, it would use the built react-app
-
 
 //catch 404 error and foward to error handler
 /*app.use(function(req, res,next){
@@ -273,9 +232,9 @@ app.get('/', (req,res)=>{
 
 //server(app)
 
-
-const port= process.env.PORT || 8000;
-app.listen(port, ()=>{`console.log("The PMS Server has successfully started in Port ${port}`})
-
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  `console.log("The PMS Server has successfully started in Port ${port}`;
+});
 
 //server()

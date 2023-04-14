@@ -9,7 +9,7 @@ const image= require ("../components/PRESTASHOP12.png")
 const Div= styled.div`
     margin:3rem;
     color:white;
-    font-size:3rem;
+    font-size:3rem; 
     text-align:center;
     background-image:url(${image});
     height:76.40vh;

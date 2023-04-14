@@ -1,4 +1,6 @@
-module.exports= verify=()=>{
+
+
+const verify=()=>{
  
  
     const  characters="8i90834f89483h3yhf4y0g7ch4cyjhq87ryx07924t6c0289tcyj20g4h03"
@@ -15,5 +17,5 @@ module.exports= verify=()=>{
 }
 
 
-
+export default verify
 

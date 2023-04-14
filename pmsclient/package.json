@@ -25,12 +25,11 @@
   },
 
   "scripts": {
-    "build": "babel app.js -d dist",
     "start-client": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "npm run build && node dist/app.js"
-  
+    "start": "npm run build && (cd pmsclient && npm start"
   },
 
   "browserslist": {

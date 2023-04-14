@@ -8,7 +8,7 @@ import CheckButton from "react-validation/build/button"
 import Select from "react-validation/build/select"
 import Textarea from "react-validation/build/textarea"
 import Groupselect from "react-select"
-import {Fake} from "./Fake"
+//import {Fake} from "./Fake"
 import step1addapartment, {step1addproperty} from "../components/addproperty";
 // import  {Groupselect}  from "react-multi-select-component";
 

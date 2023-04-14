@@ -4,8 +4,9 @@
   "main": "app.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node app.js ",
-    "dev": " nodemon app.js"
+    "build": "babel Server -d dist",
+    "start": "npm run build && node dist/app.js",
+    "serve": "node dist/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,12 +29,14 @@
     "momentjs": "^2.0.0",
     "mongoose": "^6.1.7",
     "nodemailer": "^6.7.3",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.21.0",
     "babel-plugin-transform-assets": "^1.0.2",
     "nodemon": "^2.0.15"
