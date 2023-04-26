@@ -12,14 +12,16 @@ const url= "http://localhost:8000/o/auth/"
             (response)=>{
                 if(response.data.accesstoken){
 
-                    console.log("here is the token you have been waiting and secretly fearing" + response.data.accesstoken)
-                    localStorage.setItem("user", JSON.stringify(response))
+                    console.log("here is the token you have been waiting and secretly fearing " + response.data.accesstoken)
+                    localStorage.setItem("user", JSON.stringify(response.data.accesstoken))
                     console.log(response.data.accesstoken)
+                    console.log(response.data)
                     return response
                 }
                 else{
-                    console.log("here is the data without the tokens" + response.data)
-                    console.log(response)
+                    console.log("here is the data without the tokens " + response.data)
+                    console.log(response.data)
+                    console.log(response.status)
                     return response
 
                 }
@@ -54,7 +56,7 @@ const url= "http://localhost:8000/o/auth/"
     export default function(email,role,password){
         return axios.post(url+ "signup", {email, role, password})
             .then((response)=>{
-                console.log(response)
+                console.log(response.type)
                 return response
             })
     }

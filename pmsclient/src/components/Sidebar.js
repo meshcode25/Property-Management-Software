@@ -395,7 +395,7 @@ const Sidebar = () => {
   const [sub, setSub]= useState(false)
   const [submenu, setSubmenu]= useState()
   const [username, setuserName]=useState()
-   
+  const [accesstoken, setaccessToken]=useState();
   // const [hidesubmenu, sethidesubmenu ]= useState(true);
 
   const [isloggedin, setloggedIn]= useState(false);
@@ -455,7 +455,7 @@ const Sidebar = () => {
   }
         
   
-    const logedin=(localStorage.getItem("accesstoken"))
+    const logedin=(localStorage.getItem("user"))
     console.log(logedin);
     const token=decodeToken(logedin)
       // jwt.verify(logedin, env.SECRET);
@@ -464,21 +464,21 @@ const Sidebar = () => {
     let name;
     let email;
 
-    // if(token===null){
-    //     setaccessToken();
-    //   // setloggedIn(false)
-    // //   window.location.href="/signin"
-    // //   console.log("No Cashed cookies")
-    // } 
-    // else{
-    //   setaccessToken(token);
-    // }
+    //  if(token===null){
+    //      setaccessToken();
+    //      setloggedIn(false)
+    //        window.location.href="/signin"
+    //        console.log("No Cashed cookies")
+    //  } 
+    //  else{
+    //    setaccessToken(token);
+    //  }
 
   useEffect(()=>{
     if(token===null){
-      setloggedIn(false)
-      // window.location.href="/login"
-      // console.log("No Cashed cookies")
+      //setloggedIn(false)
+       window.location.href="/login"
+       console.log("No Cashed cookies")
     } 
     else{
       if(token.user.email){
@@ -487,14 +487,13 @@ const Sidebar = () => {
 
         name= email.substring(0, email.lastIndexOf("@"))
         setuserName(name)
-        setloggedIn(true)
-       
-        // console.log("show isLogged In" + isloggedin)
+    
+         console.log("show isLogged In" + isloggedin)
         
       }
       else{
-        setloggedIn(false)
-        // console.log("not logged In")
+    //    setloggedIn(false)
+         console.log("not logged In")
       }
     }
     

@@ -6,8 +6,8 @@ const verificationCode = require("../verificationCode")
 const moment =require("moment")
 const Refreshtoken=require("../models/refreshtoken");
 // exports.signup_form_get= function(req,res, next)
-// const sendMail = require("../nodemailer")
-// const nodemailer= require("../nodemailer")
+const sendMail = require("../nodemailer")
+const nodemailer= require("../nodemailer")
 
 const jwt=require("jsonwebtoken");
 // const secret= require("../authConfig")
@@ -16,8 +16,8 @@ const sendEmail=require("../Oauth2")
 // console.log(`Is this the undefinedd?? ${secret}`);
 
 exports.signup_form_post= function(req,res, next){
-  
-    
+    //console.log(req)
+    console.log(req.body.email)
     User.findOne({
         email:req.body.email
     }).exec().then(user=>{
@@ -28,7 +28,7 @@ exports.signup_form_post= function(req,res, next){
         else{
     
             const verification=verificationCode();
-            // console.log("this is the verification code we are talking about " + verification)
+            console.log("this is the verification code we are talking about  " + verification)
             var user= new User({
                 email:req.body.email,
                 role:req.body.role,
@@ -69,13 +69,14 @@ exports.signup_form_post= function(req,res, next){
             const token=jwt.sign({exp:Math.floor(Date.now()/1000)+ (60*2), user:user}, secret)   
    
           
-            sendEmail(user.email,token);
+            console.log(sendMail, user.email);
+            sendMail(user.email,token);
                 // res.setHeader('x-access-token', 'Bearer '+ token);
                 return res.status(201).send({message:`Account Created Successfully,check your Email to Verify your Account`, refreshtoken:refresh_token, accesstoken:token})
             }
         })  
         }
-    }).catch(err => console.error(`An error occured while looking at the database${err}`))
+    }).catch(err => console.error(`An error occured while loking at the database for sign up ${err}`))
 
 }         
           

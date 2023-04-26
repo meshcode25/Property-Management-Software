@@ -50,13 +50,14 @@ import styled from "styled-components"
 
 
 const Div= styled.div`
-    width:700px;
+    overflow:scroll;
+    width:900px;
     height:500px;
-    font-size:4rem;
+    font-size:2.5rem;
     background-color:blue;
     color:white;
-    text-align:center;
-    margin:50px auto;
+    text-align:left;
+    margin:20px auto;
 `
 function Test() {
 
@@ -65,8 +66,8 @@ function Test() {
   
   return (
     <Div styled={{backgroundColor:"green"}}>
-        <div>Hallo Geoffrey, good to see you, Whats up today??!!</div>
-    </Div>
+        <div style={{marginLeft:"1rem"} }>Hallo Michael Strater, Ich hoffe Sie werden einen Tag dieses Nachricht Sehen. Ihn dienst nur zum Testen des Routings für diese React-Andwendung, Danke für Die Gelegenheit bei Ihnen eine Arbeitaubildung mitmachen. Danke und ich freut mich sehr bei Ihnen Programmieren zu learnen. Und auch es tut mir Leid, weil ich habe Sehr Spät zuruck melden </div>
+     </Div>
     );
 }
 export default Test

@@ -172,21 +172,31 @@ const Login= ()=>{
             login( email, password)
                 .then(
                     (response)=>{
-                        if(response.status===201){
+                        if(response.data.type==="successlogin"){
                             console.log(response.data.message)
-                            setTimeout( ()=>{window.location.href=("/dashboard")} ,4000)
+                            setTimeout( ()=>{window.location.href=("/dashboard")} ,2000)
+                             window.location.href=("/dashboard");
+                             setMessage(response.data.message);
+                             setMessageColor(response.data.color)
+                             console.log("Valid email")
+                            setLoading(false)
+    
+                        }
+                        else if(response.data.type==="invaliduser"){
+                            console.log(response.data.message)
+                            setTimeout( ()=>{window.location.href=("/signup")} ,4000)
                             // window.location.href=("/dashboard");
                              setMessage(response.data.message);
                              setMessageColor(response.data.color)
-                             console.log("Invalid shit")
+                             console.log(`inValid email, ${response.data.message} `)
                             setLoading(false)
-    
-                        }else{
+                        }
+                        else{
                             console.log(response.data.message)
                              setMessage(response.data.message)
                              setMessageColor(response.data.color)
                             setLoading(false)
-                            console.log("Show this shitp")
+                            console.log("Show this invalid email ")
 
                         }
                    

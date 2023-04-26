@@ -39,7 +39,7 @@ exports.login_form_post=function(req,res,next){
             console.log(verified);
             console.log(user);
             if(!validPassword){
-                return res.status(200).send({message: "Invalid Password or Email", accesstoken:null, color: "red", type:"invalid"})
+                return res.status(400).send({message: "Invalid Password or Email", accesstoken:null, color: "red", type:"invalidpassword"})
             }
             else{
                 if(!verified){
@@ -63,7 +63,7 @@ exports.login_form_post=function(req,res,next){
             }
         }  
         else{
-            return res.status(200).send({message:"Invalidd Email or Password", color: "red", type:"invalid"})  
+            return res.status(200).send({message:"Invalidd Email or Password", color: "red", type:"invaliduser"})  
     }
-    }).catch(err => console.error(`An error occured while looking at the database${err}`))
+    }).catch(err => console.error(`An error occured while looking at the database for login${err}`))
 }

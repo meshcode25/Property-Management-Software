@@ -4,9 +4,8 @@
   "main": "app.js",
   "type": "commonjs",
   "scripts": {
-    "build": "babel app.js -o babelapp.js",
-    "start": "npm run build && node babelapp.js",
-    "serve": "node babelapp.js"
+    "start": "npm Server/app.js",
+    "dev":"nodemon Server/app.js "
   },
   "author": "",
   "license": "ISC",

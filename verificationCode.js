@@ -8,7 +8,7 @@ const verify=()=>{
     var verificationToken="";
 
 
-    for(i=0; i<25; i++){
+    for(let i=0; i<25; i++){
         verificationToken += characters[Math.floor(Math.random()*characters.length)]
 
     }
@@ -17,5 +17,5 @@ const verify=()=>{
 }
 
 
-export default verify
+module.exports= verify
 

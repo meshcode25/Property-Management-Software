@@ -38,7 +38,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Sidebar />} >
                 <Route>
-                  <Route path="/dashboard" element={<Empty />} />  
+                  <Route path="/dashboard" element={<Test />} />  
                   <Route index element={<Test />  } />  
                 </Route>
 
@@ -58,7 +58,7 @@ const App = () => {
               </Route>
 
               <Route>
-                <Route path="/properties/view-all-properties" element={<Listallproperties />} />
+                <Route path="/properties/view-all-properties" element={<Empty />} />
                 <Route index element={<Empty />  } />   
               </Route>
 
